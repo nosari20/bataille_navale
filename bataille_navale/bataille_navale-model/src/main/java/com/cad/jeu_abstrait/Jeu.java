@@ -10,13 +10,17 @@ public abstract class Jeu {
 		this.listeJoueurs = joueurs;
 	}
 	
-	private class Code{
-		public static final int OK = 0;
-		public static final int DEBUT = 1;
-		public static final int EN_COURS = 2;
-		public static final int FIN = 3;
-		public static final int PAUSE = 4;
-				
+	public static class Code{
+		public static final int OK = nextCode();
+		public static final int DEBUT = nextCode();
+		public static final int EN_COURS = nextCode();
+		public static final int FIN = nextCode();
+		public static final int PAUSE = nextCode();
+		
+		private static int nextCode = 0;		
+		protected static int nextCode(){
+			return nextCode++;
+		}
 			
 	}
 	
