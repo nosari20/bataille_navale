@@ -4,10 +4,14 @@ import java.util.List;
 
 public abstract class Jeu {
 	
-	List<Joueur> listeJoueurs;
-	Partie partie;
+	protected List<Joueur> listeJoueurs;
+	protected Partie partie;
+	protected int status;
 	public Jeu( List<Joueur> joueurs){
 		this.listeJoueurs = joueurs;
+		for (Joueur joueur : joueurs) {
+			joueur.setJeu(this);
+		}
 	}
 	
 	public static class Code{
@@ -24,11 +28,15 @@ public abstract class Jeu {
 			
 	}
 	
+	public int status() {
+		return status;
+	}
+	
 	public abstract void chargerPartie(String nomPartie);
 	public abstract void nouvellePartie(String nomPartie);
-	public abstract void joueur(Joueur joueur, Action action);
-	public abstract Action createAction();
-	public abstract Action actionBuilder();
+	public abstract int jouer(Joueur joueur, Action action);
+	public abstract Action.Builder actionBuilder();
+	
 	
 
 	

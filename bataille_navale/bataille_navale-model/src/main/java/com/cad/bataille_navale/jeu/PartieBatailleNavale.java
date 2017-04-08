@@ -2,7 +2,11 @@ package com.cad.bataille_navale.jeu;
 
 import java.util.HashMap;
 
+import com.cad.bataille_navale.actions.FrappeOrbitale;
+import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.bateaux.Bateau;
+import com.cad.bataille_navale.mode.Mode;
+import com.cad.bataille_navale.mode.ModeNormal;
 import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Partie;
 
@@ -12,6 +16,8 @@ public class PartieBatailleNavale implements Partie {
 	private final static int GAME_WIDTH = 12;
 	
 	private int joueur = 1;
+	
+	private Mode mode = new ModeNormal();
 	
 	private String[][] grilleJ1;
 	private HashMap<String, Bateau> bateauxJ1;
@@ -28,23 +34,41 @@ public class PartieBatailleNavale implements Partie {
 	}
 	
 	public int jouer(Action a){
-		return a.execute();
+		if( mode instanceof ModeNormal && a instanceof TireBateau) return BatailleNavale.Code.IMPOSSIBLE;		
+		
+		if(a instanceof TireBateau){
+			int x = ((TireBateau) a).getPosx();
+			int y = ((TireBateau) a).getPosy();
+			Bateau tirreur = ((TireBateau) a).getTirreur();
+			if(tirreur.isReachable(x, y))
+				return tirer(x, y, tirreur);
+		}
+		
+		if(a instanceof FrappeOrbitale){
+			int x = ((FrappeOrbitale) a).getPosx();
+			int y = ((FrappeOrbitale) a).getPosy();
+			return tirer(x,y,1);
+		}
+		
+		return BatailleNavale.Code.IMPOSSIBLE;
 	}
+	
 	
 	public int tirer(int x, int y, Bateau tirreur){
-		return 0;		
+		//return tirer(x,y,tirreur.degats());
+		return tirer(x,y,1);
 	}
 	
-	public int tirer(int x, int y){
+	public int tirer(int x, int y, int degat){
 		String k = grilleCourante()[x][y];
+		if(x < 0 || x > grilleCourante().length || y < 0 || y > grilleCourante()[0].length) return BatailleNavale.Code.IMPOSSIBLE;
 		if(k.equals("")){
 			return BatailleNavale.Code.VIDE;
 		}else{
 			Bateau cible = bateauxCourants().get(k);
 			//cible.hit();
-			// TODO
-		}
-		return 0;		
+			return BatailleNavale.Code.TOUCHE;
+		}	
 	}
 	
 	public void joueurSuivant(){
@@ -63,4 +87,7 @@ public class PartieBatailleNavale implements Partie {
 		return bateauxJ2;	
 	}
 
+	public Mode getMode(){
+		return mode;
+	}
 }

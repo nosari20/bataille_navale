@@ -10,7 +10,7 @@ public class JoueurBatailleNavale implements Joueur {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Action jouer() {
+	public Action action() {
 		// TODO Auto-generated method stub
 		return null;
 	}
