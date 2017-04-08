@@ -10,17 +10,14 @@ public class TireBateau implements Action {
 	private int posx;
 	private int posy;
 	private Bateau tirreur;
-	private Partie partie;
 
 	public class Builder {
 
 		private int posx = 0;
 		private int posy = 0;
 		private Bateau tirreur = null;
-		private Partie partie;
 
-		public Builder(Partie p) {
-			partie = p;
+		public Builder() {
 		}
 
 		public Action build() {
@@ -42,13 +39,12 @@ public class TireBateau implements Action {
 	}
 
 	private TireBateau(Builder builder) {
-		partie = builder.partie;
 		posx = builder.posx;
 		posy = builder.posy;
 		tirreur = builder.tirreur;
 	}
 
-	public int execute() {
+	public int execute(Partie partie) {
 		return ((PartieBatailleNavale) partie).tirer(posx, posy, tirreur);
 	}
 
