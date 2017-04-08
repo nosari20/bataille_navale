@@ -1,7 +1,7 @@
 package com.cad.jeu_abstrait;
 
-public abstract class Partie {
+public interface  Partie {
 
-	private String nom;
+
 	
 }

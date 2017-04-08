@@ -1,54 +1,55 @@
 package com.cad.bataille_navale.actions;
 
-import com.cad.bataille_navale.PartieBatailleNavale;
 import com.cad.bataille_navale.bateaux.Bateau;
+import com.cad.bataille_navale.jeu.PartieBatailleNavale;
 import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Partie;
 
-public class TireBateau extends Action {
-	
+public class TireBateau implements Action {
+
 	private int posx;
 	private int posy;
 	private Bateau tirreur;
-	
-	
-	public class Builder extends Action.Builder{
+	private Partie partie;
+
+	public class Builder {
 
 		private int posx = 0;
 		private int posy = 0;
 		private Bateau tirreur = null;
-		
+		private Partie partie;
+
 		public Builder(Partie p) {
-			super(p);
+			partie = p;
 		}
 
 		public Action build() {
+
 			return new TireBateau(this);
 		}
-		
-		public Builder pos(int x, int y){
+
+		public Builder pos(int x, int y) {
 			posx = x;
 			posy = y;
-			return this;			
+			return this;
 		}
-		
-		public Builder tirreur(Bateau t){
+
+		public Builder tirreur(Bateau t) {
 			tirreur = t;
-			return this;			
+			return this;
 		}
-		
+
 	}
-	
 
 	private TireBateau(Builder builder) {
-		super(builder);
+		partie = builder.partie;
 		posx = builder.posx;
 		posy = builder.posy;
-		tirreur = builder.tirreur;		
+		tirreur = builder.tirreur;
 	}
 
-	public int exectute() {
-		return ((PartieBatailleNavale) partie).tirer(posx, posy, tirreur);		
-	}	
+	public int execute() {
+		return ((PartieBatailleNavale) partie).tirer(posx, posy, tirreur);
+	}
 
 }

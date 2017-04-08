@@ -6,4 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>bataille_navale-model</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.cad</groupId>
+  		<artifactId>bataille_navale-utils</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
