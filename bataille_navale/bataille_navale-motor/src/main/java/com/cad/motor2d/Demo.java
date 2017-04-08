@@ -6,6 +6,9 @@ public class Demo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		String currentDir = System.getProperty("user.dir");
+        System.out.println("Current dir using System:" +currentDir);
 
 		final DemoGamePanel panel = new DemoGamePanel();
 		JFrame f = new JFrame("Demo");
@@ -14,6 +17,9 @@ public class Demo {
 		f.setLocationRelativeTo(null);
 		f.setContentPane(panel);
 		f.setVisible(true);
+		
+		
+		
 
 		panel.run();
 
