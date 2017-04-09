@@ -23,10 +23,8 @@ public class Main {
 		Jeu jeu = new BatailleNavale(joueurs);
 
 		while (jeu.status() != Jeu.Code.FIN) {
-			Action a = j1.action();
-			jeu.jouer(j1, a);
-			a = j2.action();
-			jeu.jouer(j2, a);
+			j1.jouer();
+			j2.jouer();
 		}
 
 	}

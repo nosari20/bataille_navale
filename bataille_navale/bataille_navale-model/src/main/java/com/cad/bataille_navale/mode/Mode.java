@@ -4,5 +4,5 @@ import com.cad.jeu_abstrait.Action.Builder;
 
 public interface Mode {
 
-	public Builder getActionBuilder();
+	public Builder actionBuilder();
 }

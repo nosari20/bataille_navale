@@ -1,8 +1,24 @@
 package com.cad.jeu_abstrait;
 
-public interface Action {
+public abstract class Action {
 	
-	public interface Builder{
-		public Action build();
+	protected Partie partie;
+	
+	public Action(Partie p){
+		partie = p;
+	}
+	
+	public abstract int execute();
+	
+	public static abstract class Builder{
+		
+		public Partie partie;
+		
+		public Builder partie(Partie p){
+			partie = p;
+			return this;
+		}
+		
+		public abstract Action build();
 	}
 }

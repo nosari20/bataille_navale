@@ -1,6 +1,7 @@
 package com.cad.bataille_navale.factory;
 
 import com.cad.bataille_navale.bateaux.Bateau;
+import com.cad.codesUtils.epoque.Epoque;
 
 public class AncienPartieBatailleNavaleFactory extends AbstractPartieBatailleNavaleFactory {
 
@@ -32,6 +33,12 @@ public class AncienPartieBatailleNavaleFactory extends AbstractPartieBatailleNav
 	public Bateau case1() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public Epoque epoque() {
+		// TODO Auto-generated method stub
+		return Epoque.XX;
 	}
 
 }

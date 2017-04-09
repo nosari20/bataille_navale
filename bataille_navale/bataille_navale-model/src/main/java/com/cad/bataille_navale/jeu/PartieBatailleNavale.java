@@ -7,6 +7,7 @@ import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.mode.Mode;
 import com.cad.bataille_navale.mode.ModeNormal;
+import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Partie;
 
@@ -18,17 +19,19 @@ public class PartieBatailleNavale implements Partie {
 	private int joueur = 1;
 	private String nom;
 	private Mode mode = new ModeNormal();
+	private Epoque epoque = Epoque.XXI;
 
 	private String[][] grilleJ1;
 	private HashMap<String, Bateau> bateauxJ1;
 	private String[][] grilleJ2;
 	private HashMap<String, Bateau> bateauxJ2;
 
-	public PartieBatailleNavale() {
+	public PartieBatailleNavale(Epoque e) {
 		grilleJ1 = new String[GAME_WIDTH][GAME_HEIGHT];
 		bateauxJ1 = new HashMap<String, Bateau>();
 		grilleJ2 = new String[GAME_WIDTH][GAME_HEIGHT];
 		bateauxJ2 = new HashMap<String, Bateau>();
+		epoque = e;		
 	}
 
 	public int jouer(Action a) {
@@ -88,6 +91,10 @@ public class PartieBatailleNavale implements Partie {
 
 	public Mode getMode() {
 		return mode;
+	}
+	
+	public Epoque getEpoque() {
+		return epoque;
 	}
 
 	public void setBateauJ1(Bateau bateauCase1J1, Bateau bateauCase2J2, Bateau bateauCase3J3, Bateau bateauCase4J4,

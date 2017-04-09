@@ -1,9 +1,13 @@
 package com.cad.jeu_abstrait;
 
-public interface Joueur {
+public abstract class Joueur {
 
-	public Action action();
+	protected Jeu jeu;
+	
+	public void setJeu(Jeu j){
+		jeu = j;
+	}
 
-	public void setJeu(Jeu jeu);
+	public abstract int jouer();
 
 }

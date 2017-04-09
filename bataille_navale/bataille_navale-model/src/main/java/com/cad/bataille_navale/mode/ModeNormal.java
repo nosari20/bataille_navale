@@ -9,9 +9,9 @@ public class ModeNormal implements Mode {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Builder getActionBuilder() {
-		// TODO Auto-generated method stub
+	public Builder actionBuilder() {
 		return new FrappeOrbitale.Builder();
 	}
+
 
 }

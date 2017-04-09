@@ -20,7 +20,7 @@ public class BatailleNavale extends Jeu {
 		public static final int IMPOSSIBLE = nextCode();
 	}
 
-	private Epoque epoque = Epoque.XXI;
+	
 
 	public BatailleNavale(List<Joueur> joueurs) {
 		super(joueurs);
@@ -33,6 +33,10 @@ public class BatailleNavale extends Jeu {
 
 	@Override
 	public void nouvellePartie(String nomPartie) {
+		partie = new ModernePartieBatailleNavaleFactory().CreatePartie();		
+	}
+	
+	public void nouvellePartie(String nomPartie, Epoque epoque, Mode m) {
 		if (epoque == Epoque.XXI) {
 			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
 		} else {
@@ -46,7 +50,7 @@ public class BatailleNavale extends Jeu {
 	}
 
 	public Action.Builder actionBuilder() {
-		return ((PartieBatailleNavale) partie).getMode().getActionBuilder();
+		return ((PartieBatailleNavale) partie).getMode().actionBuilder().partie(partie);
 	}
 
 	public Mode mode() {

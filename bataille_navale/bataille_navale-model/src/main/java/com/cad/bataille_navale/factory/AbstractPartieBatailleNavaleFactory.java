@@ -2,12 +2,14 @@ package com.cad.bataille_navale.factory;
 
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.jeu.PartieBatailleNavale;
+import com.cad.bataille_navale.mode.Mode;
+import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Partie;
 
 public abstract class AbstractPartieBatailleNavaleFactory {
 
 	public Partie CreatePartie() {
-		PartieBatailleNavale partie = new PartieBatailleNavale();
+		PartieBatailleNavale partie = new PartieBatailleNavale(epoque());
 
 		Bateau bateauCase1J1 = case1();
 		Bateau bateauCase2J2 = case2();
@@ -31,5 +33,7 @@ public abstract class AbstractPartieBatailleNavaleFactory {
 	public abstract Bateau case2();
 
 	public abstract Bateau case1();
-
+	
+	public abstract Epoque epoque();
+	
 }
