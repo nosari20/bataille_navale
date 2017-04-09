@@ -1,4 +1,4 @@
-package com.cad.motor2d;
+package com.cad.motor2d.demo;
 
 import javax.swing.JFrame;
 

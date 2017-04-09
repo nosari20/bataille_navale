@@ -1,9 +1,10 @@
-package com.cad.motor2d;
+package com.cad.motor2d.demo;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 
+import com.cad.motor2d.AbstractGamePanel;
 import com.cad.motor2d.sprites.Animation;
 import com.cad.motor2d.sprites.Sprite;
 import com.cad.motor2d.sprites.SpriteSheet;

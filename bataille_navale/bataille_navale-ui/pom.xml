@@ -6,4 +6,31 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>bataille_navale-ui</artifactId>
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>com.cad.ui.gamescreen.GameScreenMain</mainClass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.cad</groupId>
+  		<artifactId>bataille_navale-motor</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

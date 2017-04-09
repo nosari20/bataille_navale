@@ -1,0 +1,33 @@
+
+ships.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ship5
+  rotate: false
+  xy: 1, 26
+  size: 113, 25
+  orig: 113, 25
+  offset: 0, 0
+  index: -1
+ship4
+  rotate: false
+  xy: 1, 1
+  size: 89, 23
+  orig: 89, 23
+  offset: 0, 0
+  index: -1
+ship3
+  rotate: false
+  xy: 116, 24
+  size: 76, 27
+  orig: 76, 27
+  offset: 0, 0
+  index: -1
+ship2
+  rotate: false
+  xy: 194, 20
+  size: 50, 31
+  orig: 50, 31
+  offset: 0, 0
+  index: -1

@@ -20,7 +20,7 @@
 							<goal>java</goal>
 						</goals>
 						<configuration>
-							<mainClass>com.cad.motor2d.Demo</mainClass>
+							<mainClass>com.cad.motor2d.demo.Demo</mainClass>
 						</configuration>
 					</execution>
 				</executions>

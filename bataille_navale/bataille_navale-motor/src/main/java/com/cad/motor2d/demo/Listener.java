@@ -1,4 +1,4 @@
-package com.cad.motor2d;
+package com.cad.motor2d.demo;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
