@@ -7,16 +7,13 @@ import com.cad.jeu_abstrait.Joueur;
 public class JoueurBatailleNavale implements Joueur {
 
 	public JoueurBatailleNavale() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Action action() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void setJeu(Jeu jeu) {
-		// TODO Auto-generated method stub
 
 	}
 

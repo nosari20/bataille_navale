@@ -21,7 +21,8 @@ public abstract class Jeu {
 		public static final int FIN = nextCode();
 		public static final int PAUSE = nextCode();
 		
-		private static int nextCode = 0;		
+		private static int nextCode = 0;	
+		
 		protected static int nextCode(){
 			return nextCode++;
 		}

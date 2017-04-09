@@ -2,12 +2,13 @@ package com.cad.bataille_navale.jeu;
 
 import java.util.List;
 
+import com.cad.bataille_navale.factory.AncienPartieBatailleNavaleFactory;
+import com.cad.bataille_navale.factory.ModernePartieBatailleNavaleFactory;
 import com.cad.bataille_navale.mode.Mode;
-import com.cad.bataille_navale.mode.ModeNormal;
+import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
-import com.cad.jeu_abstrait.Partie;
 
 public class BatailleNavale extends Jeu {
 
@@ -23,19 +24,21 @@ public class BatailleNavale extends Jeu {
 
 	public BatailleNavale(List<Joueur> joueurs) {
 		super(joueurs);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void chargerPartie(String nomPartie) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void nouvellePartie(String nomPartie) {
-		// TODO Auto-generated method stub
-
+		if (epoque == Epoque.XXI) {
+			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
+		} else {
+			// Epoque ancien
+			partie = new AncienPartieBatailleNavaleFactory().CreatePartie();
+		}
 	}
 
 	public int jouer(Joueur joueur, Action action) {
@@ -43,12 +46,10 @@ public class BatailleNavale extends Jeu {
 	}
 
 	public Action.Builder actionBuilder() {
-		// TODO Auto-generated method stub
 		return ((PartieBatailleNavale) partie).getMode().getActionBuilder();
 	}
 
 	public Mode mode() {
-		// TODO Auto-generated method stub
 		return ((PartieBatailleNavale) partie).getMode();
 	}
 

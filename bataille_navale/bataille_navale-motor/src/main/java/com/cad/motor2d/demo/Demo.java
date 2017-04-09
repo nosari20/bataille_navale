@@ -7,7 +7,8 @@ public class Demo {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String currentDir = System.getProperty("user.dir");
+		String currentDir = System.getProperty("user.dir") + "\\bataille_navale-motor";
+		
         System.out.println("Current dir using System:" +currentDir);
 
 		final DemoGamePanel panel = new DemoGamePanel();

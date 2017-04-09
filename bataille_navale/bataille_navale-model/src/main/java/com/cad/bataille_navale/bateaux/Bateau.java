@@ -2,7 +2,7 @@ package com.cad.bataille_navale.bateaux;
 
 import com.cad.codesUtils.bateau.BateauCodeUtils;
 
-public abstract class Bateau {
+public abstract class Bateau implements Cloneable {
 
 	// private int nextId;
 	protected int id;
@@ -38,6 +38,23 @@ public abstract class Bateau {
 		this.longueur = bateauCode.getBateauLongueur();
 		this.etat = new int[bateauCode.getBateauLongueur()];
 		this.nom = bateauCode.getBateauNom();
+	}
+
+	public Object clone() {
+		Object clone = null;
+
+		try {
+			clone = super.clone();
+
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+
+		return clone;
+	}
+
+	public String getNom() {
+		return nom;
 	}
 
 }
