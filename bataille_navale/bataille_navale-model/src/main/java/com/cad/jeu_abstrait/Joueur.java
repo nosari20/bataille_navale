@@ -6,5 +6,4 @@ public interface Joueur {
 
 	public void setJeu(Jeu jeu);
 
-
 }

@@ -1,5 +1,7 @@
 package com.cad.bataille_navale.bateaux;
 
+import com.cad.codesUtils.bateau.BateauCodeUtils;
+
 public abstract class Bateau {
 
 	// private int nextId;
@@ -9,7 +11,7 @@ public abstract class Bateau {
 	protected int posx;
 	protected int posy;
 	protected int longueur;
-
+	protected BateauCodeUtils bateauCode;
 	protected int[] etat;
 	protected boolean orientation;
 	protected int puissance;
@@ -29,6 +31,13 @@ public abstract class Bateau {
 
 	public boolean isReachable(int posx, int posy) {
 		return false;
+	}
+
+	protected void init() {
+		this.resistance = bateauCode.getBateauResistance();
+		this.longueur = bateauCode.getBateauLongueur();
+		this.etat = new int[bateauCode.getBateauLongueur()];
+		this.nom = bateauCode.getBateauNom();
 	}
 
 }

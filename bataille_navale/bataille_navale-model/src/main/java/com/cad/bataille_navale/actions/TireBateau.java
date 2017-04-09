@@ -47,8 +47,8 @@ public class TireBateau implements Action {
 	public int getPosy() {
 		return posy;
 	}
-	
-	public Bateau getTirreur(){
+
+	public Bateau getTirreur() {
 		return tirreur;
 	}
 

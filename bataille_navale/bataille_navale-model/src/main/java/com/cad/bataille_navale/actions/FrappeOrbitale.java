@@ -39,5 +39,4 @@ public class FrappeOrbitale implements Action {
 		return posy;
 	}
 
-	
 }

@@ -10,20 +10,16 @@ import com.cad.jeu_abstrait.Joueur;
 import com.cad.jeu_abstrait.Partie;
 
 public class BatailleNavale extends Jeu {
-	
-	
-	public static class Code extends Jeu.Code{
+
+	public static class Code extends Jeu.Code {
 		public static final int TOUCHE = nextCode();
 		public static final int VIDE = nextCode();
 		public static final int TROP_LOIN = nextCode();
-		public static final int DETRUIT = nextCode();	
-		public static final int IMPOSSIBLE = nextCode();	
+		public static final int DETRUIT = nextCode();
+		public static final int IMPOSSIBLE = nextCode();
 	}
-	
-	
+
 	private Epoque epoque = Epoque.XXI;
-	
-	
 
 	public BatailleNavale(List<Joueur> joueurs) {
 		super(joueurs);
@@ -42,17 +38,15 @@ public class BatailleNavale extends Jeu {
 
 	}
 
-	@Override
-	public int jouer(Joueur joueur, Action action) {		
+	public int jouer(Joueur joueur, Action action) {
 		return ((PartieBatailleNavale) partie).jouer(action);
 	}
 
-	@Override
 	public Action.Builder actionBuilder() {
 		// TODO Auto-generated method stub
 		return ((PartieBatailleNavale) partie).getMode().getActionBuilder();
 	}
-	
+
 	public Mode mode() {
 		// TODO Auto-generated method stub
 		return ((PartieBatailleNavale) partie).getMode();
