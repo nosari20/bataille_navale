@@ -15,11 +15,10 @@ public class Listener implements MouseListener {
 		model = demoGamePanel;
 		ppux = x;
 		ppuy = y;
-
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		
+
 	}
 
 	public void mouseEntered(MouseEvent e) {
