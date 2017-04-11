@@ -16,9 +16,10 @@ public abstract class Bateau implements Cloneable {
 	protected boolean orientation;
 	protected int puissance;
 	protected int portee;
+	protected String image;
 
 	public Bateau() {
-		// TODO Auto-generated constructor stub
+		this.image = bateauCode.getImage();
 	}
 
 	public void hit(int laCase) {

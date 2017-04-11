@@ -10,6 +10,6 @@
   	<module>bataille_navale-repository</module>
   	<module>bataille_navale-service</module>
   	<module>bataille_navale-ui</module>
-  	<module>bataille_navale-motor</module>
+  	
   </modules>
 </project>

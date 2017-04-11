@@ -7,4 +7,6 @@ public interface BateauCodeUtils {
 	public int getBateauLongueur();
 
 	public String getBateauNom();
+
+	public String getImage();
 }

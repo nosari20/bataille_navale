@@ -4,7 +4,8 @@ public class Bateau4CodeUtils implements BateauCodeUtils {
 
 	private final int BATEAU_RESISTANCE = 3;
 	private final int BATEAU_LONGUEUR = 4;
-	private final String BATEAU_NOM = "B4";
+	private final String IMAGE = "bateau4.png";
+	private final String BATEAU_NOM = "B1";
 
 	public int getBateauResistance() {
 		return BATEAU_RESISTANCE;
@@ -16,6 +17,10 @@ public class Bateau4CodeUtils implements BateauCodeUtils {
 
 	public String getBateauNom() {
 		return BATEAU_NOM;
+	}
+
+	public String getImage() {
+		return IMAGE;
 	}
 
 }

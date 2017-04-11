@@ -21,12 +21,15 @@ import javax.swing.JPanel;
 public class GridComponent extends JPanel {
 	private final int SIZE = 10;
 	private final int FIELD_SIZE = 34; // = 32px because of the border
+	private final int SHIP_NUMBER = 5;
 	private final JButton gameFieldGUI[][] = new JButton[10][10];
+	private int ships[][];
 
 	public GridComponent() {
 		this.init();
 		this.buildFields();
-
+		this.ships = new int[5][2];
+		generateShips();
 	}
 
 	public void init() {
@@ -34,6 +37,15 @@ public class GridComponent extends JPanel {
 		this.setPreferredSize(new Dimension(340, 340));
 		this.setBackground(new Color(131, 209, 232));
 		this.setBorder(BorderFactory.createLineBorder(new Color(32, 156, 185)));
+	}
+
+	public void generateShips() {
+		// pour l'instant a la main, faire la generation automatique plus tard
+		displayShip("", 0, 0, true, 1);
+		displayShip("", 0, 9, true, 2);
+		displayShip("", 2, 2, true, 3);
+		displayShip("", 6, 5, true, 4);
+		displayShip("", 0, 7, true, 5);
 	}
 
 	public void buildFields() {
@@ -90,7 +102,8 @@ public class GridComponent extends JPanel {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent event) {
-				System.out.println("Ship sunken");
+				if (event.getSource() instanceof JButton)
+					System.out.println("Ship");
 			}
 		});
 
@@ -127,6 +140,7 @@ public class GridComponent extends JPanel {
 
 		// remove old elements
 		removeFields(x, y, horizontal, length);
+
 		setFieldIcon(button, "");
 
 		// add new button and update the grid

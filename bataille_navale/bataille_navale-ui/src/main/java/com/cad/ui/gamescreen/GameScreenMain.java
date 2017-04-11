@@ -3,8 +3,8 @@ package com.cad.ui.gamescreen;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 public class GameScreenMain extends JFrame {
@@ -12,9 +12,10 @@ public class GameScreenMain extends JFrame {
 	private final int SIZE = 10;
 	private final int FIELD_SIZE = 34; // = 32px because of the border
 	private final String IMAGE_PATH = System.getProperty("user.dir") + "\\assets\\ships\\ship2.png";
-	// contains all JButtons of the grid
-	private final JButton gameFieldGUI[][] = new JButton[10][10];
-	private GridComponent player1Side;
+	private GridComponent player1Side, player2Side;
+	private JPanel rootPanel;
+	private JPanel gridPanel;
+	private JPanel shipPanel;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -32,14 +33,19 @@ public class GameScreenMain extends JFrame {
 			System.out.println(e);
 		}
 		player1Side = new GridComponent();
-
+		player2Side = new GridComponent();
+		gridPanel = new JPanel();
+		gridPanel.setLayout(new GridLayout(1, 2));
+		gridPanel.add(player1Side);
+		gridPanel.add(player2Side);
+		
 		this.setTitle("Battleship");
 		this.setPreferredSize(new Dimension(1000, 700));
 		this.setResizable(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new GridLayout(1, 2));
-		this.add(player1Side);
-		this.add(new GridComponent());
+		// this.add(shipPanel);
+		this.add(gridPanel);
 		this.pack();
 		this.setVisible(true);
 	}
