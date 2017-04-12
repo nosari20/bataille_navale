@@ -1,0 +1,37 @@
+package com.cad.ui.gamescreen;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+public class Listener implements MouseListener {
+
+	private GameScreen gs;
+
+	private int ppux; private int ppuy;
+
+	public Listener(GameScreen g) {
+		gs = g;
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		int [] tab = gs.screen2Case(e.getX(), e.getY());
+	}
+
+	public void mouseEntered(MouseEvent e) { // TODO Auto-generated method stub
+
+	}
+
+	public void mouseExited(MouseEvent e) { // TODO Auto-generated method stub
+
+	}
+
+	public void mousePressed(MouseEvent e) { // TODO Auto-generated method stub
+
+	}
+
+	public void mouseReleased(MouseEvent arg0) { // TODO Auto-generated method
+
+	}
+	
+
+}
