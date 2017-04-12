@@ -30,20 +30,28 @@ public class ShipsXX1 implements SpriteBateauRepository{
 
 
 	@Override
-	public Sprite getBateau(int length) {
+	public Sprite getBateau(int length, boolean b) {
+		Sprite p = bateau2;
 		switch (length) {
 		case 1:
-			return bateau2;
+			p =  bateau2;
+			break;
 		case 2:
-			return bateau2;
+			p = bateau2;
+			break;
 		case 3:
-			return bateau3;
+			p =  bateau3;
+			break;
 		case 4:
-			return bateau4;
+			p =  bateau4;
 		case 5:
-			return bateau5;
-		default:
-			return bateau2;
+			p = bateau5;
+		}
+		
+		if(b){
+			return p.rotate(90);
+		}else{
+			return p;
 		}
 	}
 

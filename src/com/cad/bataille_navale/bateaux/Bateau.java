@@ -16,6 +16,8 @@ public abstract class Bateau implements Cloneable {
 	protected boolean orientation;
 	protected int puissance;
 	protected int portee;
+	
+	private static int nextId = 0;
 
 	public Bateau() {
 	}
@@ -36,7 +38,8 @@ public abstract class Bateau implements Cloneable {
 		this.resistance = bateauCode.getBateauResistance();
 		this.longueur = bateauCode.getBateauLongueur();
 		this.etat = new int[bateauCode.getBateauLongueur()];
-		this.nom = bateauCode.getBateauNom();
+		this.nom = "b"+nextId;
+		nextId++;
 	}
 
 	public Object clone() {
@@ -72,9 +75,24 @@ public abstract class Bateau implements Cloneable {
 		return etat;
 	}
 
+	
+	
 	public boolean isOrientation() {
 		return orientation;
 	}
+
+	public void setPosx(int posx) {
+		this.posx = posx;
+	}
+
+	public void setPosy(int posy) {
+		this.posy = posy;
+	}
+
+	public void setOrientation(boolean orientation) {
+		this.orientation = orientation;
+	}
+	
 	
 	
 
