@@ -43,8 +43,10 @@ public class GameScreen extends AbstractGamePanel {
 	public void initialize() {
 		ppux = getWidth() / w_width;
 		ppuy = getHeight() / w_height;
-		Listener l = new Listener(this);
+		PlacementListener l = new PlacementListener(this);
+		TireListener tl = new TireListener(this);
 		this.addMouseListener(l);
+		this.addMouseListener(tl);
 		this.addMouseMotionListener(l);
 		this.setBackground(Color.white);
 	}
@@ -63,16 +65,29 @@ public class GameScreen extends AbstractGamePanel {
 			for(int j = 0; j < partie.GAME_HEIGHT; j++)
 				g.drawImage(SpriteLandscapeRepository.getInstance().water().getImage(), i*ppux, j*ppuy, ppux, ppuy, null);
 
-
-		// Draw J1
-		g.setColor(Color.RED);
+		
+		
+		// Draw grid
+		g.setColor(Color.GRAY);
 		for (int i = 0; i <= partie.GAME_WIDTH; i++) {
 			g.drawLine(i * ppux, 0, i * ppux, partie.GAME_HEIGHT * ppuy);	
 		}
 		for (int i = 0; i <= partie.GAME_HEIGHT; i++) {
 			g.drawLine(0, i * ppuy, partie.GAME_WIDTH * ppux, i * ppuy);
 		}
+		for (int i = partie.GAME_WIDTH; i <= partie.GAME_WIDTH*2; i++) {
+			g.drawLine(i * ppux, 0, i * ppux, partie.GAME_HEIGHT * ppuy);
+		}
+		for (int i = 0; i <= partie.GAME_HEIGHT; i++) {
+			g.drawLine(partie.GAME_WIDTH * ppux, i * ppuy, partie.GAME_WIDTH*2 * ppux, i * ppuy);
+		}
+		g.setColor(Color.RED);
+		g.drawLine(partie.GAME_WIDTH * ppux, 0, partie.GAME_WIDTH * ppux, partie.GAME_HEIGHT * ppuy);
 
+		
+		
+		
+		// Draw j1
 		for (Bateau b : partie.getBateauJ1()){
 			if(b.isOrientation()){
 				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), b.isOrientation()).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);
@@ -83,14 +98,6 @@ public class GameScreen extends AbstractGamePanel {
 		}
 
 		// Draw J2
-		g.setColor(Color.BLUE);
-		for (int i = partie.GAME_WIDTH; i <= partie.GAME_WIDTH*2; i++) {
-			g.drawLine(i * ppux, 0, i * ppux, partie.GAME_HEIGHT * ppuy);
-		}
-		for (int i = 0; i <= partie.GAME_HEIGHT; i++) {
-			g.drawLine(partie.GAME_WIDTH * ppux, i * ppuy, partie.GAME_WIDTH*2 * ppux, i * ppuy);
-		}
-
 		for (Bateau b : partie.getBateauJ2()){
 			if(b.isOrientation()){
 				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), b.isOrientation()).getImage(), (2*partie.GAME_WIDTH - b.getPosx() - b.getLongueur()) * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);
@@ -182,8 +189,8 @@ public class GameScreen extends AbstractGamePanel {
 		}else{
 			//j2
 			int[] tab = new int[3];
-			tab[0] = 1;
-			tab[1] = partie.GAME_WIDTH-rx; // on inverse les coordonnées en x
+			tab[0] = 2;
+			tab[1] = partie.GAME_WIDTH-(rx-partie.GAME_WIDTH)-1; // on inverse les coordonnées en x
 			tab[2] = ry;
 			return tab;
 		}

@@ -179,7 +179,7 @@ public class PartieBatailleNavale implements Partie {
 
 	public void updateBateau(Bateau b, int x, int y, boolean orientaion){
 		// TODO Auto-generated method stub
-		if(x >= 0 && y >=0 && x < GAME_WIDTH && y < GAME_HEIGHT && ((orientaion && (y + b.getLongueur() < GAME_HEIGHT)) || (!orientaion && (x + b.getLongueur() < GAME_WIDTH)))){
+		if(x >= 0 && y >=0 && x < GAME_WIDTH && y < GAME_HEIGHT && ((orientaion && (y + b.getLongueur() <= GAME_HEIGHT)) || (!orientaion && (x + b.getLongueur() <= GAME_WIDTH)))){
 			
 			String[][] grille;
 			if(bateauxJ1.containsValue(b)){
