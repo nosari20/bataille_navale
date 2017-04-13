@@ -1,0 +1,145 @@
+
+pacman.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bloc
+  rotate: false
+  xy: 1, 15
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+superPellet
+  rotate: false
+  xy: 1, 1
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+pellet
+  rotate: false
+  xy: 51, 47
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ghost1
+  rotate: false
+  xy: 51, 31
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+ghost2
+  rotate: false
+  xy: 69, 49
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+ghost3
+  rotate: false
+  xy: 51, 15
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+ghost4
+  rotate: false
+  xy: 85, 49
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+ghostDead
+  rotate: false
+  xy: 101, 49
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+ghostHunted
+  rotate: false
+  xy: 117, 49
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+ghostHuntedEnd
+  rotate: false
+  xy: 133, 49
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+pacman-3
+  rotate: false
+  xy: 149, 50
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacman
+  rotate: false
+  xy: 164, 50
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanDown-2
+  rotate: false
+  xy: 179, 50
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanDown
+  rotate: false
+  xy: 194, 50
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanLeft-2
+  rotate: false
+  xy: 209, 50
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanLeft
+  rotate: false
+  xy: 224, 50
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanRight-2
+  rotate: false
+  xy: 239, 50
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanRight
+  rotate: false
+  xy: 67, 32
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanUp-2
+  rotate: false
+  xy: 67, 17
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+pacmanUp
+  rotate: false
+  xy: 82, 34
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1

@@ -6,36 +6,24 @@ import java.util.ArrayList;
 
 public class Animation {
 
-	private class Frame {
-
-		int duration;
-		Sprite sprite;
-
-		public Frame(Sprite s, int d) {
-			sprite = s;
-			duration = d;
-		}
-	}
 
 	private int frameCount;
-	private int frameDelay;
 	private int currentFrame;
 	private int animationDirection;
 	private int totalFrames;
-
+	private boolean loop;
 	private boolean stopped;
-	private ArrayList<Frame> frames = new ArrayList<Frame>();
+	private ArrayList<Sprite> frames = new ArrayList<Sprite>();
 
-	public Animation(Sprite[] frames, int frameDelay) {
-		this.frameDelay = frameDelay;
+	public Animation(Sprite[] frames) {
 		this.stopped = true;
+		this.loop = false;
 
 		for (int i = 0; i < frames.length; i++) {
-			addFrame(frames[i], frameDelay);
+			addFrame(frames[i]);
 		}
 
 		this.frameCount = 0;
-		this.frameDelay = frameDelay;
 		this.currentFrame = 0;
 		this.animationDirection = 1;
 		this.totalFrames = this.frames.size();
@@ -76,37 +64,34 @@ public class Animation {
 		this.frameCount = 0;
 		this.currentFrame = 0;
 	}
+	
+	public void loop(boolean l){
+		loop = l;
+	}
 
-	private void addFrame(Sprite frame, int duration) {
-		if (duration <= 0) {
-			System.err.println("Invalid duration: " + duration);
-			throw new RuntimeException("Invalid duration: " + duration);
-		}
-
-		frames.add(new Frame(frame, duration));
-		currentFrame = 0;
+	private void addFrame(Sprite frame) {
+		frames.add(frame);
 	}
 
 	public Sprite getSprite() {
-		Sprite p = frames.get(currentFrame).sprite;
-		update();
-		return p;
+		return frames.get(currentFrame);
 	}
 
 	public void update() {
+		//System.out.println("curr = " + currentFrame +  "tot = " +totalFrames);
+		if(!loop && currentFrame == totalFrames -1){
+			stop();
+		}
+		
 		if (!stopped) {
-			frameCount++;
+			currentFrame++;
 
-			if (frameCount > frameDelay) {
-				frameCount = 0;
-				currentFrame += animationDirection;
-
-				if (currentFrame > totalFrames - 1) {
-					currentFrame = 0;
-				} else if (currentFrame < 0) {
-					currentFrame = totalFrames - 1;
-				}
+			if (currentFrame > totalFrames - 1) {
+				currentFrame = 0;
+			} else if (currentFrame < 0) {
+				currentFrame = totalFrames - 1;
 			}
+
 		}
 
 	}

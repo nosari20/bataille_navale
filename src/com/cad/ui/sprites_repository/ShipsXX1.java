@@ -2,21 +2,21 @@ package com.cad.ui.sprites_repository;
 
 
 import com.cad.motor2d.sprites.Sprite;
-import com.cad.motor2d.sprites.SpriteSheet;
+import com.cad.motor2d.sprites.SpriteSheetAtlas;
 
 public class ShipsXX1 implements SpriteBateauRepository{
 
 	private static ShipsXX1 instance = new ShipsXX1();
 
 
-	private SpriteSheet p;
+	private SpriteSheetAtlas p;
 	private Sprite bateau2;
 	private Sprite bateau3;
 	private Sprite bateau4;
 	private Sprite bateau5;
 
 	private ShipsXX1() {
-		p = new SpriteSheet("./assets/spritesheets/ships.png",
+		p = new SpriteSheetAtlas("./assets/spritesheets/ships.png",
 				"./assets/spritesheets/ships.pack");
 		bateau2 = p.getSprite("ship2");
 		bateau3 = p.getSprite("ship3");

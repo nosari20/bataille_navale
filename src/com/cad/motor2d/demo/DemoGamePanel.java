@@ -7,17 +7,17 @@ import java.awt.event.ComponentEvent;
 import com.cad.motor2d.AbstractGamePanel;
 import com.cad.motor2d.sprites.Animation;
 import com.cad.motor2d.sprites.Sprite;
-import com.cad.motor2d.sprites.SpriteSheet;
+import com.cad.motor2d.sprites.SpriteSheetAtlas;
 
 
 
 @SuppressWarnings("serial")
 public class DemoGamePanel extends AbstractGamePanel {
 
-	private SpriteSheet p = new SpriteSheet("./assets/pacman.png", "./assets/pacman.atlas");
+	private SpriteSheetAtlas p = new SpriteSheetAtlas("./assets/pacman.png", "./assets/pacman.atlas");
 
 	private Sprite[] sprites = { p.getSprite("pacmanRight"), p.getSprite("pacmanRight-2") };
-	private Animation animation = new Animation(sprites, 5);
+	private Animation animation = new Animation(sprites);
 
 	public Sprite go = p.getSprite("ghost1");
 	public Sprite go90 = p.getSprite("ghost1").rotate(-90);

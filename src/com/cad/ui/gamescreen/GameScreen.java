@@ -9,8 +9,9 @@ import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.jeu.PartieBatailleNavale;
 import com.cad.motor2d.AbstractGamePanel;
-import com.cad.motor2d.sprites.SpriteSheet;
+import com.cad.motor2d.sprites.SpriteSheetAtlas;
 import com.cad.ui.sprites_repository.ShipsXX1;
+import com.cad.ui.sprites_repository.SpriteExplostionRepository;
 import com.cad.ui.sprites_repository.SpriteLandscapeRepository;
 import com.cad.motor2d.sprites.Animation;
 import com.cad.motor2d.sprites.Sprite;
@@ -99,6 +100,9 @@ public class GameScreen extends AbstractGamePanel {
 
 			}
 		}
+		
+		
+		g.drawImage(SpriteExplostionRepository.getInstance().getExplosion().getImage(), 0 * ppux, 0*ppuy, ppux, ppuy, null);
 
 
 	}
