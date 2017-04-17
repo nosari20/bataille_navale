@@ -1,11 +1,9 @@
 package com.cad.ui.sprites_repository;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import com.cad.motor2d.sprites.Animation;
 import com.cad.motor2d.sprites.Sprite;
-import com.cad.motor2d.sprites.SpriteSheet;
 import com.cad.motor2d.sprites.SpriteSheetGrid;
 
 public class SpriteExplostionRepository {

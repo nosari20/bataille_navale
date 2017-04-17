@@ -58,12 +58,13 @@ public class GameScreen extends AbstractGamePanel {
 
 	@Override
 	public void draw(Graphics g) {
-
+		
+		System.gc();
 
 		//Draw lanscape
 		for(int i = 0; i < partie.GAME_WIDTH*2; i++)
 			for(int j = 0; j < partie.GAME_HEIGHT; j++)
-				g.drawImage(SpriteLandscapeRepository.getInstance().water().getImage(), i*ppux, j*ppuy, ppux, ppuy, null);
+				//g.drawImage(SpriteLandscapeRepository.getInstance().water().getImage(), i*ppux, j*ppuy, ppux, ppuy, null);
 
 		
 		
