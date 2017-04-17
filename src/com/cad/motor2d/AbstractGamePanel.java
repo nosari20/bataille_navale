@@ -28,6 +28,7 @@ public abstract class AbstractGamePanel extends JPanel implements Runnable, Comp
 			if (time > 0) {
 				try {
 					Thread.sleep(time);
+					System.gc();
 				} catch (Exception e) {
 				}
 			}
