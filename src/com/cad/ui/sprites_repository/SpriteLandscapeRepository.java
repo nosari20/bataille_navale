@@ -13,9 +13,12 @@ public class SpriteLandscapeRepository {
 
 	
 	Sprite water;
+	
+	Sprite crosshair;
 
 	public SpriteLandscapeRepository() {
 		water = new Sprite(new ImageIcon("./assets/water.png").getImage());
+		crosshair = new Sprite(new ImageIcon("./assets/crosshair.png").getImage());
 	}
 	
 	public static SpriteLandscapeRepository getInstance(){
@@ -25,6 +28,10 @@ public class SpriteLandscapeRepository {
 	
 	public Sprite water(){
 		return water;
+	}
+	
+	public Sprite crosshair(){
+		return crosshair;
 	}
 
 }

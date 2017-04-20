@@ -1,8 +1,10 @@
 package com.cad.ui.gamescreen;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.List;
 
 import javax.sound.midi.Soundbank;
@@ -12,7 +14,7 @@ import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.jeu_abstrait.Joueur;
 
-public class TireListener implements MouseListener {
+public class TireListener implements MouseListener, MouseMotionListener {
 
 	private GameScreen gs;
 	private BatailleNavale jeu;
@@ -30,7 +32,6 @@ public class TireListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int[] tab = gs.screen2Case(e.getX(), e.getY());	
-		System.out.println(tab[0] + " " + tab[1] + " " + tab[2]);
 		if(tab[0] == 2){
 
 			System.out.println("*******");
@@ -44,6 +45,7 @@ public class TireListener implements MouseListener {
 			} else if (res == BatailleNavale.Code.DETRUIT) {
 				System.out.println("Détruit");
 			}
+			gs.deselect();
 			
 			
 			
@@ -76,6 +78,21 @@ public class TireListener implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		int[] tab = gs.screen2Case(e.getX(), e.getY());	
+		if(tab[0] == 2){
+			gs.select(new Point(tab[1], tab[2]), 2);
+		}
+		
 	}
 
 }

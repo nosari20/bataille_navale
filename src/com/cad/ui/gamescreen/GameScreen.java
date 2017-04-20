@@ -2,6 +2,7 @@ package com.cad.ui.gamescreen;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.security.KeyStore.Entry;
 
@@ -40,6 +41,8 @@ public class GameScreen extends AbstractGamePanel {
 	private PlacementListener placementListener;
 	
 	private TireListener tireListener;
+	
+	private Point selected;
 
 
 	public GameScreen(BatailleNavale j) {
@@ -145,6 +148,9 @@ public class GameScreen extends AbstractGamePanel {
 
 		//g.drawImage(SpriteExplostionRepository.getInstance().getExplosion().getImage(), 0 * ppux, 0*ppuy, ppux, ppuy, null);
 
+		if(selected != null){
+			g.drawImage(SpriteLandscapeRepository.getInstance().crosshair().getImage(), (int)selected.getX()*ppux, (int)selected.getY()*ppuy, ppux, ppuy, null);
+		}
 	}
 
 	public void drawBateau(Graphics g, Bateau b, int j){
@@ -266,10 +272,24 @@ public class GameScreen extends AbstractGamePanel {
 
 	public void addTireListener(){
 		this.addMouseListener(tireListener);
+		this.addMouseMotionListener(tireListener);
 	}
 
 	public void removeTireListener(){
-		this.removeMouseListener(tireListener);;
+		this.removeMouseListener(tireListener);
+		this.removeMouseMotionListener(tireListener);
+	}
+	
+	public void select(Point p, int j){
+		if(j == 1){
+			selected = p;
+		}else{
+			selected = new Point((int)(jeu.WIDTH - (p.getX()-jeu.WIDTH)-1), (int)p.getY());
+		}
+	}
+	
+	public void deselect(){
+		selected = null;
 	}
 
 
