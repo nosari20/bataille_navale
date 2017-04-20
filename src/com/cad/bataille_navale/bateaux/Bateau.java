@@ -1,6 +1,8 @@
 package com.cad.bataille_navale.bateaux;
 
+import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.codesUtils.bateau.BateauCodeUtils;
+import com.cad.codesUtils.bateau.BateauOrientation;
 
 public abstract class Bateau implements Cloneable {
 
@@ -11,23 +13,45 @@ public abstract class Bateau implements Cloneable {
 	protected int posx;
 	protected int posy;
 	protected int longueur;
+	protected int nbProjectile;
 	protected BateauCodeUtils bateauCode;
 	protected int[] etat;
-	protected boolean orientation;
+	protected Coord[] localisation;
+	protected BateauOrientation orientation;
 	protected int puissance;
 	protected int portee;
-	
+
 	private static int nextId = 0;
 
 	public Bateau() {
 	}
 
-	public void hit(int laCase) {
+	public int hit(int laCase, int puissance) {
+		// la case a été touché donc on reduit sa resistance de sa puissance
+		etat[laCase] -= puissance;
+		// Maitenant on essaie de verifier si la case à été detruite
+		if (etat[laCase] > 0) {
+			return BatailleNavale.Code.TOUCHE;
+		}
+		return BatailleNavale.Code.DETRUIT;
+	}
 
+	public int getNbPointDegat() {
+		int res = 0;
+		for (int i = 0; i < etat.length; i++) {
+			res += (etat[i] <= 0) ? 1 : 0;
+		}
+		return res;
 	}
 
 	public boolean isDestroyed() {
-		return false;
+		for (int i = 0; i < etat.length; i++) {
+			// si il existe une case qui n'est pas detruite alors on retourne
+			// faux
+			if (etat[i] > 0)
+				return false;
+		}
+		return true;
 	}
 
 	public boolean isReachable(int posx, int posy) {
@@ -37,9 +61,34 @@ public abstract class Bateau implements Cloneable {
 	protected void init() {
 		this.resistance = bateauCode.getBateauResistance();
 		this.longueur = bateauCode.getBateauLongueur();
+		this.puissance = bateauCode.getPuissance();
+		this.localisation = new Coord[longueur];
 		this.etat = new int[bateauCode.getBateauLongueur()];
-		this.nom = "b"+nextId;
+		this.nbProjectile = bateauCode.NB_PROJECTILE;
+		for (int i = 0; i < this.etat.length; i++) {
+			etat[i] = resistance;
+		}
+		this.nom = "b" + nextId;
 		nextId++;
+	}
+
+	public void setUp(int x, int y, BateauOrientation orientation) {
+		this.posx = x;
+		this.posy = y;
+		this.orientation = orientation;
+		if (orientation == BateauOrientation.HORIZONTAL) {
+			for (int i = 0; i < longueur; i++) {
+				localisation[i] = new Coord(posx + i, posy);
+			}
+		} else {
+			for (int i = 0; i < longueur; i++) {
+				localisation[i] = new Coord(posx, posy + i);
+			}
+		}
+	}
+	
+	public void update(){
+		setUp(this.posx,this.posy,this.orientation);
 	}
 
 	public Object clone() {
@@ -71,13 +120,15 @@ public abstract class Bateau implements Cloneable {
 		return longueur;
 	}
 
+	public int getPuissance() {
+		return puissance;
+	}
+
 	public int[] getEtat() {
 		return etat;
 	}
 
-	
-	
-	public boolean isOrientation() {
+	public BateauOrientation getOrientation() {
 		return orientation;
 	}
 
@@ -89,11 +140,50 @@ public abstract class Bateau implements Cloneable {
 		this.posy = posy;
 	}
 
-	public void setOrientation(boolean orientation) {
+	public void setOrientation(BateauOrientation orientation) {
 		this.orientation = orientation;
 	}
-	
-	
-	
+
+	public int contientCoord(Coord c) {
+		for (int i = 0; i < localisation.length; i++) {
+			if (localisation[i].equals(c))
+				return i;
+		}
+		return -1;
+	}
+
+	public void hasHit() {
+		nbProjectile--;
+	}
+
+	@Override
+	public String toString() {
+		return "Bateau [id=" + id + ", nom=" + nom + ", resistance=" + resistance + ", longueur=" + longueur
+				+ ", nbProjectile=" + nbProjectile + ", puissance=" + puissance + "]";
+	}
+
+	public boolean isStillProjectileLeft() {
+		return (nbProjectile > 0) ? true : false;
+	}
+
+	public int getNbProjectile() {
+		return nbProjectile;
+	}
+
+	public Coord[] getLocalisation() {
+		return localisation;
+	}
+
+	public void setEtat(int[] etat) {
+		this.etat = etat;
+	}
+
+	public void setLocalistion(Coord[] localisation) {
+		this.localisation = localisation;
+	}
+
+	public void setProjectile(int nbProjectile) {
+		this.nbProjectile = nbProjectile;
+	}
 
 }

@@ -8,8 +8,6 @@ public abstract class Action {
 		partie = p;
 	}
 	
-	public abstract int execute();
-	
 	public static abstract class Builder{
 		
 		public Partie partie;

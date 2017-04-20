@@ -1,43 +1,79 @@
 package com.cad.bataille_navale.joueurs;
 
+
 import com.cad.bataille_navale.actions.FrappeOrbitale;
-import com.cad.bataille_navale.actions.FrappeOrbitale.Builder;
+import com.cad.bataille_navale.actions.TireBateau;
+import com.cad.bataille_navale.bateaux.Bateau;
+import com.cad.bataille_navale.bateaux.Coord;
 import com.cad.bataille_navale.jeu.BatailleNavale;
-import com.cad.bataille_navale.mode.ModeNormal;
+import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 
-public class JoueurBatailleNavale extends Joueur {
+public class JoueurBatailleNavale implements Joueur {
+	private BatailleNavale jeu;
+	private com.cad.codesUtils.Joueur role;
+	private Action.Builder b;
+	private BatailleNavalleJoueurCote cote;
+	private int joueurResult;
+	private StrategyComputer strategy;
 
-	public JoueurBatailleNavale() {
+	public JoueurBatailleNavale(com.cad.codesUtils.Joueur role, BatailleNavalleJoueurCote cote, String nom) {
+		this.role = role;
+		this.cote = cote;
 	}
 
-
-	public int frappeOrbitale(int x, int y) {
-		return -1;
+	public JoueurBatailleNavale(BatailleNavalleJoueurCote cote, StrategyComputer strategy) {
+		this(com.cad.codesUtils.Joueur.COMPUTER, cote, com.cad.codesUtils.Joueur.COMPUTER.toString());
+		this.strategy = strategy;
 	}
-
-	public int tireBateau(int x, int y) {
-		return -1;
-	}
-
 
 	public int jouer() {
-		BatailleNavale j = (BatailleNavale)jeu;
-		
-		if(j.mode() instanceof ModeNormal){
-			return jouerNomal();
+		if (role == com.cad.codesUtils.Joueur.COMPUTER) {
+			Coord c = strategy.choosePoint(jeu.getGrille(cote));
+			//Bateau tirreur = strategy.chooseBateauTirreur(jeu.getListOfBateau(cote));
+			frappeOrbitale(c.x, c.y);
+			//System.out.println("X : " + c.x + " | Y : " + c.y);
 		}
+		return jeu.jouer(this, b.build());
 
-		return 0;
 	}
 
+	public void setStrategy(StrategyComputer strategy) {
+		this.strategy = strategy;
+	}
 
-	private int jouerNomal() {
-		BatailleNavale j = (BatailleNavale)jeu;
-		FrappeOrbitale.Builder b = (Builder) j.actionBuilder();
-		return b.pos(5, 5).build().execute();
+	public void tireBateau(int x, int y, Bateau tirreur) {
+		b = jeu.actionBuilder();
+		if(b instanceof TireBateau.Builder)
+		(((TireBateau.Builder) b).pos(x, y)).cote(this.cote).tirreur(tirreur);
+	}
+	
+	public void frappeOrbitale(int x, int y) {
+		b = jeu.actionBuilder();
+		if(b instanceof FrappeOrbitale.Builder)
+		((FrappeOrbitale.Builder) b).pos(x, y).cote(this.cote);
+	}
+
+	@Override
+	public void setJeu(Jeu j) {
+		this.jeu = (BatailleNavale) j;
+	}
+
+	public BatailleNavalleJoueurCote getCote() {
+		return cote;
+	}
+
+	public com.cad.codesUtils.Joueur getRole() {
+		// TODO Auto-generated method stub
+		return role;
+	}
+
+	@Override
+	public String getNom() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

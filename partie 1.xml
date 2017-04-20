@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bataille_navale>
+  <joueur1>
+    <bateau1case etat="1" localisation="0;0" projectile="5"/>
+    <bateau2case etat="2-2" localisation="7;8-7;9" projectile="4"/>
+    <bateau3case etat="3-3-3" localisation="2;1-2;2-2;3" projectile="5"/>
+    <bateau4case etat="3-3-3-3" localisation="1;3-2;3-3;3-4;3" projectile="5"/>
+    <bateau5case etat="3-3-3-3-3" localisation="7;1-8;1-9;1-10;1-11;1" projectile="5"/>
+    <grilles>
+      <case coord="6;10">1</case>
+    </grilles>
+  </joueur1>
+  <joueur2>
+    <bateau1case etat="1" localisation="0;0" projectile="5"/>
+    <bateau2case etat="2-2" localisation="7;8-7;9" projectile="4"/>
+    <bateau3case etat="3-3-3" localisation="2;1-2;2-2;3" projectile="5"/>
+    <bateau4case etat="3-3-3-3" localisation="1;3-2;3-3;3-4;3" projectile="5"/>
+    <bateau5case etat="3-3-3-3-3" localisation="7;1-8;1-9;1-10;1-11;1" projectile="5"/>
+    <grilles>
+      <case coord="3;4">1</case>
+    </grilles>
+  </joueur2>
+</bataille_navale>

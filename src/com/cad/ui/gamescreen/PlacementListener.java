@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import com.cad.bataille_navale.bateaux.Bateau;
+import com.cad.codesUtils.bateau.BateauOrientation;
 
 public class PlacementListener implements MouseListener, MouseMotionListener {
 
@@ -19,11 +20,14 @@ public class PlacementListener implements MouseListener, MouseMotionListener {
 	public void mouseClicked(MouseEvent e) {
 		int[] tab = gs.screen2Case(e.getX(), e.getY());	
 		if(tab[0] == 1){
-			String c = gs.getPartie().getCaseJ1(tab[1], tab[2]).split(";")[0];
-			if(!c.equals("")){	
-				
-				Bateau b = gs.getPartie().getBateauJ1(c);
-				gs.getPartie().updateBateauOrientaion(b, !b.isOrientation());
+			Bateau b = gs.getPartie().getBateauJ1(tab[1], tab[2]);
+			if(b!=null){
+				if(b.getOrientation() == BateauOrientation.HORIZONTAL){
+					gs.getJeu().turnBateau(b, BateauOrientation.VERTICAL);
+				}else{
+					gs.getJeu().turnBateau(b, BateauOrientation.HORIZONTAL);
+				}
+				b.update();
 			}
 		}
 	}
@@ -46,20 +50,17 @@ public class PlacementListener implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+
 		if(currentCase != null){
+			if(currentCase[0] == 1){
+				Bateau b = gs.getPartie().getBateauJ1(currentCase[1], currentCase[2]);
 
-			if(currentCase[0] == 1){			
-				
-				String c = gs.getPartie().getCaseJ1(currentCase[1], currentCase[2]).split(";")[0];
-				if(!c.equals("")){
-					int[] tab = gs.screen2Case(e.getX(), e.getY());					
-					if(tab[0] == currentCase[0]){
-						Bateau b = gs.getPartie().getBateauJ1(c);
-						gs.getPartie().updateBateauPos(b,tab[1], tab[2]);
+				int[] tab = gs.screen2Case(e.getX(), e.getY());	
+				if(tab[0] == 1){
 
-						currentCase[1] = b.getPosx();
-						currentCase[2] = b.getPosy();
-
+					if(b!=null){
+						gs.getJeu().placeBateau(b, tab[1], tab[2]);
+						currentCase = tab;
 					}
 				}
 			}
