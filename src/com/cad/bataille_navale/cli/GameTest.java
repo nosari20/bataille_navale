@@ -1,3 +1,4 @@
+package com.cad.bataille_navale.cli;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
