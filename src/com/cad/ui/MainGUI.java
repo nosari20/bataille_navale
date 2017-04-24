@@ -16,6 +16,7 @@ import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 import com.cad.ui.gamescreen.GameScreen;
+import com.cad.ui.sprites_repository.SpriteFontRepository;
 
 public class MainGUI {
 	
@@ -27,6 +28,7 @@ public class MainGUI {
 	private GameUI gameui;
 	
 	public static void main(String[] args) {
+		SpriteFontRepository.getInstance().get('A');
 		new MainGUI();
 	}
 	

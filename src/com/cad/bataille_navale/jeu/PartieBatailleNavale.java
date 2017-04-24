@@ -29,7 +29,7 @@ public class PartieBatailleNavale implements Partie {
 	private List<Bateau> bateauxJ1;
 	private int[][] grilleJ2;
 	private List<Bateau> bateauxJ2;
-
+	
 	private int status = BatailleNavale.Code.DEBUT;
 
 	public PartieBatailleNavale(Epoque e) {
@@ -69,7 +69,7 @@ public class PartieBatailleNavale implements Partie {
 			int y = ((FrappeOrbitale) a).getPosy();
 			BatailleNavalleJoueurCote cote = ((FrappeOrbitale) a).getCote();
 			return tirer(x, y, cote);
-			
+
 		}
 
 		return BatailleNavale.Code.IMPOSSIBLE;
@@ -106,7 +106,7 @@ public class PartieBatailleNavale implements Partie {
 		}
 		return traiteTir(x, y, tirreur, bateauxJ1, grilleJ1);
 	}
-	
+
 	public int tirer(int x, int y, BatailleNavalleJoueurCote cote) {
 		// return tirer(x,y,tirreur.degats());
 		if (cote == BatailleNavalleJoueurCote.GAUCHE) {
@@ -131,10 +131,18 @@ public class PartieBatailleNavale implements Partie {
 			Coord c = new Coord(x, y);
 			int res = -1;
 
+			
 			listBateau: for (Bateau b : list) {
+				
 				res = b.contientCoord(c);
-				if (res != -1) {
-					grille[x][y] = b.hit(res, tirreur.getPuissance());
+				if (res != -1 && !b.isDestroyed()) {
+					int h =  b.hit(res, tirreur.getPuissance());
+					grille[x][y] = h;
+					if(h == BatailleNavale.Code.DETRUIT){
+
+						detruit(b, grille);
+
+					}
 					break listBateau;
 				}
 			}
@@ -149,31 +157,59 @@ public class PartieBatailleNavale implements Partie {
 		else
 			return BatailleNavale.Code.IMPOSSIBLE;
 	}
-	
+
 	private int traiteTir(int x, int y, List<Bateau> list, int[][] grille) {
 		// Si aucun tire n'a encore atteri dans cette case
 		if (grille[x][y] == BatailleNavale.Code.VIDE || grille[x][y] == BatailleNavale.Code.TOUCHE) {
 			// alors on tire dessus
 			Coord c = new Coord(x, y);
 			int res = -1;
-
+			int count = 0;
 			listBateau: for (Bateau b : list) {
+			
 				res = b.contientCoord(c);
-				if (res != -1) {
-					grille[x][y] = b.hit(res, 1);
-					break listBateau;
+				if (res != -1 && !b.isDestroyed()) {
+					count++;
+					int h =  b.hit(res, 1);
+					grille[x][y] = h;
+					if(h == BatailleNavale.Code.DETRUIT){
+						detruit(b, grille);
+					}
 				}
 			}
 			// si il n'y pas de bateau sur cette cordonné alors on le marque
 			// comme touche_vide
-			if (res == -1)
+			if (count == 0){
 				grille[x][y] = BatailleNavale.Code.TOUCHE_VIDE;
+			}else{
+				if(isAllBateauDestroyed(list)){
+					this.status = BatailleNavale.Code.FIN;
+				}
+
+			}
 
 			return grille[x][y];
 		}
 		// Sinon on ne pas tirer
 		else
 			return BatailleNavale.Code.IMPOSSIBLE;
+	}
+
+
+	private void detruit(Bateau b, int[][] grille){
+
+		if(b.getOrientation() == BateauOrientation.HORIZONTAL){
+			for(int i = 0; i < b.getLongueur(); i++ ){
+				grille[b.getPosx()+i][b.getPosy()] = BatailleNavale.Code.DETRUIT;
+			}
+		}
+
+		if(b.getOrientation() == BateauOrientation.VERTICAL){
+			for(int i = 0; i < b.getLongueur(); i++ ){
+				grille[b.getPosx()][b.getPosy()+i] = BatailleNavale.Code.DETRUIT;
+			}
+		}
+		
 	}
 
 	public void joueurSuivant() {
@@ -265,23 +301,39 @@ public class PartieBatailleNavale implements Partie {
 	}
 
 	public int getResult() {
-		int resultJ1 = 0;
-		int resultJ2 = 0;
+		int resultJ1 = getScoreJ1();
+		int resultJ2 = getScoreJ2();
 
-		for (Bateau b : bateauxJ1) {
-			resultJ1 += b.getNbPointDegat();
-		}
+		System.out.println(resultJ1);
+		System.out.println(resultJ2);
+		
 
-		for (Bateau b : bateauxJ2) {
-			resultJ2 += b.getNbPointDegat();
-		}
-
-		if (resultJ1 > resultJ2)
+		if (resultJ1 < resultJ2)
 			return BatailleNavale.Code.VICTOIRE_J2;
-		else if (resultJ1 < resultJ2)
+		else if (resultJ1 > resultJ2)
 			return BatailleNavale.Code.VICTOIRE_J1;
 
 		return BatailleNavale.Code.DRAW;
+	}
+	
+	public int getScoreJ1() {
+		int resultJ1 = 0;
+
+		for (Bateau b : bateauxJ1) {
+			if(b.isDestroyed())
+				resultJ1 += b.getNbPointDegat();
+		}
+		return resultJ1;
+	}
+	
+	public int getScoreJ2() {
+		int resultJ2 = 0;
+
+		for (Bateau b : bateauxJ2) {
+			if(b.isDestroyed())
+				resultJ2 += b.getNbPointDegat();
+		}
+		return resultJ2;
 	}
 
 	public String getNom() {
@@ -335,9 +387,12 @@ public class PartieBatailleNavale implements Partie {
 		}
 
 
-
 		return true;
 
+	}
+	
+	public int getStatus(){
+		return status;
 	}
 
 	public void play() {

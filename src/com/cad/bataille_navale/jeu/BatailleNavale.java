@@ -1,6 +1,7 @@
 package com.cad.bataille_navale.jeu;
 
 import java.awt.Frame;
+import java.io.IOException;
 import java.util.List;
 
 import com.cad.bataille_navale.actions.FrappeOrbitale;
@@ -19,7 +20,7 @@ import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 
 public class BatailleNavale extends Jeu {
-	
+
 	public final int WIDTH = 12;
 	public final int HEIGHT = 12;
 
@@ -28,6 +29,7 @@ public class BatailleNavale extends Jeu {
 		public static final int TOUCHE_VIDE = nextCode();
 		public static final int VIDE = nextCode();
 		public static final int TROP_LOIN = nextCode();
+		public final static int CASE_DETRUITE = nextCode();
 		public static final int DETRUIT = nextCode();
 		public static final int IMPOSSIBLE = nextCode();
 		public static final int VICTOIRE_J1 = nextCode();
@@ -68,7 +70,10 @@ public class BatailleNavale extends Jeu {
 	}
 
 	public int jouer(Joueur joueur, Action action) {
-		return ((PartieBatailleNavale) partie).jouer(action);
+		int res = ((PartieBatailleNavale) partie).jouer(action);
+		this.notifyObservers();
+		this.setChanged();
+		return res;
 	}
 
 	public Action.Builder actionBuilder() {
@@ -87,11 +92,19 @@ public class BatailleNavale extends Jeu {
 	public int[][] getGrille(BatailleNavalleJoueurCote cote) {
 		return ((PartieBatailleNavale) partie).getGrille(cote);
 	}
+	
+	public int getScore(Joueur j){
+		if(listeJoueurs.indexOf(j) == 0){
+			return ((PartieBatailleNavale) partie).getScoreJ1();
+		}else{
+			return ((PartieBatailleNavale) partie).getScoreJ2();
+		}
+	}
 
 	public int getResult() {
 		return ((PartieBatailleNavale) partie).getResult();
 	}
-	
+
 	public int getStatus(){
 		return status;
 	}
@@ -99,10 +112,10 @@ public class BatailleNavale extends Jeu {
 	@Override
 	public void sauvegarder() {
 		AbstractDAOFactory.getAbstractDAOFactory(DAOUtils.XML).getPartieBatailleNavaleDao()
-				.save(((PartieBatailleNavale) partie));
+		.save(((PartieBatailleNavale) partie));
 	}
-	
-	
+
+
 	public boolean placeBateau(Bateau b, int x, int y){
 		int ox = b.getPosx();
 		int oy = b.getPosy();		
@@ -125,7 +138,7 @@ public class BatailleNavale extends Jeu {
 			b.update();
 			return true;
 		}else{
-			b.setOrientation(oo);;
+			b.setOrientation(oo);
 			return false;
 		}
 	}

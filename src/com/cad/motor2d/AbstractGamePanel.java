@@ -7,7 +7,7 @@ import java.awt.event.ComponentListener;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public abstract class AbstractGamePanel extends JPanel implements Runnable, ComponentListener {
+public abstract class AbstractGamePanel extends JPanel implements ComponentListener {
 
 	private boolean isRunning = true;
 	private int fps = 30;
@@ -17,7 +17,7 @@ public abstract class AbstractGamePanel extends JPanel implements Runnable, Comp
 		this.addComponentListener(this);
 	}
 
-	public void run() {
+	public void  run() {
 		initialize();
 		isRunning = true;
 		while (isRunning) {

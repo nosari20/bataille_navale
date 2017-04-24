@@ -27,7 +27,7 @@ public class PlacementListener implements MouseListener, MouseMotionListener {
 				}else{
 					gs.getJeu().turnBateau(b, BateauOrientation.HORIZONTAL);
 				}
-				b.update();
+				
 			}
 		}
 	}

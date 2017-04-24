@@ -36,24 +36,26 @@ public class TireListener implements MouseListener, MouseMotionListener {
 
 			System.out.println("*******");
 			((JoueurBatailleNavale) joueurs.get(0)).frappeOrbitale(tab[1],tab[2]);
-			int res = ((JoueurBatailleNavale) joueurs.get(0)).jouer();
-			
-			if (res == BatailleNavale.Code.TOUCHE_VIDE) {
-				System.out.println("Vide");
-			} else if (res == BatailleNavale.Code.TOUCHE) {
-				System.out.println("Touche");
-			} else if (res == BatailleNavale.Code.DETRUIT) {
-				System.out.println("Détruit");
-			}
-			gs.deselect();
-			
-			
-			
-			res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
-			//System.out.println(res);
-			System.out.println("*******");
-		}
 
+
+
+			int res = ((JoueurBatailleNavale) joueurs.get(0)).jouer();
+
+			if(res == BatailleNavale.Code.IMPOSSIBLE) return;
+			/*
+				if (res == BatailleNavale.Code.TOUCHE_VIDE) {
+					System.out.println("Vide");
+				} else if (res == BatailleNavale.Code.TOUCHE) {
+					System.out.println("Touche");
+				} else if (res == BatailleNavale.Code.DETRUIT) {
+					System.out.println("Détruit");
+				}
+			 */
+			gs.deselect();
+
+			res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
+		}
+		
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class TireListener implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -92,7 +94,7 @@ public class TireListener implements MouseListener, MouseMotionListener {
 		if(tab[0] == 2){
 			gs.select(new Point(tab[1], tab[2]), 2);
 		}
-		
+
 	}
 
 }

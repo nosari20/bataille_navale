@@ -13,7 +13,7 @@ public abstract class AbstractPartieBatailleNavaleFactory {
 		PartieBatailleNavale partie = new PartieBatailleNavale(epoque());
 
 		Bateau bateauCase1J1 = case1();
-		bateauCase1J1.setUp(0, 0, BateauOrientation.HORIZONTAL);
+		bateauCase1J1.setUp(0, 0, BateauOrientation.VERTICAL);
 		Bateau bateauCase2J2 = case2();
 		bateauCase2J2.setUp(2, 8, BateauOrientation.VERTICAL);
 		Bateau bateauCase3J3 = case3();

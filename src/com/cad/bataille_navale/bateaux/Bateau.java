@@ -27,13 +27,22 @@ public abstract class Bateau implements Cloneable {
 	}
 
 	public int hit(int laCase, int puissance) {
+		if(etat[laCase] <= 0)
+			return BatailleNavale.Code.IMPOSSIBLE;
 		// la case a été touché donc on reduit sa resistance de sa puissance
 		etat[laCase] -= puissance;
 		// Maitenant on essaie de verifier si la case à été detruite
 		if (etat[laCase] > 0) {
+			System.out.println("TOUCHE");
 			return BatailleNavale.Code.TOUCHE;
 		}
-		return BatailleNavale.Code.DETRUIT;
+		
+		if(isDestroyed()){
+			return BatailleNavale.Code.DETRUIT;
+		}
+
+		return BatailleNavale.Code.CASE_DETRUITE;
+		
 	}
 
 	public int getNbPointDegat() {
@@ -159,7 +168,7 @@ public abstract class Bateau implements Cloneable {
 	@Override
 	public String toString() {
 		return "Bateau [id=" + id + ", nom=" + nom + ", resistance=" + resistance + ", longueur=" + longueur
-				+ ", nbProjectile=" + nbProjectile + ", puissance=" + puissance + "]";
+				+ ", nbProjectile=" + nbProjectile + ", puissance=" + puissance + ", position=(" + posx + ", " + posy + ")]";
 	}
 
 	public boolean isStillProjectileLeft() {

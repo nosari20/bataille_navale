@@ -16,7 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.cad.bataille_navale.jeu.BatailleNavale;
+import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.jeu_abstrait.Jeu;
+import com.cad.jeu_abstrait.Joueur;
 import com.cad.ui.gamescreen.GameScreen;
 
 @SuppressWarnings("serial")
@@ -28,8 +30,12 @@ public class GameUI extends JPanel implements Observer{
 	
 	private JLabel score;
 	
+	private Joueur j1;
+	
 	public GameUI(BatailleNavale j) {
 		jeu = j;
+		
+		j1 = jeu.getJoueurs().get(0);
 		
 		this.setLayout(new BorderLayout());
 		this.initGame();
@@ -51,7 +57,8 @@ public class GameUI extends JPanel implements Observer{
 				if(jeu.validePlacement()){
 					gs.removePlacementListener();
 					gs.addTireListener();
-					((JButton) e.getSource()).setEnabled(false);;
+					gs.write("JOUEZ", 1500);
+					((JButton) e.getSource()).setEnabled(false);
 				}
 				
 			}
@@ -59,6 +66,8 @@ public class GameUI extends JPanel implements Observer{
 		
 		score = new JLabel("Score : 0");
 		board.add(score);
+		
+		jeu.addObserver(this);
 		
 	}	
 	
@@ -78,7 +87,46 @@ public class GameUI extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		this.score.setText("Score : " + jeu.getResult());
+		this.score.setText("Score : " + jeu.getScore(j1));
+		
+		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.FIN){
+			System.out.println("FIN");
+		}
+		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.DEBUT){
+			System.out.println("DEBUT");
+		}
+		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.EN_COURS){
+			System.out.println("EN_COURS");
+		}
+		/*
+		if(jeu.getStatus() == BatailleNavale.Code.FIN){
+			System.out.println("FIN");
+		}
+		if(jeu.getStatus() == BatailleNavale.Code.FIN){
+			System.out.println("FIN");
+		}
+		*/
+		
+		
+		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.FIN){
+			fin();
+		}
+		
+		System.out.println("updated");
+		
+	}
+	
+	private void fin(){
+		gs.stop();
+		int result = jeu.getResult();
+		if(result == BatailleNavale.Code.VICTOIRE_J1){
+			this.score.setText("Victoire Score : " + jeu.getScore(j1));
+		}else if(result == BatailleNavale.Code.VICTOIRE_J2){
+			this.score.setText("Défaite Score : " + jeu.getScore(j1));
+		}else{
+			this.score.setText("Égalité Score : " + jeu.getScore(j1));
+		}
+		
 		
 	}
 

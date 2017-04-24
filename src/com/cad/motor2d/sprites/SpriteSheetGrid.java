@@ -33,9 +33,11 @@ public class SpriteSheetGrid implements SpriteSheet {
 		int sr = spriteSheet.getWidth()/row;
 		int sc = spriteSheet.getHeight()/col;
 		
-		int r = (index / row)*sr;
-		int c = (index % row)*sc;	
+		int r = (index % row)*sr;
+		int c = (index / row)*sc;	
 		
+		System.out.println(r);
+		System.out.println(c);
 		
 		return new Sprite(spriteSheet.getSubimage(r, c, sr, sc));
 

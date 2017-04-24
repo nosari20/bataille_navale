@@ -41,5 +41,27 @@ public class Sprite {
 
 		return new Sprite(result);
 	}
+	
+	public Sprite flipH(){
+		Image image = getImage();	
+		int w = image.getWidth(null);
+        int h = image.getHeight(null);
+        BufferedImage flippedImage = new BufferedImage(w, h, ((BufferedImage) image).getType());
+        Graphics2D g = flippedImage.createGraphics();
+        g.drawImage(image, 0, 0, w, h, w, 0, 0, h, null);
+        g.dispose();
+		return new Sprite(flippedImage);
+	}
+	
+	public Sprite flipV(){
+		Image image = getImage();	
+		int w = image.getWidth(null);
+        int h = image.getHeight(null);
+        BufferedImage flippedImage = new BufferedImage(w, h, ((BufferedImage) image).getType());
+        Graphics2D g = flippedImage.createGraphics();
+        g.drawImage(image, 0, 0, w, h, 0, h, w, 0, null);
+        g.dispose();
+		return new Sprite(flippedImage);
+	}
 
 }
