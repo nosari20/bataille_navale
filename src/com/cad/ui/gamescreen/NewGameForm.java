@@ -85,7 +85,7 @@ public class NewGameForm  extends JPanel {
 
         validate.setEnabled(input_name.getText().length()!=0);
         validate.addActionListener(event -> {
-				new MainGUI(input_name.getText());
+				new MainGUI(input_name.getText(),input_epoque.getName());
 		});
 
         

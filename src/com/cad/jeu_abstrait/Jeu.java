@@ -1,5 +1,7 @@
 package com.cad.jeu_abstrait;
 
+import com.cad.codesUtils.epoque.Epoque;
+
 import java.util.List;
 import java.util.Observable;
 
@@ -9,6 +11,7 @@ public abstract class Jeu extends Observable{
 	protected List<Joueur> listeJoueurs;
 	protected Partie partie;
 	protected int status;
+	protected String epoque;
 
 	public Jeu(List<Joueur> joueurs) {
 		this.listeJoueurs = joueurs;
@@ -39,6 +42,10 @@ public abstract class Jeu extends Observable{
 	public abstract void chargerPartie(String nomPartie);
 
 	public abstract void nouvellePartie(String nomPartie);
+
+	public abstract void setEpoque(String epoque);
+
+	public abstract String getEpoque();
 
 	public abstract int jouer(Joueur joueur, Action action);
 

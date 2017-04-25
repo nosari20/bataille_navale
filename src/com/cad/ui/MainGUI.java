@@ -33,7 +33,7 @@ public class MainGUI {
 	}
 	
 	
-	public MainGUI(String namePartie){
+	public MainGUI(String namePartie,String epoque){
 		SpriteFontRepository.getInstance().get('A');
 		String currentDir = System.getProperty("user.dir") + "\\bataille_navale-motor";
 
@@ -51,7 +51,7 @@ public class MainGUI {
 
 
 
-        createGame(namePartie); // TODO
+        createGame(namePartie,epoque); // TODO
         gameui = new GameUI((BatailleNavale) jeu);
 
 
@@ -68,7 +68,7 @@ public class MainGUI {
 	}
 
 
-	public void createGame(String namePartie){
+	public void createGame(String namePartie,String epoque){
 		joueurs = new ArrayList<Joueur>();
 		joueurs.add(
 				new JoueurBatailleNavale(com.cad.codesUtils.Joueur.HUMAN, BatailleNavalleJoueurCote.GAUCHE, "Aschmat")
@@ -78,6 +78,7 @@ public class MainGUI {
 				);
 		jeu = new BatailleNavale(joueurs);
 		jeu.nouvellePartie(namePartie);
+		jeu.setEpoque(epoque);
 	}
 
 
