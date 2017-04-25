@@ -24,6 +24,8 @@ public class PartieBatailleNavale implements Partie {
 	private int joueur = 1;
 	private String nom;
 	private Epoque epoque = Epoque.XXI;
+	
+	private Mode mode;
 
 	private int[][] grilleJ1;
 	private List<Bateau> bateauxJ1;
@@ -48,29 +50,34 @@ public class PartieBatailleNavale implements Partie {
 		}
 		bateauxJ2 = new ArrayList<Bateau>();
 		epoque = e;
+		
+		mode = new ModeNormal();
 
 
 	}
 
 	public int jouer(Action a) {
 		if(status == BatailleNavale.Code.DEBUT) return BatailleNavale.Code.IMPOSSIBLE;
+		
+		if(mode.allow(a)){
 
-		if (a instanceof TireBateau) {
-			int x = ((TireBateau) a).getPosx();
-			int y = ((TireBateau) a).getPosy();
-			Bateau tirreur = ((TireBateau) a).getTirreur();
-			tirreur.hasHit();
-			BatailleNavalleJoueurCote cote = ((TireBateau) a).getCote();
-			
-			return tirer(x, y, tirreur, cote);
-		}
-
-		if (a instanceof FrappeOrbitale) {
-			int x = ((FrappeOrbitale) a).getPosx();
-			int y = ((FrappeOrbitale) a).getPosy();
-			BatailleNavalleJoueurCote cote = ((FrappeOrbitale) a).getCote();
-			return tirer(x, y, cote);
-
+			if (a instanceof TireBateau) {
+				int x = ((TireBateau) a).getPosx();
+				int y = ((TireBateau) a).getPosy();
+				Bateau tirreur = ((TireBateau) a).getTirreur();
+				tirreur.hasHit();
+				BatailleNavalleJoueurCote cote = ((TireBateau) a).getCote();
+				
+				return tirer(x, y, tirreur, cote);
+			}
+	
+			if (a instanceof FrappeOrbitale) {
+				int x = ((FrappeOrbitale) a).getPosx();
+				int y = ((FrappeOrbitale) a).getPosy();
+				BatailleNavalleJoueurCote cote = ((FrappeOrbitale) a).getCote();
+				return tirer(x, y, cote);
+	
+			}
 		}
 
 		return BatailleNavale.Code.IMPOSSIBLE;

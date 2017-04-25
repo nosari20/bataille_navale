@@ -1,6 +1,7 @@
 package com.cad.ui.gamescreen;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ComponentEvent;
@@ -8,13 +9,19 @@ import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 
 import com.cad.bataille_navale.bateaux.Bateau;
+import com.cad.bataille_navale.bateaux.Coord;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.jeu.PartieBatailleNavale;
+import com.cad.bataille_navale.mode.ModeNormal;
+import com.cad.bataille_navale.mode.ModeTireBateau;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.codesUtils.bateau.BateauOrientation;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.motor2d.AbstractGamePanel;
 import com.cad.motor2d.sprites.SpriteSheetAtlas;
+import com.cad.ui.gamescreeen.listeners.FrappeOrbitaleListener;
+import com.cad.ui.gamescreeen.listeners.TireBateauListener;
+import com.cad.ui.gamescreeen.listeners.UIListener;
 import com.cad.ui.sprites_repository.ShipsXX1;
 import com.cad.ui.sprites_repository.SpriteExplostionRepository;
 import com.cad.ui.sprites_repository.SpriteFontRepository;
@@ -42,9 +49,11 @@ public class GameScreen extends AbstractGamePanel {
 
 	private PlacementListener placementListener;
 
-	private TireListener tireListener;
+	private UIListener tireListener;
 
-	private Point selected;
+	private Point target;
+	
+	private Point select;
 
 	char[] text;
 
@@ -61,8 +70,14 @@ public class GameScreen extends AbstractGamePanel {
 		ppux = getWidth() / w_width;
 		ppuy = getHeight() / w_height;
 
+		
 		placementListener = new PlacementListener(this);
-		tireListener = new TireListener(this, jeu);
+		
+		if(jeu.getMode() instanceof ModeNormal){
+			tireListener = new FrappeOrbitaleListener(this, jeu);
+		}else if(jeu.getMode() instanceof ModeTireBateau){
+			tireListener = new TireBateauListener(this, jeu);
+		}
 		
 
 		write("PLACER LES BATEAUX");
@@ -170,9 +185,14 @@ public class GameScreen extends AbstractGamePanel {
 
 		//g.drawImage(SpriteExplostionRepository.getInstance().getExplosion().getImage(), 0 * ppux, 0*ppuy, ppux, ppuy, null);
 
-		if(selected != null){
-			g.drawImage(SpriteLandscapeRepository.getInstance().crosshair().getImage(), (int)selected.getX()*ppux, (int)selected.getY()*ppuy, ppux, ppuy, null);
+		if(target != null){
+			g.drawImage(SpriteLandscapeRepository.getInstance().crosshair().getImage(), (int)target.getX()*ppux, (int)target.getY()*ppuy, ppux, ppuy, null);
 		}
+		/*
+		if(select != null){
+			g.drawImage(SpriteLandscapeRepository.getInstance().crosshair().getImage(), (int)select.getX()*ppux, (int)select.getY()*ppuy, ppux, ppuy, null);
+		}
+		*/
 
 
 		if(text!=null){
@@ -186,10 +206,32 @@ public class GameScreen extends AbstractGamePanel {
 
 			if(b.getOrientation() == BateauOrientation.HORIZONTAL){
 				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), false).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
-
+				if(select!=null)
+				if(b.contientCoord(new Coord(select.x, select.y)) != -1){
+					g.setColor(new Color(0,0,255,120));
+					int r = b.getPortee();
+					g.fillOval((int) (((double)b.getPosx() + (double)(b.getLongueur()/2) - r/2)*ppux), (b.getPosy() - r/2)*ppuy, r*ppux, r*ppuy);
+					//g.fillRect( b.getPosx() * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy);
+					g.setColor(Color.WHITE);
+					Font font = g.getFont().deriveFont( 30f );
+				    g.setFont( font );
+					g.drawString(""+b.getPuissance(), (int) (((double)b.getPosx() + (double)(b.getLongueur()/2))*ppux), (b.getPosy()+1)*ppuy);
+				}
 
 			}else{
-				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), true).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);				
+				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), true).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);		
+				if(select!=null)
+				if(b.contientCoord(new Coord(select.x, select.y)) != -1){
+					g.setColor(new Color(0,0,255,120));
+					int r = b.getPortee();
+					g.fillOval((int) ((b.getPosx() - r/2)*ppux), (int) (((double)b.getPosy() + (double)(b.getLongueur()/2) - r/2)*ppuy),r*ppux, r*ppuy);
+					//g.fillRect(  b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy);
+					g.setColor(Color.WHITE);
+					Font font = g.getFont().deriveFont( 30f );
+				    g.setFont( font );
+					g.drawString(""+b.getPuissance(), (int) ((b.getPosx())*ppux), (int) (((double)b.getPosy() + (double)(b.getLongueur()/2)+1)*ppuy));
+
+				}
 			}
 
 		}else if(j == BatailleNavalleJoueurCote.DROIT){
@@ -329,16 +371,30 @@ public class GameScreen extends AbstractGamePanel {
 		this.removeMouseMotionListener(tireListener);
 	}
 
-	public void select(Point p, int j){
+	public void target(Point p, int j){
 		if(j == 1){
-			selected = p;
+			target = p;
 		}else{
-			selected = new Point((int)(jeu.WIDTH - (p.getX()-jeu.WIDTH)-1), (int)p.getY());
+			
+			target = new Point((int)(jeu.WIDTH - (p.getX()-jeu.WIDTH)-1), (int)p.getY());
 		}
 	}
 
-	public void deselect(){
-		selected = null;
+	public void untarget(){
+		target = null;
+	}
+	
+	public void select(Point p, int j){
+		if(j == 1){
+			select = p;
+		}else{
+			
+			select = new Point((int)(jeu.WIDTH - (p.getX()-jeu.WIDTH)-1), (int)p.getY());
+		}
+	}
+
+	public void unselect(){
+		select = null;
 	}
 
 
@@ -346,7 +402,8 @@ public class GameScreen extends AbstractGamePanel {
 	public void stop(){	
 		super.stop();
 		removeTireListener();
-		deselect();
+		unselect();
+		untarget();
 		write("FIN");
 		repaint();
 

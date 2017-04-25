@@ -1,4 +1,4 @@
-package com.cad.ui.gamescreen;
+package com.cad.ui.gamescreeen.listeners;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -10,11 +10,15 @@ import java.util.List;
 import javax.sound.midi.Soundbank;
 
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
+import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.bataille_navale.bateaux.Bateau;
+import com.cad.bataille_navale.bateaux.Coord;
 import com.cad.bataille_navale.jeu.BatailleNavale;
+import com.cad.bataille_navale.jeu.PartieBatailleNavale;
 import com.cad.jeu_abstrait.Joueur;
+import com.cad.ui.gamescreen.GameScreen;
 
-public class TireListener implements MouseListener, MouseMotionListener {
+public class TireBateauListener implements UIListener {
 
 	private GameScreen gs;
 	private BatailleNavale jeu;
@@ -23,40 +27,49 @@ public class TireListener implements MouseListener, MouseMotionListener {
 
 	private List<Joueur> joueurs;
 
-	public TireListener(GameScreen g, BatailleNavale j) {
+	private Bateau tireur;
+
+
+	List<Bateau> listBateaux;
+
+	public TireBateauListener(GameScreen g, BatailleNavale j) {
 		gs = g;
 		jeu = j;
 		joueurs = jeu.getJoueurs();
+		listBateaux = ((BatailleNavale) jeu).getListOfBateau(BatailleNavalleJoueurCote.GAUCHE);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int[] tab = gs.screen2Case(e.getX(), e.getY());	
 		if(tab[0] == 2){
-
-			System.out.println("*******");
-			((JoueurBatailleNavale) joueurs.get(0)).frappeOrbitale(tab[1],tab[2]);
-
-
-
+			if(tireur!=null){
+				((JoueurBatailleNavale) joueurs.get(0)).tireBateau(tab[1],tab[2], tireur);
+			}else{
+				((JoueurBatailleNavale) joueurs.get(0)).frappeOrbitale(tab[1],tab[2]);
+			}			
 			int res = ((JoueurBatailleNavale) joueurs.get(0)).jouer();
-
-			if(res == BatailleNavale.Code.IMPOSSIBLE) return;
-			/*
-				if (res == BatailleNavale.Code.TOUCHE_VIDE) {
-					System.out.println("Vide");
-				} else if (res == BatailleNavale.Code.TOUCHE) {
-					System.out.println("Touche");
-				} else if (res == BatailleNavale.Code.DETRUIT) {
-					System.out.println("Détruit");
-				}
-			 */
-			gs.deselect();
-			
-			
+			if(res == BatailleNavale.Code.IMPOSSIBLE) return;			
+			gs.untarget();	
+			gs.unselect();
 			res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
+		}else{
+			int res;
+			Coord c = new Coord(tab[1], tab[2]);
+			
+			listeBateaux :for (Bateau b : listBateaux) {
+				res = b.contientCoord(c);
+				if(!b.isDestroyed() && res != -1){
+					tireur = b;
+					break listeBateaux;
+				}
+
+			}
+			if(tireur!=null){
+				gs.select(new Point(tab[1], tab[2]), 1);
+			}
 		}
-		
+
 	}
 
 	@Override
@@ -92,9 +105,7 @@ public class TireListener implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		int[] tab = gs.screen2Case(e.getX(), e.getY());	
-		if(tab[0] == 2){
-			gs.select(new Point(tab[1], tab[2]), 2);
-		}
+		gs.target(new Point(tab[1], tab[2]), tab[0]);
 
 	}
 

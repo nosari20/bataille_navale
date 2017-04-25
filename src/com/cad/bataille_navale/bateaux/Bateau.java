@@ -73,6 +73,7 @@ public abstract class Bateau implements Cloneable {
 		this.puissance = bateauCode.getPuissance();
 		this.localisation = new Coord[longueur];
 		this.etat = new int[bateauCode.getBateauLongueur()];
+		this.portee = 3;
 		this.nbProjectile = bateauCode.NB_PROJECTILE;
 		for (int i = 0; i < this.etat.length; i++) {
 			etat[i] = resistance;
@@ -81,6 +82,7 @@ public abstract class Bateau implements Cloneable {
 		nextId++;
 	}
 
+	
 	public void setUp(int x, int y, BateauOrientation orientation) {
 		this.posx = x;
 		this.posy = y;
@@ -194,5 +196,10 @@ public abstract class Bateau implements Cloneable {
 	public void setProjectile(int nbProjectile) {
 		this.nbProjectile = nbProjectile;
 	}
+	
+	public int getPortee() {
+		return portee;
+	}
+
 
 }
