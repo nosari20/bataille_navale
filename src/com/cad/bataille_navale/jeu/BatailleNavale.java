@@ -51,19 +51,9 @@ public class BatailleNavale extends Jeu {
 	}
 
 	@Override
-	public void nouvellePartie(String nomPartie) {
+	public void nouvellePartie(String nomPartie,Epoque epoque) {
 		partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
 		((PartieBatailleNavale) partie).setNom(nomPartie);
-	}
-
-	@Override
-	public void setEpoque(String e) {
-		this.epoque = e;
-	}
-
-	@Override
-	public String getEpoque() {
-		return this.epoque;
 	}
 
 	public void nouvellePartie(String nomPartie, Epoque epoque, Mode m) {

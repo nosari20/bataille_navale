@@ -13,6 +13,7 @@ import com.cad.bataille_navale.jeu.PartieBatailleNavale;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.bataille_navale.joueurs.RandomStrategyComputer;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
+import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 import com.cad.ui.gamescreen.GameScreen;
@@ -77,8 +78,7 @@ public class MainGUI {
 				new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new RandomStrategyComputer())
 				);
 		jeu = new BatailleNavale(joueurs);
-		jeu.nouvellePartie(namePartie);
-		jeu.setEpoque(epoque);
+		jeu.nouvellePartie(namePartie,Epoque.valueOf(epoque));
 	}
 
 
