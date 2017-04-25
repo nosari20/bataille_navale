@@ -1,3 +1,6 @@
 .settings
 .project
 /bin/
+out/
+bataille_navale.iml
+.idea/

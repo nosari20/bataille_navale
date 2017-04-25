@@ -16,6 +16,7 @@ import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 import com.cad.ui.gamescreen.GameScreen;
+import com.cad.ui.gamescreen.GameStartScreen;
 import com.cad.ui.sprites_repository.SpriteFontRepository;
 
 public class MainGUI {
@@ -23,50 +24,50 @@ public class MainGUI {
 	private Scanner sc;
 	private Jeu jeu;
 	private List<Joueur> joueurs;
-	
+
 	
 	private GameUI gameui;
 	
 	public static void main(String[] args) {
-		SpriteFontRepository.getInstance().get('A');
-		new MainGUI();
+		new GameStartScreen();
 	}
 	
 	
 	public MainGUI(){
+		SpriteFontRepository.getInstance().get('A');
 		String currentDir = System.getProperty("user.dir") + "\\bataille_navale-motor";
-		
+
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		
-		
+
+
+
         System.out.println("Current dir using System:" +currentDir);
-        
-        
-        
-        
+
+
+
+
         createGame(); // TODO
-        gameui = new GameUI((BatailleNavale) jeu);       
-        
-         
+        gameui = new GameUI((BatailleNavale) jeu);
+
+
 		JFrame f = new JFrame("BattleShip");
 		f.setSize(800, 400);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setLocationRelativeTo(null);
 		f.setContentPane(gameui);
-		f.setVisible(true);	
-		
+		f.setVisible(true);
+
 		gameui.lauchGame();
-		
-		
+
+
 	}
-	
-	
+
+
 	public void createGame(){
 		joueurs = new ArrayList<Joueur>();
 		joueurs.add(
@@ -77,8 +78,8 @@ public class MainGUI {
 		jeu = new BatailleNavale(joueurs);
 		jeu.nouvellePartie("p1");
 	}
-	
-	
+
+
 
 
 }
