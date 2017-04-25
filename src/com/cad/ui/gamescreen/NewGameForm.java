@@ -62,11 +62,23 @@ public class NewGameForm  extends JPanel {
         panel_difficulty.add(input_difficulty);
         form.add(panel_difficulty);
 
+        
+        validate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new MainGUI();
+				
+			}
+		});
+        /*
         validate.addActionListener(event ->{
             new MainGUI();
         });
+        */
+        
 
-
+        //new MainGUI();
         form.add(validate);
 
         add(form, BorderLayout.CENTER);

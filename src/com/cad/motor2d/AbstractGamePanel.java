@@ -1,16 +1,21 @@
 package com.cad.motor2d;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public abstract class AbstractGamePanel extends JPanel implements ComponentListener {
 
 	private boolean isRunning = true;
-	private int fps = 30;
+	private int fps = 60;
+	
+	private Timer timer;
 
 	public AbstractGamePanel() {
 		super();
@@ -20,21 +25,41 @@ public abstract class AbstractGamePanel extends JPanel implements ComponentListe
 	public void  run() {
 		initialize();
 		isRunning = true;
+
+
+		int delay = (1000 / fps); //milliseconds
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				routine();      
+			}
+		};
+		timer = new Timer(delay, taskPerformer);
+		timer.start();
+		/*
 		while (isRunning) {
 			long time = System.currentTimeMillis();
 			update(time);
 			repaint();
+			System.out.println("repaint");
+			//isRunning = false;
 			time = (1000 / fps) - (System.currentTimeMillis() - time);
 			if (time > 0) {
 				try {
-					Thread.sleep(time);
+					Thread.sleep(1000);
 					System.gc();
 				} catch (Exception e) {
+					System.err.println(e);
 				}
 			}
 		}
+		*/
 	}
 
+	public void routine(){
+		update(1000);
+		repaint();
+		timer.restart();
+	}
 	public void stop() {
 		isRunning = false;
 	}

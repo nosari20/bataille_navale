@@ -14,18 +14,31 @@ public abstract class AbstractPartieBatailleNavaleFactory {
 
 		Bateau bateauCase1J1 = case1();
 		bateauCase1J1.setUp(0, 0, BateauOrientation.VERTICAL);
+		Bateau bateauCase2J1 = case2();
+		bateauCase2J1.setUp(2, 8, BateauOrientation.VERTICAL);
+		Bateau bateauCase3J1 = case3();
+		bateauCase3J1.setUp(3, 5, BateauOrientation.VERTICAL);
+		Bateau bateauCase4J1 = case4();
+		bateauCase4J1.setUp(1, 3, BateauOrientation.HORIZONTAL);
+		Bateau bateauCase5J1 = case5();
+		bateauCase5J1.setUp(7, 1, BateauOrientation.HORIZONTAL);
+
+		partie.setBateauJ1(bateauCase1J1, bateauCase2J1, bateauCase3J1, bateauCase4J1, bateauCase5J1);
+		
+		
+		Bateau bateauCase1J2 = case1();
+		bateauCase1J2.setUp(0, 0, BateauOrientation.VERTICAL);
 		Bateau bateauCase2J2 = case2();
 		bateauCase2J2.setUp(2, 8, BateauOrientation.VERTICAL);
-		Bateau bateauCase3J3 = case3();
-		bateauCase3J3.setUp(3, 5, BateauOrientation.VERTICAL);
-		Bateau bateauCase4J4 = case4();
-		bateauCase4J4.setUp(1, 3, BateauOrientation.HORIZONTAL);
-		Bateau bateauCase5J5 = case5();
-		bateauCase5J5.setUp(7, 1, BateauOrientation.HORIZONTAL);
+		Bateau bateauCase3J2 = case3();
+		bateauCase3J2.setUp(3, 5, BateauOrientation.VERTICAL);
+		Bateau bateauCase4J2 = case4();
+		bateauCase4J2.setUp(1, 3, BateauOrientation.HORIZONTAL);
+		Bateau bateauCase5J2 = case5();
+		bateauCase5J2.setUp(7, 1, BateauOrientation.HORIZONTAL);
 
-		partie.setBateauJ1(bateauCase1J1, bateauCase2J2, bateauCase3J3, bateauCase4J4, bateauCase5J5);
-		partie.setBateauJ2((Bateau) bateauCase1J1.clone(), (Bateau) bateauCase2J2.clone(),
-				(Bateau) bateauCase3J3.clone(), (Bateau) bateauCase4J4.clone(), (Bateau) bateauCase5J5.clone());
+		partie.setBateauJ2(bateauCase1J2, bateauCase2J2, bateauCase3J2, bateauCase4J2, bateauCase5J2);
+		
 
 		return partie;
 	}

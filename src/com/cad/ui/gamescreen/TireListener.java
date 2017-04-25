@@ -52,7 +52,8 @@ public class TireListener implements MouseListener, MouseMotionListener {
 				}
 			 */
 			gs.deselect();
-
+			
+			
 			res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
 		}
 		

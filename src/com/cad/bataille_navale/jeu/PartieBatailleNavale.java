@@ -61,6 +61,7 @@ public class PartieBatailleNavale implements Partie {
 			Bateau tirreur = ((TireBateau) a).getTirreur();
 			tirreur.hasHit();
 			BatailleNavalleJoueurCote cote = ((TireBateau) a).getCote();
+			
 			return tirer(x, y, tirreur, cote);
 		}
 
@@ -108,11 +109,15 @@ public class PartieBatailleNavale implements Partie {
 	}
 
 	public int tirer(int x, int y, BatailleNavalleJoueurCote cote) {
+		
+		System.out.println("************************");
+		System.out.println(cote);
 		// return tirer(x,y,tirreur.degats());
 		if (cote == BatailleNavalleJoueurCote.GAUCHE) {
-
+			System.out.println("gauche ->  droite");
 			return traiteTir(x, y, bateauxJ2, grilleJ2);
 		}
+		System.out.println("droite ->  gauche");
 		return traiteTir(x, y, bateauxJ1, grilleJ1);
 	}
 
@@ -165,7 +170,7 @@ public class PartieBatailleNavale implements Partie {
 			Coord c = new Coord(x, y);
 			int res = -1;
 			int count = 0;
-			listBateau: for (Bateau b : list) {
+			for (Bateau b : list) {
 			
 				res = b.contientCoord(c);
 				if (res != -1 && !b.isDestroyed()) {
@@ -187,6 +192,7 @@ public class PartieBatailleNavale implements Partie {
 				}
 
 			}
+			
 
 			return grille[x][y];
 		}
@@ -214,7 +220,7 @@ public class PartieBatailleNavale implements Partie {
 
 	public void joueurSuivant() {
 		joueur = (joueur + 1) % 2 + 1;
-		this.notifyAll();
+		//this.notifyAll();
 	}
 
 	private int[][] grilleCourante() {
@@ -299,6 +305,7 @@ public class PartieBatailleNavale implements Partie {
 			return grilleJ1;
 		return grilleJ2;
 	}
+	
 
 	public int getResult() {
 		int resultJ1 = getScoreJ1();
@@ -319,9 +326,8 @@ public class PartieBatailleNavale implements Partie {
 	public int getScoreJ1() {
 		int resultJ1 = 0;
 
-		for (Bateau b : bateauxJ1) {
-			if(b.isDestroyed())
-				resultJ1 += b.getNbPointDegat();
+		for (Bateau b : bateauxJ2) {
+			resultJ1 += b.getNbPointDegat();
 		}
 		return resultJ1;
 	}
@@ -329,9 +335,8 @@ public class PartieBatailleNavale implements Partie {
 	public int getScoreJ2() {
 		int resultJ2 = 0;
 
-		for (Bateau b : bateauxJ2) {
-			if(b.isDestroyed())
-				resultJ2 += b.getNbPointDegat();
+		for (Bateau b : bateauxJ1) {
+			resultJ2 += b.getNbPointDegat();
 		}
 		return resultJ2;
 	}

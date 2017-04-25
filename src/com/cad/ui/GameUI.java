@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.cad.bataille_navale.jeu.BatailleNavale;
+import com.cad.bataille_navale.jeu.PartieBatailleNavale;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
@@ -87,7 +88,7 @@ public class GameUI extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		this.score.setText("Score : " + jeu.getScore(j1));
+		this.score.setText("Score : " + ((PartieBatailleNavale) jeu.currentPartie()).getScoreJ1());
 		
 		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.FIN){
 			System.out.println("FIN");
@@ -107,6 +108,8 @@ public class GameUI extends JPanel implements Observer{
 		}
 		*/
 		
+		System.out.println("J1 : " + ((PartieBatailleNavale) jeu.currentPartie()).getScoreJ1());
+		System.out.println("J2 : " + ((PartieBatailleNavale) jeu.currentPartie()).getScoreJ2());
 		
 		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.FIN){
 			fin();
@@ -118,7 +121,7 @@ public class GameUI extends JPanel implements Observer{
 	
 	private void fin(){
 		gs.stop();
-		int result = jeu.getResult();
+		int result = jeu.getResult();		
 		if(result == BatailleNavale.Code.VICTOIRE_J1){
 			this.score.setText("Victoire Score : " + jeu.getScore(j1));
 		}else if(result == BatailleNavale.Code.VICTOIRE_J2){

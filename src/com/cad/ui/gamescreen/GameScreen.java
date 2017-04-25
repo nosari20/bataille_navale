@@ -127,41 +127,45 @@ public class GameScreen extends AbstractGamePanel {
 			drawBateau(g, b, BatailleNavalleJoueurCote.DROIT);
 		}
 
-		int[][] grille =  partie.getGrille(BatailleNavalleJoueurCote.DROIT);		
-		for(int i = 0; i < grille.length; i++ ){
-			for(int j = 0; j < grille[0].length; j++ ){
+		
+		int[][] grille1 =  partie.getGrille(BatailleNavalleJoueurCote.GAUCHE);		
+		for(int i = 0; i < grille1.length; i++ ){
+			for(int j = 0; j < grille1[0].length; j++ ){
 
-				if (grille[i][j] == BatailleNavale.Code.TOUCHE_VIDE) {
-					g.setColor(new Color(0,0,0,120));
-					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
-				} else if (grille[i][j] == BatailleNavale.Code.TOUCHE) {
-					g.setColor(new Color(255,0,0,120));
-					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
-				} else if (grille[i][j] == BatailleNavale.Code.CASE_DETRUITE) {
-					g.setColor(new Color(0,255,0,120));
-					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
-				}
-
-			}
-		}
-
-		grille =  partie.getGrille(BatailleNavalleJoueurCote.GAUCHE);		
-		for(int i = 0; i < grille.length; i++ ){
-			for(int j = 0; j < grille[0].length; j++ ){
-
-				if (grille[i][j] == BatailleNavale.Code.TOUCHE_VIDE) {
+				if (grille1[i][j] == BatailleNavale.Code.TOUCHE_VIDE) {
 					g.setColor(new Color(0,0,0,120));
 					g.fillRect(i*ppux, j*ppuy, ppux, ppuy);
-				} else if (grille[i][j] == BatailleNavale.Code.TOUCHE) {
+				} else if (grille1[i][j] == BatailleNavale.Code.TOUCHE) {
 					g.setColor(new Color(255,0,0,120));
 					g.fillRect(i*ppux, j*ppuy, ppux, ppuy);
-				} else if (grille[i][j] == BatailleNavale.Code.CASE_DETRUITE) {
+				} else if (grille1[i][j] == BatailleNavale.Code.CASE_DETRUITE) {
 					g.setColor(new Color(0,255,0,120));
 					g.fillRect(i*ppux, j*ppuy, ppux, ppuy);
 				}
 
 			}
 		}
+	
+		int[][] grille2 =  partie.getGrille(BatailleNavalleJoueurCote.DROIT);		
+		for(int i = 0; i < grille2.length; i++ ){
+			for(int j = 0; j < grille2[0].length; j++ ){
+
+				if (grille2[i][j] == BatailleNavale.Code.TOUCHE_VIDE) {
+					g.setColor(new Color(0,0,0,120));
+					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
+				} else if (grille2[i][j] == BatailleNavale.Code.TOUCHE) {
+					g.setColor(new Color(255,0,0,120));
+					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
+				} else if (grille2[i][j] == BatailleNavale.Code.CASE_DETRUITE) {
+					g.setColor(new Color(0,255,0,120));
+					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
+				}
+
+			}
+		}
+		
+
+		
 
 
 		//g.drawImage(SpriteExplostionRepository.getInstance().getExplosion().getImage(), 0 * ppux, 0*ppuy, ppux, ppuy, null);

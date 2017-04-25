@@ -71,10 +71,11 @@ public class MainGUI {
 	public void createGame(){
 		joueurs = new ArrayList<Joueur>();
 		joueurs.add(
-				new JoueurBatailleNavale(com.cad.codesUtils.Joueur.HUMAN, BatailleNavalleJoueurCote.GAUCHE, "Aschmat"));
-		joueurs.add(new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new RandomStrategyComputer()));
-		jeu = new BatailleNavale(joueurs);
-		jeu.nouvellePartie("p1");
+				new JoueurBatailleNavale(com.cad.codesUtils.Joueur.HUMAN, BatailleNavalleJoueurCote.GAUCHE, "Aschmat")
+				);
+		joueurs.add(
+				new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new RandomStrategyComputer())
+				);
 		jeu = new BatailleNavale(joueurs);
 		jeu.nouvellePartie("p1");
 	}
