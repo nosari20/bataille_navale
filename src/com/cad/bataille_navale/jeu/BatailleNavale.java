@@ -51,7 +51,7 @@ public class BatailleNavale extends Jeu {
 	}
 
 	@Override
-	public void nouvellePartie(String nomPartie,Epoque epoque) {
+	public void nouvellePartie(String nomPartie) {
 		partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}

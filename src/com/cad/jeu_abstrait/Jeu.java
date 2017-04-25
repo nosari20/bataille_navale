@@ -40,7 +40,7 @@ public abstract class Jeu extends Observable{
 
 	public abstract void chargerPartie(String nomPartie);
 
-	public abstract void nouvellePartie(String nomPartie,Epoque epoque);
+	public abstract void nouvellePartie(String nomPartie);
 
 	public abstract int jouer(Joueur joueur, Action action);
 

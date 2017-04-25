@@ -78,7 +78,7 @@ public class MainGUI {
 				new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new RandomStrategyComputer())
 				);
 		jeu = new BatailleNavale(joueurs);
-		jeu.nouvellePartie(namePartie,Epoque.valueOf(epoque));
+		jeu.nouvellePartie(namePartie);
 	}
 
 

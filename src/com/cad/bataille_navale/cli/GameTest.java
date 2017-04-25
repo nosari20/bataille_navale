@@ -8,6 +8,7 @@ import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.bataille_navale.joueurs.RandomStrategyComputer;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
+import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 
@@ -123,7 +124,7 @@ public class GameTest {
 		if (gameResult == BatailleNavale.Code.DRAW)
 			System.out.println("MATCH NULL BOOOOOO");
 		else if (gameResult == BatailleNavale.Code.VICTOIRE_J1)
-			System.out.println(joueurs.get(1).getNom() + " a gagné");
+			System.out.println(joueurs.get(1).getNom() + " a gagnï¿½");
 	}
 
 	private void setUp() {
