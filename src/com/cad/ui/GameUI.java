@@ -21,7 +21,9 @@ import com.cad.bataille_navale.jeu.PartieBatailleNavale;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
+import com.cad.motor2d.sprites.Animation;
 import com.cad.ui.gamescreen.GameScreen;
+import com.cad.ui.sprites_repository.SpriteExplostionRepository;
 
 @SuppressWarnings("serial")
 public class GameUI extends JPanel implements Observer{
@@ -33,6 +35,8 @@ public class GameUI extends JPanel implements Observer{
 	private JLabel score;
 	
 	private Joueur j1;
+	
+	
 	
 	public GameUI(BatailleNavale j) {
 		jeu = j;
@@ -70,6 +74,9 @@ public class GameUI extends JPanel implements Observer{
 		board.add(score);
 		
 		jeu.addObserver(this);
+		
+		
+		
 		
 	}	
 	

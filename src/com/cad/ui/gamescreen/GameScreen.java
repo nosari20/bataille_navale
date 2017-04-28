@@ -62,7 +62,10 @@ public class GameScreen extends AbstractGamePanel {
 	private char[] text;
 	
 	private List<Pair<Point,Animation>> explosions;
+	private Animation flames;
+	int fpr = 0;
 
+	
 
 	public GameScreen(BatailleNavale j) {
 		jeu =  j;
@@ -104,12 +107,23 @@ public class GameScreen extends AbstractGamePanel {
 		        }, 
 		        1500 
 		);
+		
+		
+		flames = SpriteExplostionRepository.getInstance().getFlames();
+		flames.loop(true);
+		flames.start();
 
 	}
 
 	@Override
 	public void update(long time) {
-
+		if(fpr > 5){
+			flames.update();
+			fpr = 0;
+		}else{
+			fpr++;
+		}
+		
 	}
 
 	@Override
@@ -144,12 +158,39 @@ public class GameScreen extends AbstractGamePanel {
 		// Draw j1
 		for (Bateau b : partie.getBateauJ1()){
 			drawBateau(g, b, BatailleNavalleJoueurCote.GAUCHE);
+			if(b.isDestroyed()){
+				if(b.getOrientation() == BateauOrientation.HORIZONTAL){
+
+					for(int i = 0; i < b.getLongueur(); i++){
+						g.drawImage(flames.getSprite().getImage(), (b.getPosx()+i) * ppux, b.getPosy()*ppuy, ppux, ppuy, null);
+					}
+				}else{
+					for(int i = 0; i < b.getLongueur(); i++){
+						g.drawImage(flames.getSprite().getImage(), b.getPosx() * ppux, (b.getPosy()+i)*ppuy, ppux, ppuy, null);
+					}
+				}
+					
+			}
 		}
 		//Draw j2
 		for (Bateau b : partie.getBateauJ2()){
 			//if(b.isDestroyed())
 			drawBateau(g, b, BatailleNavalleJoueurCote.DROIT);
+			if(b.isDestroyed()){
+				if(b.getOrientation() == BateauOrientation.HORIZONTAL){
+
+					for(int i = 0; i < b.getLongueur(); i++){
+						g.drawImage(flames.getSprite().getImage(), (2*jeu.WIDTH - b.getPosx() - b.getLongueur()+i) * ppux, b.getPosy()*ppuy, ppux, ppuy, null);
+					}
+				}else{
+					for(int i = 0; i < b.getLongueur(); i++){
+						g.drawImage(flames.getSprite().getImage(), ((2*jeu.WIDTH - b.getPosx()-1)) * ppux, (b.getPosy()+i)*ppuy, ppux, ppuy, null);
+					}
+				}
+					
+			}
 		}
+		
 
 		
 		int[][] grille1 =  partie.getGrille(BatailleNavalleJoueurCote.GAUCHE);		
