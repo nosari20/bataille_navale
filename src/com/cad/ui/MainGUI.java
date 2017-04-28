@@ -10,6 +10,7 @@ import javax.swing.UIManager;
 import com.cad.bataille_navale.factory.ModernePartieBatailleNavaleFactory;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.jeu.PartieBatailleNavale;
+import com.cad.bataille_navale.joueurs.CrossStrategyComputer;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.bataille_navale.joueurs.RandomStrategyComputer;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
@@ -75,7 +76,7 @@ public class MainGUI {
 				new JoueurBatailleNavale(com.cad.codesUtils.Joueur.HUMAN, BatailleNavalleJoueurCote.GAUCHE, "Aschmat")
 				);
 		joueurs.add(
-				new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new RandomStrategyComputer())
+				new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new CrossStrategyComputer())
 				);
 		jeu = new BatailleNavale(joueurs);
 		jeu.nouvellePartie(namePartie);

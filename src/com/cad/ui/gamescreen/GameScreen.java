@@ -7,6 +7,10 @@ import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.security.KeyStore.Entry;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.bateaux.Coord;
@@ -55,7 +59,9 @@ public class GameScreen extends AbstractGamePanel {
 	
 	private Point select;
 
-	char[] text;
+	private char[] text;
+	
+	private List<Pair<Point,Animation>> explosions;
 
 
 	public GameScreen(BatailleNavale j) {
@@ -79,6 +85,8 @@ public class GameScreen extends AbstractGamePanel {
 			tireListener = new TireBateauListener(this, jeu);
 		}
 		
+		
+		explosions = new ArrayList<>();
 
 		write("PLACER LES BATEAUX");
 
@@ -197,6 +205,28 @@ public class GameScreen extends AbstractGamePanel {
 
 		if(text!=null){
 			drawText(g);
+		}
+		
+		
+		List<Integer> delete= new ArrayList<Integer>();
+		for (Iterator iterator = explosions.iterator(); iterator.hasNext();) {
+			Pair a = (Pair) iterator.next();
+			
+			Point p = (Point) a.first;
+			Animation an = (Animation) a.second;
+			int x = p.x*ppux;
+			int y = p.y*ppuy;
+			g.drawImage(an.getSprite().getImage(),x,y,ppux, ppuy, null);
+			an.update();
+			
+			if(an.isFinished()){
+				delete.add(explosions.indexOf(a));
+			}
+		}
+		
+		for (Iterator iterator = delete.iterator(); iterator.hasNext();) {
+			Integer integer = (Integer) iterator.next();
+			explosions.remove(integer);
 		}
 	}
 
@@ -369,6 +399,20 @@ public class GameScreen extends AbstractGamePanel {
 	public void removeTireListener(){
 		this.removeMouseListener(tireListener);
 		this.removeMouseMotionListener(tireListener);
+	}
+	
+	public void explode(Point p, int j){
+		Point rp;
+		if(j == 1){
+			rp = p;
+		}else{
+			
+			rp = new Point((int)(jeu.WIDTH - (p.getX()-jeu.WIDTH)-1), (int)p.getY());
+		}
+		Animation an = SpriteExplostionRepository.getInstance().getExplosion();
+		an.loop(false);
+		an.start();
+		explosions.add(new Pair<Point, Animation>(rp,an));
 	}
 
 	public void target(Point p, int j){

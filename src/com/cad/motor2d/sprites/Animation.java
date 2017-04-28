@@ -49,6 +49,10 @@ public class Animation {
 
 		stopped = true;
 	}
+	
+	public boolean isFinished(){
+		return stopped;
+	}
 
 	public void restart() {
 		if (frames.size() == 0) {

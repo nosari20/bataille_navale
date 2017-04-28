@@ -75,5 +75,9 @@ public class JoueurBatailleNavale implements Joueur {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Action getLastAction(){
+		return b.build();
+	}
 
 }

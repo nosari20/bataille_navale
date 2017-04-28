@@ -10,7 +10,7 @@ import com.cad.bataille_navale.jeu.BatailleNavale;
 public class RandomStrategyComputer implements StrategyComputer {
 
 	@Override
-	public Coord choosePoint(int[][] grille) {
+	public Coord choosePoint(final int[][] grille) {
 		Random r = new Random();
 		result: while (true) {
 			int x = r.nextInt(BatailleNavale.Code.GAME_WIDTH);

@@ -12,13 +12,14 @@ public class SpriteExplostionRepository {
 
 
 	private SpriteSheetGrid p;
-	
-	
-	private Animation exp;
+
 
 
 	private SpriteExplostionRepository() {
 		p = new SpriteSheetGrid("./assets/spritesheets/explosion.png",9,9);
+	}
+	
+	public Animation getExplosion(){
 		ArrayList<Sprite> s = new ArrayList<>();
 		for (int i = 0; i < p.getRow(); i++) {
 			for (int j = 0; j < p.getCol(); j++) {
@@ -26,15 +27,11 @@ public class SpriteExplostionRepository {
 			}
 		}
 		
-		exp = new Animation(s.toArray(new Sprite[s.size()]));
-		exp.start();
-	}
-	
-	public Sprite getExplosion(){
-		Sprite p = exp.getSprite();
-		exp.update();
-		return p;
+		return new Animation(s.toArray(new Sprite[s.size()]));
+		
 	} 
+	
+	
 
 	public static SpriteExplostionRepository getInstance(){
 		return instance;

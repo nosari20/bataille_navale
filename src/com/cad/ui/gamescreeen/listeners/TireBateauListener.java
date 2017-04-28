@@ -11,10 +11,13 @@ import javax.sound.midi.Soundbank;
 
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
+import com.cad.bataille_navale.actions.FrappeOrbitale;
+import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.bateaux.Coord;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.jeu.PartieBatailleNavale;
+import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Joueur;
 import com.cad.ui.gamescreen.GameScreen;
 
@@ -49,10 +52,32 @@ public class TireBateauListener implements UIListener {
 				((JoueurBatailleNavale) joueurs.get(0)).frappeOrbitale(tab[1],tab[2]);
 			}			
 			int res = ((JoueurBatailleNavale) joueurs.get(0)).jouer();
-			if(res == BatailleNavale.Code.IMPOSSIBLE) return;			
+			if(res == BatailleNavale.Code.IMPOSSIBLE) return;		
+			if(res != BatailleNavale.Code.TOUCHE_VIDE){
+				gs.explode(new Point(tab[1], tab[2]), 2);
+			}
 			gs.untarget();	
 			gs.unselect();
+			
+			// IA
 			res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
+			while(res == BatailleNavale.Code.IMPOSSIBLE)
+				res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
+			
+			Action last = ((JoueurBatailleNavale) joueurs.get(1)).getLastAction();
+			int iax, iay;
+			if(tireur != null){
+				iax = ((TireBateau) (last)).getPosx();
+				iay = ((TireBateau) (last)).getPosy();
+			}else{				
+				iax = ((FrappeOrbitale) (last)).getPosx();
+				iay = ((FrappeOrbitale) (last)).getPosy();
+			}
+			
+			if(res != BatailleNavale.Code.TOUCHE_VIDE){
+				gs.explode(new Point(iax, iay), 1);
+			}
+			tireur=null;
 		}else{
 			int res;
 			Coord c = new Coord(tab[1], tab[2]);
@@ -108,5 +133,7 @@ public class TireBateauListener implements UIListener {
 		gs.target(new Point(tab[1], tab[2]), tab[0]);
 
 	}
+	
+	
 
 }
