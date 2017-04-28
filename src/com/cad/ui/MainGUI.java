@@ -1,11 +1,11 @@
 package com.cad.ui;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import com.cad.bataille_navale.factory.ModernePartieBatailleNavaleFactory;
 import com.cad.bataille_navale.jeu.BatailleNavale;
@@ -50,7 +50,10 @@ public class MainGUI {
 
         System.out.println("Current dir using System:" +currentDir);
 
-
+		JMenuBar menuBar = new JMenuBar();
+		JMenu file = new JMenu("Fichier");
+		JMenuItem menu = new JMenuItem("Menu");
+		JMenuItem leave = new JMenuItem("Quitter");
 
 
         createGame(namePartie,epoque); // TODO
@@ -61,7 +64,23 @@ public class MainGUI {
 		f.setSize(800, 400);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setLocationRelativeTo(null);
-		f.setContentPane(gameui);
+		f.getContentPane().add(gameui, BorderLayout.CENTER);
+
+		file.add(menu);
+		menu.addActionListener(event ->{
+			new GameStartScreen();
+			f.dispose();
+		});
+		file.addSeparator();
+
+		leave.addActionListener(event ->{
+			System.exit(0);
+		});
+		file.add(leave);
+
+		menuBar.add(file);
+		f.setJMenuBar(menuBar);
+
 		f.setVisible(true);
 
 		gameui.lauchGame();
