@@ -146,8 +146,8 @@ public class GameScreen extends AbstractGamePanel {
 
 			}
 		}
-	
-		int[][] grille2 =  partie.getGrille(BatailleNavalleJoueurCote.DROIT);		
+
+		int[][] grille2 =  partie.getGrille(BatailleNavalleJoueurCote.DROIT);
 		for(int i = 0; i < grille2.length; i++ ){
 			for(int j = 0; j < grille2[0].length; j++ ){
 
@@ -164,9 +164,9 @@ public class GameScreen extends AbstractGamePanel {
 
 			}
 		}
-		
 
-		
+
+
 
 
 		//g.drawImage(SpriteExplostionRepository.getInstance().getExplosion().getImage(), 0 * ppux, 0*ppuy, ppux, ppuy, null);

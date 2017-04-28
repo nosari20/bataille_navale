@@ -20,6 +20,7 @@ import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Partie;
 import com.cad.ui.sprites_repository.ShipsXIX;
 import com.cad.ui.sprites_repository.ShipsXX1;
+import com.cad.ui.sprites_repository.ShipsXXI;
 import com.cad.ui.sprites_repository.SpriteBateauRepository;
 
 import static com.cad.codesUtils.epoque.Epoque.*;
@@ -418,15 +419,13 @@ public class PartieBatailleNavale implements Partie {
 	public void setGraphiqueEpoque() {
 		switch (epoque){
 			case XIX :
-			    System.out.println("XIX");
                 this.graphiqueEpoque = ShipsXIX.getInstance();
 				break;
             case XX:
-                System.out.println("XIX");
                 this.graphiqueEpoque = ShipsXX1.getInstance();
 				break;
             case XXI:
-                this.graphiqueEpoque = ShipsXIX.getInstance();
+                this.graphiqueEpoque = ShipsXXI.getInstance();
                 break;
 		}
 	}

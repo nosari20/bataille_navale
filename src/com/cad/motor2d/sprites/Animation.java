@@ -81,6 +81,7 @@ public class Animation {
 		//System.out.println("curr = " + currentFrame +  "tot = " +totalFrames);
 		if(!loop && currentFrame == totalFrames -1){
 			stop();
+			restart();
 		}
 		
 		if (!stopped) {
