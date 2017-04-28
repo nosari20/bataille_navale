@@ -30,7 +30,7 @@ public class ModeTireBateau implements Mode {
 
 	@Override
 	public boolean allow(Action a) {
-		return (a instanceof TireBateau) || (a instanceof FrappeOrbitale);
+		return a instanceof TireBateau;
 	}
 
 }

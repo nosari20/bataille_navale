@@ -45,13 +45,39 @@ public class TireBateauListener implements UIListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int[] tab = gs.screen2Case(e.getX(), e.getY());	
+		System.out.println("click");
 		if(tab[0] == 2){
+			System.out.println(tireur);
 			if(tireur!=null){
+				System.out.println("tb");
 				((JoueurBatailleNavale) joueurs.get(0)).tireBateau(tab[1],tab[2], tireur);
 			}else{
-				((JoueurBatailleNavale) joueurs.get(0)).frappeOrbitale(tab[1],tab[2]);
+				return;
 			}			
 			int res = ((JoueurBatailleNavale) joueurs.get(0)).jouer();
+			
+			if (res == BatailleNavale.Code.TOUCHE_VIDE) {
+				System.out.println("Vide");
+			} else if (res == BatailleNavale.Code.TOUCHE) {
+				System.out.println("Touche");
+			} else if (res == BatailleNavale.Code.DETRUIT) {
+				System.out.println("Détruit");
+			} else if (res == BatailleNavale.Code.CASE_DETRUITE) {
+				System.out.println("Case Détruite");
+			} else if (res == BatailleNavale.Code.TROP_LOIN) {
+				System.out.println("Trop loin");
+			} else if (res == BatailleNavale.Code.VIDE) {
+				System.out.println("Vide");
+			} else if (res == BatailleNavale.Code.VIDE) {
+				System.out.println("Vide");
+			} else if (res == BatailleNavale.Code.IMPOSSIBLE) {
+				System.out.println("Impossible");
+			} else{
+				System.out.println(BatailleNavale.Code.TOUCHE);
+				System.out.println(res);
+				System.out.println("Error");
+			}
+		 
 			if(res == BatailleNavale.Code.IMPOSSIBLE) return;		
 			if(res != BatailleNavale.Code.TOUCHE_VIDE){
 				gs.explode(new Point(tab[1], tab[2]), 2);
@@ -60,13 +86,15 @@ public class TireBateauListener implements UIListener {
 			gs.unselect();
 			
 			// IA
+			System.out.println(tireur);
+			
 			res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
 			while(res == BatailleNavale.Code.IMPOSSIBLE)
 				res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
 			
 			Action last = ((JoueurBatailleNavale) joueurs.get(1)).getLastAction();
 			int iax, iay;
-			if(tireur != null){
+			if(last instanceof TireBateau){
 				iax = ((TireBateau) (last)).getPosx();
 				iay = ((TireBateau) (last)).getPosy();
 			}else{				
@@ -90,6 +118,7 @@ public class TireBateauListener implements UIListener {
 				}
 
 			}
+			System.out.println(tireur);
 			if(tireur!=null){
 				gs.select(new Point(tab[1], tab[2]), 1);
 			}

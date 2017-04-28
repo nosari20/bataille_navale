@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.jeu.PartieBatailleNavale;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
@@ -108,14 +109,13 @@ public class GameUI extends JPanel implements Observer{
 		}
 		*/
 		
-		System.out.println("J1 : " + ((PartieBatailleNavale) jeu.currentPartie()).getScoreJ1());
-		System.out.println("J2 : " + ((PartieBatailleNavale) jeu.currentPartie()).getScoreJ2());
-		
+
+	
 		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.FIN){
 			fin();
 		}
 		
-		System.out.println("updated");
+
 		
 	}
 	

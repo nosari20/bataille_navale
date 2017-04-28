@@ -1,11 +1,15 @@
 package com.cad.bataille_navale.joueurs;
 
 
+import java.util.List;
+import java.util.Iterator;
+
 import com.cad.bataille_navale.actions.FrappeOrbitale;
 import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.bateaux.Coord;
 import com.cad.bataille_navale.jeu.BatailleNavale;
+import com.cad.bataille_navale.mode.ModeNormal;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Jeu;
@@ -31,10 +35,14 @@ public class JoueurBatailleNavale implements Joueur {
 
 	public int jouer() {
 		if (role == com.cad.codesUtils.Joueur.COMPUTER) {
-			Coord c = strategy.choosePoint(jeu.getGrille(cote));
-			//Bateau tirreur = strategy.chooseBateauTirreur(jeu.getListOfBateau(cote));
-			frappeOrbitale(c.x, c.y);
-			//System.out.println("X : " + c.x + " | Y : " + c.y);
+			Coord c = strategy.choosePoint(jeu.getGrille(BatailleNavalleJoueurCote.GAUCHE));
+			if(jeu.getMode() instanceof ModeNormal){
+				frappeOrbitale(c.x, c.y);//TODO
+			}else{
+				
+				Bateau tirreur = strategy.chooseBateauTirreur(jeu.getListOfBateau(cote));
+				tireBateau(c.x, c.y, tirreur);
+			}
 		}
 		return jeu.jouer(this, b.build());
 

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.sound.midi.Soundbank;
+
 import com.cad.bataille_navale.actions.FrappeOrbitale;
 import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.bateaux.Bateau;
@@ -62,12 +64,15 @@ public class PartieBatailleNavale implements Partie {
         System.out.println(e);
 		epoque = e;
 		
-		mode = new ModeNormal();
+		mode = new ModeNormal() ;
 
 	}
 
 	public int jouer(Action a) {
-		if(status == BatailleNavale.Code.DEBUT) return BatailleNavale.Code.IMPOSSIBLE;
+		int res = BatailleNavale.Code.IMPOSSIBLE;
+		//if(status == BatailleNavale.Code.DEBUT) return res;
+		System.out.println(a);
+		System.out.println(mode.allow(a));
 		
 		if(mode.allow(a)){
 
@@ -75,27 +80,32 @@ public class PartieBatailleNavale implements Partie {
 				int x = ((TireBateau) a).getPosx();
 				int y = ((TireBateau) a).getPosy();
 				Bateau tirreur = ((TireBateau) a).getTirreur();
-				tirreur.hasHit();
+				
 				BatailleNavalleJoueurCote cote = ((TireBateau) a).getCote();
 				
-				return tirer(x, y, tirreur, cote);
+				res = tirer(x, y, tirreur, cote);
 			}
 	
 			if (a instanceof FrappeOrbitale) {
 				int x = ((FrappeOrbitale) a).getPosx();
 				int y = ((FrappeOrbitale) a).getPosy();
 				BatailleNavalleJoueurCote cote = ((FrappeOrbitale) a).getCote();
-				return tirer(x, y, cote);
+				res = tirer(x, y, cote);
 	
 			}
 		}
+		
+		
 
-		return BatailleNavale.Code.IMPOSSIBLE;
+		if(isPartieFinished()){
+			status = BatailleNavale.Code.FIN;
+		}
+		return res;
 	}
 
 	public boolean isPartieFinished() {
 
-		if (isAllProjectileGone(bateauxJ1) || isAllProjectileGone(bateauxJ2))
+		if (isAllProjectileGone(bateauxJ1) || isAllProjectileGone(bateauxJ2) || isAllBateauDestroyed(bateauxJ1) || isAllBateauDestroyed(bateauxJ2))
 			return true;
 		return false;
 	}
@@ -117,7 +127,8 @@ public class PartieBatailleNavale implements Partie {
 	}
 
 	public int tirer(int x, int y, Bateau tirreur, BatailleNavalleJoueurCote cote) {
-		// return tirer(x,y,tirreur.degats());
+		if(tirreur.getNbProjectile() <= 0) return BatailleNavale.Code.IMPOSSIBLE;
+		tirreur.hasHit();
 		if (cote == BatailleNavalleJoueurCote.GAUCHE) {
 
 			return traiteTir(x, y, tirreur, bateauxJ2, grilleJ2);
@@ -126,15 +137,10 @@ public class PartieBatailleNavale implements Partie {
 	}
 
 	public int tirer(int x, int y, BatailleNavalleJoueurCote cote) {
-		
-		System.out.println("************************");
-		System.out.println(cote);
-		// return tirer(x,y,tirreur.degats());
+	
 		if (cote == BatailleNavalleJoueurCote.GAUCHE) {
-			System.out.println("gauche ->  droite");
 			return traiteTir(x, y, bateauxJ2, grilleJ2);
 		}
-		System.out.println("droite ->  gauche");
 		return traiteTir(x, y, bateauxJ1, grilleJ1);
 	}
 
@@ -147,7 +153,34 @@ public class PartieBatailleNavale implements Partie {
 	}
 
 	private int traiteTir(int x, int y, Bateau tirreur, List<Bateau> list, int[][] grille) {
+		
+		//if(tirreur.getNbProjectile() == 0) return BatailleNavale.Code.IMPOSSIBLE ;
 		// Si aucun tire n'a encore atteri dans cette case
+		int ce = grille[x][y];
+		if (ce == BatailleNavale.Code.TOUCHE_VIDE) {
+			System.out.println("Vide");
+		} else if (ce == BatailleNavale.Code.TOUCHE) {
+			System.out.println("Touche");
+		} else if (ce == BatailleNavale.Code.DETRUIT) {
+			System.out.println("Détruit");
+		} else if (ce == BatailleNavale.Code.CASE_DETRUITE) {
+			System.out.println("Case Détruite");
+		} else if (ce == BatailleNavale.Code.TROP_LOIN) {
+			System.out.println("Trop loin");
+		} else if (ce == BatailleNavale.Code.VIDE) {
+			System.out.println("Vide");
+		} else if (ce == BatailleNavale.Code.VIDE) {
+			System.out.println("Vide");
+		} else if (ce == BatailleNavale.Code.IMPOSSIBLE) {
+			System.out.println("Impossible");
+		} else{
+			System.out.println(BatailleNavale.Code.TOUCHE);
+			System.out.println(ce);
+			System.out.println("Error");
+		}
+		
+		
+		
 		if (grille[x][y] == BatailleNavale.Code.VIDE || grille[x][y] == BatailleNavale.Code.TOUCHE) {
 			// alors on tire dessus
 			Coord c = new Coord(x, y);
@@ -438,6 +471,17 @@ public class PartieBatailleNavale implements Partie {
                 break;
 		}
 	}
+
+	public void setMode(Mode mode2) {
+		mode = mode2;
+		
+	}
+	
+	public Mode getMode(){
+		return mode;
+	}
+
+	
 
 
 

@@ -28,7 +28,7 @@ public class BatailleNavale extends Jeu {
 	public final int WIDTH = 12;
 	public final int HEIGHT = 12;
 	
-	private Mode mode = new ModeTireBateau();
+
 
 
 	public static class Code extends Jeu.Code {
@@ -64,13 +64,14 @@ public class BatailleNavale extends Jeu {
 
 	@Override
 	public void nouvellePartie(String nomPartie, Epoque e) {
+		Mode mode = new ModeNormal();
 		if (e == Epoque.XX) {
-			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
+			partie = new ModernePartieBatailleNavaleFactory().CreatePartie(mode);
 		} else if (e == Epoque.XIX) {
 			// Epoque ancien
-			partie = new AncienPartieBatailleNavaleFactory().CreatePartie();
+			partie = new AncienPartieBatailleNavaleFactory().CreatePartie(mode);
 		} else{
-			partie = new FuturPartieBatailleNavaleFactory().CreatePartie();
+			partie = new FuturPartieBatailleNavaleFactory().CreatePartie(mode);
 		}
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
@@ -102,7 +103,8 @@ public class BatailleNavale extends Jeu {
 
 	public Action.Builder actionBuilder() {
 		//return new TireBateau.Builder().partie(partie);
-		return new FrappeOrbitale.Builder().partie(partie);
+		//return new FrappeOrbitale.Builder().partie(partie);
+		return ((PartieBatailleNavale) partie).getMode().actionBuilder();
 	}
 
 	public void show() {
@@ -173,7 +175,8 @@ public class BatailleNavale extends Jeu {
 	}
 	
 	public Mode getMode(){
-		return mode;
+		return ((PartieBatailleNavale) partie).getMode();
 	}
-
+	
+	
 }

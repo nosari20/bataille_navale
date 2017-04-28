@@ -45,6 +45,7 @@ public abstract class AbstractPartieBatailleNavaleFactory {
 		partie.setBateauJ2(bateauCase1J2, bateauCase2J2, bateauCase3J2, bateauCase4J2, bateauCase5J2);
 		
 
+		partie.setMode(mode);
 		return partie;
 	}
 

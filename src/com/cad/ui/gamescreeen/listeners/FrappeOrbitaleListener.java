@@ -10,8 +10,11 @@ import java.util.List;
 import javax.sound.midi.Soundbank;
 
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
+import com.cad.bataille_navale.actions.FrappeOrbitale;
+import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.jeu.BatailleNavale;
+import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Joueur;
 import com.cad.ui.gamescreen.GameScreen;
 
@@ -33,29 +36,39 @@ public class FrappeOrbitaleListener implements UIListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int[] tab = gs.screen2Case(e.getX(), e.getY());	
+		
 		if(tab[0] == 2){
 
-			System.out.println("*******");
 			((JoueurBatailleNavale) joueurs.get(0)).frappeOrbitale(tab[1],tab[2]);
-
-
-
+			
 			int res = ((JoueurBatailleNavale) joueurs.get(0)).jouer();
 
 			if(res == BatailleNavale.Code.IMPOSSIBLE) return;
-			/*
-				if (res == BatailleNavale.Code.TOUCHE_VIDE) {
-					System.out.println("Vide");
-				} else if (res == BatailleNavale.Code.TOUCHE) {
-					System.out.println("Touche");
-				} else if (res == BatailleNavale.Code.DETRUIT) {
-					System.out.println("Détruit");
-				}
-			 */
+			if(res != BatailleNavale.Code.TOUCHE_VIDE){
+				gs.explode(new Point(tab[1], tab[2]), 2);
+			}
+			
 			gs.untarget();
 			
 			
+			// IA
 			res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
+			while(res == BatailleNavale.Code.IMPOSSIBLE)
+				res = ((JoueurBatailleNavale) joueurs.get(1)).jouer();
+			
+			Action last = ((JoueurBatailleNavale) joueurs.get(1)).getLastAction();
+			int iax, iay;
+			if(last instanceof TireBateau){
+				iax = ((TireBateau) (last)).getPosx();
+				iay = ((TireBateau) (last)).getPosy();
+			}else{				
+				iax = ((FrappeOrbitale) (last)).getPosx();
+				iay = ((FrappeOrbitale) (last)).getPosy();
+			}
+			
+			if(res != BatailleNavale.Code.TOUCHE_VIDE){
+				gs.explode(new Point(iax, iay), 1);
+			}
 		}
 		
 	}

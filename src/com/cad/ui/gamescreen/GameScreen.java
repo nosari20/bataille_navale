@@ -247,7 +247,7 @@ public class GameScreen extends AbstractGamePanel {
 					g.setColor(Color.WHITE);
 					Font font = g.getFont().deriveFont( 30f );
 				    g.setFont( font );
-					g.drawString(""+b.getPuissance(), (int) (((double)b.getPosx() + (double)(b.getLongueur()/2))*ppux), (b.getPosy()+1)*ppuy);
+					g.drawString(""+b.getNbProjectile(), (int) (((double)b.getPosx() + (double)(b.getLongueur()/2))*ppux), (b.getPosy()+1)*ppuy);
 				}
 
 			}else{
@@ -261,7 +261,7 @@ public class GameScreen extends AbstractGamePanel {
 					g.setColor(Color.WHITE);
 					Font font = g.getFont().deriveFont( 30f );
 				    g.setFont( font );
-					g.drawString(""+b.getPuissance(), (int) ((b.getPosx())*ppux), (int) (((double)b.getPosy() + (double)(b.getLongueur()/2)+1)*ppuy));
+					g.drawString(""+b.getNbProjectile(), (int) ((b.getPosx())*ppux), (int) (((double)b.getPosy() + (double)(b.getLongueur()/2)+1)*ppuy));
 
 				}
 
@@ -283,14 +283,16 @@ public class GameScreen extends AbstractGamePanel {
 
 	public void drawText(Graphics g){
 
-		double size = 1.5;
-		double xpos = (w_width/(double)2) - (text.length/(double)2);
-		double ypos = (w_height/(double)2) - size;
-		
-		for (int i = 0; i < text.length; i++) {
-			Sprite s = SpriteFontRepository.getInstance().get(text[i]);
-			if(s!=null){
-				g.drawImage(s.getImage(),(int)((xpos+i)*ppux),(int)((ypos)*ppux),(int)(size*ppux),(int)(size*ppuy), null);
+		if(text !=null){
+			double size = 1.5;
+			double xpos = (w_width/(double)2) - (text.length/(double)2);
+			double ypos = (w_height/(double)2) - size;
+			
+			for (int i = 0; i < text.length; i++) {
+				Sprite s = SpriteFontRepository.getInstance().get(text[i]);
+				if(s!=null){
+					g.drawImage(s.getImage(),(int)((xpos+i)*ppux),(int)((ypos)*ppux),(int)(size*ppux),(int)(size*ppuy), null);
+				}
 			}
 		}
 
