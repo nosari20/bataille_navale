@@ -56,8 +56,20 @@ public class BatailleNavale extends Jeu {
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
 
+	@Override
+	public void nouvellePartie(String nomPartie, Epoque e) {
+		if (e == Epoque.XX || e == Epoque.XXI) {
+			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
+		} else {
+			// Epoque ancien
+			partie = new AncienPartieBatailleNavaleFactory().CreatePartie();
+		}
+		((PartieBatailleNavale) partie).setNom(nomPartie);
+	}
+
+
 	public void nouvellePartie(String nomPartie, Epoque epoque, Mode m) {
-		if (epoque == Epoque.XXI) {
+		if (epoque == Epoque.XX) {
 			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
 		} else {
 			// Epoque ancien

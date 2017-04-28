@@ -42,6 +42,8 @@ public abstract class Jeu extends Observable{
 
 	public abstract void nouvellePartie(String nomPartie);
 
+	public abstract void nouvellePartie(String nomPartie,Epoque e);
+
 	public abstract int jouer(Joueur joueur, Action action);
 
 	public abstract Action.Builder actionBuilder();

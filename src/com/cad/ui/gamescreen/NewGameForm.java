@@ -30,7 +30,7 @@ public class NewGameForm  extends JPanel {
     private JLabel label_difficulty = new JLabel("Difficulté");
     private JButton validate = new JButton("Créer");
 
-    public NewGameForm() {
+    public NewGameForm(GameStartScreen gss) {
         super();
         setBorder(new EmptyBorder(10, 10, 10, 10));
         this.setLayout(new BorderLayout());
@@ -85,10 +85,11 @@ public class NewGameForm  extends JPanel {
 
         validate.setEnabled(input_name.getText().length()!=0);
         validate.addActionListener(event -> {
-				new MainGUI(input_name.getText(),input_epoque.getName());
+				new MainGUI(input_name.getText(),(Epoque)input_epoque.getSelectedItem());
+                setVisible(false); //you can't see me!
+                gss.destroyJFrame();
 		});
 
-        
 
         //new MainGUI();
         form.add(validate);

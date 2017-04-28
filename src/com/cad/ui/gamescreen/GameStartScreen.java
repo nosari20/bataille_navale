@@ -16,7 +16,7 @@ public class GameStartScreen extends JFrame {
     // panels
     private CardLayout layoutManager = new CardLayout();
     private String[] listContent = {"HOME", "NEW_GAME"};
-    private NewGameForm newGameForm = new NewGameForm();
+    private NewGameForm newGameForm = new NewGameForm(this);
 
 
     public GameStartScreen(){
@@ -59,13 +59,8 @@ public class GameStartScreen extends JFrame {
 
     }
 
-
-    public GameStartScreen(String title){
-        this();
-        this.setTitle(title);
-
+    public void destroyJFrame(){
+        this.dispose();
     }
-
-
 
 }

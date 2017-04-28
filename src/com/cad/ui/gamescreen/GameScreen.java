@@ -54,6 +54,7 @@ public class GameScreen extends AbstractGamePanel {
 		w_width = jeu.WIDTH*2;
 		w_height = jeu.HEIGHT;
 		partie = (PartieBatailleNavale) j.currentPartie();
+		partie.setGraphiqueEpoque();
 	}
 
 	@Override
@@ -185,21 +186,21 @@ public class GameScreen extends AbstractGamePanel {
 		if(j == BatailleNavalleJoueurCote.GAUCHE){
 
 			if(b.getOrientation() == BateauOrientation.HORIZONTAL){
-				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), false).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
+				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), false).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
 
 
 			}else{
-				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), true).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);				
+				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), true).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);
 			}
 
 		}else if(j == BatailleNavalleJoueurCote.DROIT){
 
 			if(b.getOrientation() == BateauOrientation.HORIZONTAL){
 				//g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), true).getImage(), (2*jeu.WIDTH - b.getPosx()) * ppux, (b.getPosy() - b.getLongueur())*ppuy, ppux, b.getLongueur()*ppuy, null);
-				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), false).flipH().getImage(), (2*jeu.WIDTH - b.getPosx() - b.getLongueur()) * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
+				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), false).flipH().getImage(), (2*jeu.WIDTH - b.getPosx() - b.getLongueur()) * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
 
 			}else{
-				g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), true).flipH().getImage(), ((2*jeu.WIDTH - b.getPosx()-1)) * ppux, (b.getPosy())*ppuy, ppux, b.getLongueur()*ppuy, null);
+				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), true).flipH().getImage(), ((2*jeu.WIDTH - b.getPosx()-1)) * ppux, (b.getPosy())*ppuy, ppux, b.getLongueur()*ppuy, null);
 
 			}
 		}
@@ -303,7 +304,7 @@ public class GameScreen extends AbstractGamePanel {
 			//j2
 			int[] tab = new int[3];
 			tab[0] = 2;
-			tab[1] = jeu.WIDTH - (rx-jeu.WIDTH)-1; // on inverse les coordonnées en x
+			tab[1] = jeu.WIDTH - (rx-jeu.WIDTH)-1; // on inverse les coordonnï¿½es en x
 			tab[2] = ry;
 			return tab;
 		}
