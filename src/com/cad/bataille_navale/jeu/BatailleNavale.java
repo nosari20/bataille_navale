@@ -29,6 +29,7 @@ public class BatailleNavale extends Jeu {
 	
 	private Mode mode = new ModeTireBateau();
 
+
 	public static class Code extends Jeu.Code {
 		public static final int TOUCHE = nextCode();
 		public static final int TOUCHE_VIDE = nextCode();
