@@ -44,7 +44,7 @@ public class ModernePartieBatailleNavaleFactory extends AbstractPartieBatailleNa
 	@Override
 	public Epoque epoque() {
 		// TODO Auto-generated method stub
-		return Epoque.XXI;
+		return Epoque.XX;
 	}
 
 }

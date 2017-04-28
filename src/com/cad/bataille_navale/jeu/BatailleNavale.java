@@ -8,6 +8,7 @@ import com.cad.bataille_navale.actions.FrappeOrbitale;
 import com.cad.bataille_navale.actions.TireBateau;
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.factory.AncienPartieBatailleNavaleFactory;
+import com.cad.bataille_navale.factory.FuturPartieBatailleNavaleFactory;
 import com.cad.bataille_navale.factory.ModernePartieBatailleNavaleFactory;
 import com.cad.bataille_navale.mode.Mode;
 import com.cad.bataille_navale.mode.ModeNormal;
@@ -61,12 +62,29 @@ public class BatailleNavale extends Jeu {
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
 
-	public void nouvellePartie(String nomPartie, Epoque epoque, Mode m) {
-		if (epoque == Epoque.XXI) {
-			partie = new ModernePartieBatailleNavaleFactory().CreatePartie(mode);
-		} else {
+	@Override
+	public void nouvellePartie(String nomPartie, Epoque e) {
+		if (e == Epoque.XX) {
+			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
+		} else if (e == Epoque.XIX) {
 			// Epoque ancien
-			partie = new AncienPartieBatailleNavaleFactory().CreatePartie(mode);
+			partie = new AncienPartieBatailleNavaleFactory().CreatePartie();
+		} else{
+			partie = new FuturPartieBatailleNavaleFactory().CreatePartie();
+		}
+		((PartieBatailleNavale) partie).setNom(nomPartie);
+	}
+
+
+	public void nouvellePartie(String nomPartie, Epoque epoque, Mode m) {
+
+		if (epoque == Epoque.XX) {
+			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
+		} else if (epoque == Epoque.XIX) {
+			// Epoque ancien
+			partie = new AncienPartieBatailleNavaleFactory().CreatePartie();
+		} else{
+			partie = new FuturPartieBatailleNavaleFactory().CreatePartie();
 		}
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}

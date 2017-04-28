@@ -35,7 +35,7 @@ public class MainGUI {
 	}
 	
 	
-	public MainGUI(String namePartie,String epoque){
+	public MainGUI(String namePartie,Epoque epoque){
 		SpriteFontRepository.getInstance().get('A');
 		String currentDir = System.getProperty("user.dir") + "\\bataille_navale-motor";
 
@@ -70,7 +70,7 @@ public class MainGUI {
 	}
 
 
-	public void createGame(String namePartie,String epoque){
+	public void createGame(String namePartie,Epoque epoque){
 		joueurs = new ArrayList<Joueur>();
 		joueurs.add(
 				new JoueurBatailleNavale(com.cad.codesUtils.Joueur.HUMAN, BatailleNavalleJoueurCote.GAUCHE, "Aschmat")
@@ -79,10 +79,10 @@ public class MainGUI {
 				new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new CrossStrategyComputer())
 				);
 		jeu = new BatailleNavale(joueurs);
-		jeu.nouvellePartie(namePartie);
+
+		jeu.nouvellePartie(namePartie,epoque);
+
+
 	}
-
-
-
 
 }

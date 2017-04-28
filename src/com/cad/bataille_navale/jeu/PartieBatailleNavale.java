@@ -18,14 +18,24 @@ import com.cad.codesUtils.bateau.BateauOrientation;
 import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Action;
 import com.cad.jeu_abstrait.Partie;
+import com.cad.ui.sprites_repository.ShipsXIX;
+import com.cad.ui.sprites_repository.ShipsXX1;
+import com.cad.ui.sprites_repository.ShipsXXI;
+import com.cad.ui.sprites_repository.SpriteBateauRepository;
+
+import static com.cad.codesUtils.epoque.Epoque.*;
+import static com.cad.codesUtils.epoque.Epoque.XIX;
 
 public class PartieBatailleNavale implements Partie {
 
 	private int joueur = 1;
 	private String nom;
-	private Epoque epoque = Epoque.XXI;
+
+
 	
 	private Mode mode;
+	private Epoque epoque = Epoque.XIX;
+	private SpriteBateauRepository graphiqueEpoque;
 
 	private int[][] grilleJ1;
 	private List<Bateau> bateauxJ1;
@@ -49,10 +59,10 @@ public class PartieBatailleNavale implements Partie {
 			}
 		}
 		bateauxJ2 = new ArrayList<Bateau>();
+        System.out.println(e);
 		epoque = e;
 		
 		mode = new ModeNormal();
-
 
 	}
 
@@ -158,7 +168,7 @@ public class PartieBatailleNavale implements Partie {
 					break listBateau;
 				}
 			}
-			// si il n'y pas de bateau sur cette cordonné alors on le marque
+			// si il n'y pas de bateau sur cette cordonnï¿½ alors on le marque
 			// comme touche_vide
 			if (res == -1)
 				grille[x][y] = BatailleNavale.Code.TOUCHE_VIDE;
@@ -189,7 +199,7 @@ public class PartieBatailleNavale implements Partie {
 					}
 				}
 			}
-			// si il n'y pas de bateau sur cette cordonné alors on le marque
+			// si il n'y pas de bateau sur cette cordonnï¿½ alors on le marque
 			// comme touche_vide
 			if (count == 0){
 				grille[x][y] = BatailleNavale.Code.TOUCHE_VIDE;
@@ -411,6 +421,23 @@ public class PartieBatailleNavale implements Partie {
 		this.status = BatailleNavale.Code.EN_COURS; 		
 	}
 
+	public SpriteBateauRepository getGraphiqueEpoque() {
+		return graphiqueEpoque;
+	}
+
+	public void setGraphiqueEpoque() {
+		switch (epoque){
+			case XIX :
+                this.graphiqueEpoque = ShipsXIX.getInstance();
+				break;
+            case XX:
+                this.graphiqueEpoque = ShipsXX1.getInstance();
+				break;
+            case XXI:
+                this.graphiqueEpoque = ShipsXXI.getInstance();
+                break;
+		}
+	}
 
 
 
