@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import javax.sound.midi.Soundbank;
@@ -34,7 +35,7 @@ public class PartieBatailleNavale implements Partie {
 	private String nom;
 
 
-	
+
 	private Mode mode;
 	private Epoque epoque = Epoque.XIX;
 	private SpriteBateauRepository graphiqueEpoque;
@@ -43,7 +44,7 @@ public class PartieBatailleNavale implements Partie {
 	private List<Bateau> bateauxJ1;
 	private int[][] grilleJ2;
 	private List<Bateau> bateauxJ2;
-	
+
 	private int status = BatailleNavale.Code.DEBUT;
 
 	public PartieBatailleNavale(Epoque e) {
@@ -61,9 +62,9 @@ public class PartieBatailleNavale implements Partie {
 			}
 		}
 		bateauxJ2 = new ArrayList<Bateau>();
-        System.out.println(e);
+		System.out.println(e);
 		epoque = e;
-		
+
 		mode = new ModeNormal() ;
 
 	}
@@ -73,29 +74,29 @@ public class PartieBatailleNavale implements Partie {
 		//if(status == BatailleNavale.Code.DEBUT) return res;
 		System.out.println(a);
 		System.out.println(mode.allow(a));
-		
+
 		if(mode.allow(a)){
 
 			if (a instanceof TireBateau) {
 				int x = ((TireBateau) a).getPosx();
 				int y = ((TireBateau) a).getPosy();
 				Bateau tirreur = ((TireBateau) a).getTirreur();
-				
+
 				BatailleNavalleJoueurCote cote = ((TireBateau) a).getCote();
-				
+
 				res = tirer(x, y, tirreur, cote);
 			}
-	
+
 			if (a instanceof FrappeOrbitale) {
 				int x = ((FrappeOrbitale) a).getPosx();
 				int y = ((FrappeOrbitale) a).getPosy();
 				BatailleNavalleJoueurCote cote = ((FrappeOrbitale) a).getCote();
 				res = tirer(x, y, cote);
-	
+
 			}
 		}
-		
-		
+
+
 
 		if(isPartieFinished()){
 			status = BatailleNavale.Code.FIN;
@@ -137,7 +138,7 @@ public class PartieBatailleNavale implements Partie {
 	}
 
 	public int tirer(int x, int y, BatailleNavalleJoueurCote cote) {
-	
+
 		if (cote == BatailleNavalleJoueurCote.GAUCHE) {
 			return traiteTir(x, y, bateauxJ2, grilleJ2);
 		}
@@ -153,7 +154,7 @@ public class PartieBatailleNavale implements Partie {
 	}
 
 	private int traiteTir(int x, int y, Bateau tirreur, List<Bateau> list, int[][] grille) {
-		
+
 		//if(tirreur.getNbProjectile() == 0) return BatailleNavale.Code.IMPOSSIBLE ;
 		// Si aucun tire n'a encore atteri dans cette case
 		int ce = grille[x][y];
@@ -178,17 +179,17 @@ public class PartieBatailleNavale implements Partie {
 			System.out.println(ce);
 			System.out.println("Error");
 		}
-		
-		
-		
+
+
+
 		if (grille[x][y] == BatailleNavale.Code.VIDE || grille[x][y] == BatailleNavale.Code.TOUCHE) {
 			// alors on tire dessus
 			Coord c = new Coord(x, y);
 			int res = -1;
 
-			
+
 			listBateau: for (Bateau b : list) {
-				
+
 				res = b.contientCoord(c);
 				if (res != -1 && !b.isDestroyed()) {
 					int h =  b.hit(res, tirreur.getPuissance());
@@ -221,7 +222,7 @@ public class PartieBatailleNavale implements Partie {
 			int res = -1;
 			int count = 0;
 			for (Bateau b : list) {
-			
+
 				res = b.contientCoord(c);
 				if (res != -1 && !b.isDestroyed()) {
 					count++;
@@ -242,7 +243,7 @@ public class PartieBatailleNavale implements Partie {
 				}
 
 			}
-			
+
 
 			return grille[x][y];
 		}
@@ -265,7 +266,7 @@ public class PartieBatailleNavale implements Partie {
 				grille[b.getPosx()][b.getPosy()+i] = BatailleNavale.Code.DETRUIT;
 			}
 		}
-		
+
 	}
 
 	public void joueurSuivant() {
@@ -290,6 +291,28 @@ public class PartieBatailleNavale implements Partie {
 		addBateau(this.bateauxJ1, bateauCase3);
 		addBateau(this.bateauxJ1, bateauCase4);
 		addBateau(this.bateauxJ1, bateauCase5);
+
+		Random r = new Random();
+		do{
+			for (Bateau b : bateauxJ1) {
+				boolean hor = r.nextBoolean();
+				BateauOrientation or = BateauOrientation.HORIZONTAL;
+				if(!hor)
+					or = BateauOrientation.VERTICAL;
+				b.setOrientation(or);
+
+				if(hor){
+					b.setPosx(r.nextInt(grilleJ1.length-b.getLongueur()));
+					b.setPosy(r.nextInt(grilleJ1[0].length));
+
+				}else{
+					b.setPosx(r.nextInt(grilleJ1.length));
+					b.setPosy(r.nextInt(grilleJ1[0].length-b.getLongueur()));
+				}
+				b.update();	
+
+			}
+		}while(!placementOk(bateauxJ1));
 	}
 
 	public void setBateauJ2(Bateau bateauCase1, Bateau bateauCase2, Bateau bateauCase3, Bateau bateauCase4,
@@ -299,6 +322,28 @@ public class PartieBatailleNavale implements Partie {
 		addBateau(this.bateauxJ2, bateauCase3);
 		addBateau(this.bateauxJ2, bateauCase4);
 		addBateau(this.bateauxJ2, bateauCase5);
+
+		Random r = new Random();
+		do{
+			for (Bateau b : bateauxJ2) {
+				boolean hor = r.nextBoolean();
+				BateauOrientation or = BateauOrientation.HORIZONTAL;
+				if(!hor)
+					or = BateauOrientation.VERTICAL;
+				b.setOrientation(or);
+
+				if(hor){
+					b.setPosx(r.nextInt(grilleJ2.length-b.getLongueur()));
+					b.setPosy(r.nextInt(grilleJ2[0].length));
+
+				}else{
+					b.setPosx(r.nextInt(grilleJ2.length));
+					b.setPosy(r.nextInt(grilleJ2[0].length-b.getLongueur()));
+				}
+				b.update();	
+
+			}
+		}while(!placementOk(bateauxJ2));
 	}
 
 	public void addBateau(List<Bateau> list, Bateau b) {
@@ -355,7 +400,7 @@ public class PartieBatailleNavale implements Partie {
 			return grilleJ1;
 		return grilleJ2;
 	}
-	
+
 
 	public int getResult() {
 		int resultJ1 = getScoreJ1();
@@ -363,7 +408,7 @@ public class PartieBatailleNavale implements Partie {
 
 		System.out.println(resultJ1);
 		System.out.println(resultJ2);
-		
+
 
 		if (resultJ1 < resultJ2)
 			return BatailleNavale.Code.VICTOIRE_J2;
@@ -372,7 +417,7 @@ public class PartieBatailleNavale implements Partie {
 
 		return BatailleNavale.Code.DRAW;
 	}
-	
+
 	public int getScoreJ1() {
 		int resultJ1 = 0;
 
@@ -381,7 +426,7 @@ public class PartieBatailleNavale implements Partie {
 		}
 		return resultJ1;
 	}
-	
+
 	public int getScoreJ2() {
 		int resultJ2 = 0;
 
@@ -425,6 +470,21 @@ public class PartieBatailleNavale implements Partie {
 
 	}
 
+	public boolean placementOk(List<Bateau> lb){	
+
+		for (Bateau bateau1 : lb) {
+			for (Bateau bateau2 : lb) {
+				if(!bateau1.equals(bateau1)){
+					if(bateau1.overlapse(bateau2)){
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
 	public boolean placementOk(Bateau b){	
 		Coord c = new Coord(b.getPosx(), b.getPosy());
 		if(c.x < 0 || c.x >= grilleJ1.length || c.y < 0 || c.y >= grilleJ1[0].length) return false;
@@ -445,7 +505,7 @@ public class PartieBatailleNavale implements Partie {
 		return true;
 
 	}
-	
+
 	public int getStatus(){
 		return status;
 	}
@@ -460,28 +520,33 @@ public class PartieBatailleNavale implements Partie {
 
 	public void setGraphiqueEpoque() {
 		switch (epoque){
-			case XIX :
-                this.graphiqueEpoque = ShipsXIX.getInstance();
-				break;
-            case XX:
-                this.graphiqueEpoque = ShipsXX1.getInstance();
-				break;
-            case XXI:
-                this.graphiqueEpoque = ShipsXXI.getInstance();
-                break;
+		case XIX :
+			this.graphiqueEpoque = ShipsXIX.getInstance();
+			break;
+		case XX:
+			this.graphiqueEpoque = ShipsXX1.getInstance();
+			break;
+		case XXI:
+			this.graphiqueEpoque = ShipsXXI.getInstance();
+			break;
 		}
 	}
 
 	public void setMode(Mode mode2) {
 		mode = mode2;
-		
+
 	}
-	
+
 	public Mode getMode(){
 		return mode;
 	}
 
-	
+	public boolean placementsOk() {
+		// TODO Auto-generated method stub
+		return placementOk(bateauxJ1) && placementOk(bateauxJ2);
+	}
+
+
 
 
 

@@ -170,6 +170,8 @@ public class BatailleNavale extends Jeu {
 	}
 
 	public boolean validePlacement() {
+		if(!((PartieBatailleNavale) partie).placementsOk())
+			return false;
 		((PartieBatailleNavale) partie).play();
 		return true;
 	}

@@ -200,6 +200,19 @@ public abstract class Bateau implements Cloneable {
 	public int getPortee() {
 		return portee;
 	}
+	
+	public boolean overlapse(Bateau bateau2) {
+		// TODO Auto-generated method stub
+		for (Coord c1 : localisation) {
+			for (Coord c2 : bateau2.localisation) {
+				if(c1.equals(c2)){
+					return true;
+				}
+			}
+			
+		}
+		return false;
+	}
 
 
 }

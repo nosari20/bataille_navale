@@ -174,7 +174,7 @@ public class GameScreen extends AbstractGamePanel {
 		}
 		//Draw j2
 		for (Bateau b : partie.getBateauJ2()){
-			//if(b.isDestroyed())
+			if(b.isDestroyed())
 			drawBateau(g, b, BatailleNavalleJoueurCote.DROIT);
 			if(b.isDestroyed()){
 				if(b.getOrientation() == BateauOrientation.HORIZONTAL){
@@ -198,14 +198,14 @@ public class GameScreen extends AbstractGamePanel {
 			for(int j = 0; j < grille1[0].length; j++ ){
 
 				if (grille1[i][j] == BatailleNavale.Code.TOUCHE_VIDE) {
-					g.setColor(new Color(0,0,0,120));
-					g.fillRect(i*ppux, j*ppuy, ppux, ppuy);
+					g.setColor(new Color(255,255,255,120));
+					g.fillOval(i*ppux, j*ppuy, ppux, ppuy);
 				} else if (grille1[i][j] == BatailleNavale.Code.TOUCHE) {
 					g.setColor(new Color(255,0,0,120));
-					g.fillRect(i*ppux, j*ppuy, ppux, ppuy);
+					g.fillOval(i*ppux, j*ppuy, ppux, ppuy);
 				} else if (grille1[i][j] == BatailleNavale.Code.CASE_DETRUITE) {
-					g.setColor(new Color(0,255,0,120));
-					g.fillRect(i*ppux, j*ppuy, ppux, ppuy);
+					g.setColor(new Color(0,0,0,120));
+					g.fillOval(i*ppux, j*ppuy, ppux, ppuy);
 				}
 
 			}
@@ -216,14 +216,14 @@ public class GameScreen extends AbstractGamePanel {
 			for(int j = 0; j < grille2[0].length; j++ ){
 
 				if (grille2[i][j] == BatailleNavale.Code.TOUCHE_VIDE) {
-					g.setColor(new Color(0,0,0,120));
-					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
+					g.setColor(new Color(255,255,255,120));
+					g.fillOval((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
 				} else if (grille2[i][j] == BatailleNavale.Code.TOUCHE) {
 					g.setColor(new Color(255,0,0,120));
-					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
+					g.fillOval((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
 				} else if (grille2[i][j] == BatailleNavale.Code.CASE_DETRUITE) {
-					g.setColor(new Color(0,255,0,120));
-					g.fillRect((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
+					g.setColor(new Color(0,0,0,120));
+					g.fillOval((2*jeu.WIDTH - i -1)*ppux, j*ppuy, ppux, ppuy);
 				}
 
 			}
