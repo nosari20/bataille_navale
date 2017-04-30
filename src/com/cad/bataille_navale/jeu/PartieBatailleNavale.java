@@ -292,6 +292,21 @@ public class PartieBatailleNavale implements Partie {
 		addBateau(this.bateauxJ1, bateauCase4);
 		addBateau(this.bateauxJ1, bateauCase5);
 
+		
+	}
+
+	public void setBateauJ2(Bateau bateauCase1, Bateau bateauCase2, Bateau bateauCase3, Bateau bateauCase4,
+			Bateau bateauCase5) {
+		addBateau(this.bateauxJ2, bateauCase1);
+		addBateau(this.bateauxJ2, bateauCase2);
+		addBateau(this.bateauxJ2, bateauCase3);
+		addBateau(this.bateauxJ2, bateauCase4);
+		addBateau(this.bateauxJ2, bateauCase5);
+
+		
+	}
+	
+	public void placementBateauRandom(){
 		Random r = new Random();
 		do{
 			for (Bateau b : bateauxJ1) {
@@ -309,21 +324,10 @@ public class PartieBatailleNavale implements Partie {
 					b.setPosx(r.nextInt(grilleJ1.length));
 					b.setPosy(r.nextInt(grilleJ1[0].length-b.getLongueur()));
 				}
-				b.update();	
+				b.update();
 
 			}
 		}while(!placementOk(bateauxJ1));
-	}
-
-	public void setBateauJ2(Bateau bateauCase1, Bateau bateauCase2, Bateau bateauCase3, Bateau bateauCase4,
-			Bateau bateauCase5) {
-		addBateau(this.bateauxJ2, bateauCase1);
-		addBateau(this.bateauxJ2, bateauCase2);
-		addBateau(this.bateauxJ2, bateauCase3);
-		addBateau(this.bateauxJ2, bateauCase4);
-		addBateau(this.bateauxJ2, bateauCase5);
-
-		Random r = new Random();
 		do{
 			for (Bateau b : bateauxJ2) {
 				boolean hor = r.nextBoolean();

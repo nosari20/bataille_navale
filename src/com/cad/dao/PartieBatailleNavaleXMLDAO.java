@@ -167,7 +167,7 @@ public class PartieBatailleNavaleXMLDAO implements PartieBatailleNavaleDao {
 			// Chargement joueur2
 			listJ = partieBatailleNavale.getBateauJ2();
 			grilleJ = partieBatailleNavale.getGrille(BatailleNavalleJoueurCote.DROIT);
-			loadJoueur(xml, xPath, partieBatailleNavale.getBateauJ1(), grilleJ, DAOXmlUtils.JOUEUR2);
+			loadJoueur(xml, xPath, partieBatailleNavale.getBateauJ2(), grilleJ, DAOXmlUtils.JOUEUR2);
 
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
@@ -199,6 +199,7 @@ public class PartieBatailleNavaleXMLDAO implements PartieBatailleNavaleDao {
 					+ DAOXmlUtils.PROJECTILE;
 			res = xPath.compile(getProjectile).evaluate(xml);
 			b.setProjectile(Integer.parseInt(res));
+			b.update();
 		}
 
 		NodeList cases = (NodeList) xPath.evaluate(

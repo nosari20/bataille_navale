@@ -73,6 +73,7 @@ public class BatailleNavale extends Jeu {
 		} else{
 			partie = new FuturPartieBatailleNavaleFactory().CreatePartie(mode);
 		}
+		((PartieBatailleNavale) partie).placementBateauRandom();
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
 
