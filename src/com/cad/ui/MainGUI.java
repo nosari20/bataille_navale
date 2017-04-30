@@ -77,12 +77,14 @@ public class MainGUI {
 			new GameStartScreen();
 			f.dispose();
 		});
-		file.addSeparator();
+
 
 		save.addActionListener(event ->{
 			jeu.sauvegarder();
 		});
 		file.add(save);
+		file.addSeparator();
+
 
 		leave.addActionListener(event ->{
 			System.exit(0);
