@@ -35,7 +35,7 @@ public class MainGUI {
 	}
 	
 	
-	public MainGUI(String namePartie,Epoque epoque){
+	public MainGUI(String namePartie,Epoque epoque,String load){
 		SpriteFontRepository.getInstance().get('A');
 		String currentDir = System.getProperty("user.dir") + "\\bataille_navale-motor";
 
@@ -57,6 +57,10 @@ public class MainGUI {
 
 
         createGame(namePartie,epoque); // TODO
+		if(load != null) {
+			jeu.chargerPartie(load);
+			System.out.println("load");
+		}
         gameui = new GameUI((BatailleNavale) jeu);
 
 

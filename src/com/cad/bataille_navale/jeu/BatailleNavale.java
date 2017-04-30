@@ -53,7 +53,7 @@ public class BatailleNavale extends Jeu {
 	@Override
 	public void chargerPartie(String nomPartie) {
 		partie = AbstractDAOFactory.getAbstractDAOFactory(DAOUtils.XML).getPartieBatailleNavaleDao()
-				.load(nomPartie + ".xml");
+				.load(nomPartie);
 	}
 
 	@Override
