@@ -27,9 +27,6 @@ public class BatailleNavale extends Jeu {
 
 	public final int WIDTH = 12;
 	public final int HEIGHT = 12;
-	
-
-
 
 	public static class Code extends Jeu.Code {
 		public static final int TOUCHE = nextCode();
@@ -52,8 +49,7 @@ public class BatailleNavale extends Jeu {
 
 	@Override
 	public void chargerPartie(String nomPartie) {
-		partie = AbstractDAOFactory.getAbstractDAOFactory(DAOUtils.XML).getPartieBatailleNavaleDao()
-				.load(nomPartie);
+		partie = AbstractDAOFactory.getAbstractDAOFactory(DAOUtils.XML).getPartieBatailleNavaleDao().load(nomPartie);
 	}
 
 	@Override
@@ -70,23 +66,22 @@ public class BatailleNavale extends Jeu {
 		} else if (e == Epoque.XIX) {
 			// Epoque ancien
 			partie = new AncienPartieBatailleNavaleFactory().CreatePartie(mode);
-		} else{
+		} else {
 			partie = new FuturPartieBatailleNavaleFactory().CreatePartie(mode);
 		}
 		((PartieBatailleNavale) partie).placementBateauRandom();
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
 
-
 	public void nouvellePartie(String nomPartie, Epoque epoque, Mode m) {
 
 		if (epoque == Epoque.XX) {
-			partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
+			partie = new ModernePartieBatailleNavaleFactory().CreatePartie(m);
 		} else if (epoque == Epoque.XIX) {
 			// Epoque ancien
-			partie = new AncienPartieBatailleNavaleFactory().CreatePartie();
-		} else{
-			partie = new FuturPartieBatailleNavaleFactory().CreatePartie();
+			partie = new AncienPartieBatailleNavaleFactory().CreatePartie(m);
+		} else {
+			partie = new FuturPartieBatailleNavaleFactory().CreatePartie(m);
 		}
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
@@ -103,8 +98,8 @@ public class BatailleNavale extends Jeu {
 	}
 
 	public Action.Builder actionBuilder() {
-		//return new TireBateau.Builder().partie(partie);
-		//return new FrappeOrbitale.Builder().partie(partie);
+		// return new TireBateau.Builder().partie(partie);
+		// return new FrappeOrbitale.Builder().partie(partie);
 		return ((PartieBatailleNavale) partie).getMode().actionBuilder();
 	}
 
@@ -119,11 +114,11 @@ public class BatailleNavale extends Jeu {
 	public int[][] getGrille(BatailleNavalleJoueurCote cote) {
 		return ((PartieBatailleNavale) partie).getGrille(cote);
 	}
-	
-	public int getScore(Joueur j){
-		if(listeJoueurs.indexOf(j) == 0){
+
+	public int getScore(Joueur j) {
+		if (listeJoueurs.indexOf(j) == 0) {
 			return ((PartieBatailleNavale) partie).getScoreJ1();
-		}else{
+		} else {
 			return ((PartieBatailleNavale) partie).getScoreJ2();
 		}
 	}
@@ -132,54 +127,52 @@ public class BatailleNavale extends Jeu {
 		return ((PartieBatailleNavale) partie).getResult();
 	}
 
-	public int getStatus(){
+	public int getStatus() {
 		return status;
 	}
 
 	@Override
 	public void sauvegarder() {
 		AbstractDAOFactory.getAbstractDAOFactory(DAOUtils.XML).getPartieBatailleNavaleDao()
-		.save(((PartieBatailleNavale) partie));
+				.save(((PartieBatailleNavale) partie));
 	}
 
-
-	public boolean placeBateau(Bateau b, int x, int y){
+	public boolean placeBateau(Bateau b, int x, int y) {
 		int ox = b.getPosx();
-		int oy = b.getPosy();		
+		int oy = b.getPosy();
 		b.setPosx(x);
 		b.setPosy(y);
-		if(((PartieBatailleNavale) partie).placementOk(b)){
+		if (((PartieBatailleNavale) partie).placementOk(b)) {
 			b.update();
 			return true;
-		}else{
+		} else {
 			b.setPosx(ox);
 			b.setPosy(oy);
 			return false;
 		}
 	}
 
-	public boolean turnBateau(Bateau b, BateauOrientation o){
-		BateauOrientation oo = b.getOrientation();		
+	public boolean turnBateau(Bateau b, BateauOrientation o) {
+		BateauOrientation oo = b.getOrientation();
 		b.setOrientation(o);
-		if(((PartieBatailleNavale) partie).placementOk(b)){
+		if (((PartieBatailleNavale) partie).placementOk(b)) {
 			b.update();
 			return true;
-		}else{
+		} else {
 			b.setOrientation(oo);
 			return false;
 		}
 	}
 
 	public boolean validePlacement() {
-		if(!((PartieBatailleNavale) partie).placementsOk())
+		if (!((PartieBatailleNavale) partie).placementsOk())
 			return false;
 		((PartieBatailleNavale) partie).play();
 		return true;
 	}
-	
-	public Mode getMode(){
+
+	public Mode getMode() {
 		return ((PartieBatailleNavale) partie).getMode();
 	}
-	
-	
+
 }

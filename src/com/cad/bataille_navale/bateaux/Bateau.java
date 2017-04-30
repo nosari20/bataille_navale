@@ -138,7 +138,7 @@ public abstract class Bateau implements Cloneable {
 	public int[] getEtat() {
 		return etat;
 	}
-
+	
 	public BateauOrientation getOrientation() {
 		return orientation;
 	}
