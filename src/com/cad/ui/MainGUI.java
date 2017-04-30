@@ -15,6 +15,7 @@ import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.bataille_navale.joueurs.RandomStrategyComputer;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.codesUtils.epoque.Epoque;
+import com.cad.dao.PartieBatailleNavaleXMLDAO;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 import com.cad.ui.gamescreen.GameScreen;
@@ -53,6 +54,7 @@ public class MainGUI {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("Fichier");
 		JMenuItem menu = new JMenuItem("Menu");
+		JMenuItem save = new JMenuItem("save");
 		JMenuItem leave = new JMenuItem("Quitter");
 
 
@@ -76,6 +78,11 @@ public class MainGUI {
 			f.dispose();
 		});
 		file.addSeparator();
+
+		save.addActionListener(event ->{
+			jeu.sauvegarder();
+		});
+		file.add(save);
 
 		leave.addActionListener(event ->{
 			System.exit(0);
