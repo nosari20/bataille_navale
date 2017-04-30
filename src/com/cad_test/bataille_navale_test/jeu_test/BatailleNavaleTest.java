@@ -4,6 +4,7 @@
 package com.cad_test.bataille_navale_test.jeu_test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -149,9 +150,8 @@ public class BatailleNavaleTest {
 	}
 
 	/**
-	 * Test method for {@link
-	 * com.cad.bataille_navale.joueurs.JoueurBatailleNavale#tireBateau(int, int,
-	 * com.cad.bataille_navale.bateaux)
+	 * Test method for
+	 * {@link com.cad.bataille_navale.joueurs.JoueurBatailleNavale#tireBateau(int, int, com.cad.bataille_navale.bateaux)
 	 */
 	@Test
 	public void testBateauTirreur() {
@@ -171,8 +171,33 @@ public class BatailleNavaleTest {
 		if (jCote == BatailleNavalleJoueurCote.GAUCHE)
 			cote = BatailleNavalleJoueurCote.DROIT;
 		int[][] grille = partie.getGrille(cote);
-		assertTrue(grille[x][y] == BatailleNavale.Code.VIDE);
+		assertFalse(grille[x][y] == BatailleNavale.Code.VIDE);
 
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.cad.bataille_navale.joueurs.JoueurBatailleNavale#frappeOrbitale(int, int)
+	 */
+	@Test
+	public void testFrappeOrbital() {
+		String nomPartie = "Partie";
+		Epoque epoque = Epoque.XIX;
+		int x = 0;
+		int y = 0;
+		Mode mode = new ModeNormal();
+		BatailleNavalleJoueurCote cote = BatailleNavalleJoueurCote.GAUCHE;
+		jeu.nouvellePartie(nomPartie, epoque, mode);
+		PartieBatailleNavale partie = (PartieBatailleNavale) jeu.currentPartie();
+		List<Bateau> list = partie.getBateauJ1();
+		JoueurBatailleNavale joueur = (JoueurBatailleNavale) joueurs.get(0);
+		joueur.frappeOrbitale(x, y);
+		joueur.jouer();
+		BatailleNavalleJoueurCote jCote = joueur.getCote();
+		if (jCote == BatailleNavalleJoueurCote.GAUCHE)
+			cote = BatailleNavalleJoueurCote.DROIT;
+		int[][] grille = partie.getGrille(cote);
+		assertFalse(grille[x][y] == BatailleNavale.Code.VIDE);
+
+	}
 }
