@@ -16,6 +16,8 @@ public abstract class AbstractGamePanel extends JPanel implements ComponentListe
 	private int fps = 60;
 	
 	private Timer timer;
+	
+	private long lastRefreshed = System.currentTimeMillis();
 
 	public AbstractGamePanel() {
 		super();
@@ -35,28 +37,12 @@ public abstract class AbstractGamePanel extends JPanel implements ComponentListe
 		};
 		timer = new Timer(delay, taskPerformer);
 		timer.start();
-		/*
-		while (isRunning) {
-			long time = System.currentTimeMillis();
-			update(time);
-			repaint();
-			System.out.println("repaint");
-			//isRunning = false;
-			time = (1000 / fps) - (System.currentTimeMillis() - time);
-			if (time > 0) {
-				try {
-					Thread.sleep(1000);
-					System.gc();
-				} catch (Exception e) {
-					System.err.println(e);
-				}
-			}
-		}
-		*/
 	}
 
 	public void routine(){
-		update(1000);
+		long current = System.currentTimeMillis();
+		update(current - lastRefreshed);
+		lastRefreshed = current;
 		repaint();
 		timer.restart();
 	}

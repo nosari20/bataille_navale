@@ -63,7 +63,9 @@ public class GameScreen extends AbstractGamePanel {
 	
 	private List<Pair<Point,Animation>> explosions;
 	private Animation flames;
-	int fpr = 0;
+	private Animation water;
+	long fpr = 0;
+	long wpr = 0;
 
 	
 
@@ -112,30 +114,53 @@ public class GameScreen extends AbstractGamePanel {
 		flames = SpriteExplostionRepository.getInstance().getFlames();
 		flames.loop(true);
 		flames.start();
+		
+		water = SpriteLandscapeRepository.getInstance().waterAnimated();
+		water.loop(true);
+		water.start();
 
 	}
 
 	@Override
 	public void update(long time) {
-		if(fpr > 5){
+		if(fpr > 500){
 			flames.update();
+			
 			fpr = 0;
 		}else{
-			fpr++;
+			fpr+=time;
 		}
+		
+		if(wpr > 100){
+			water.update();
+			
+			wpr = 0;
+		}else{
+			wpr+=time;
+		}
+		
 		
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		//Draw lanscape
+		
 		for(int i = 0; i < jeu.WIDTH*2; i++)
 			for(int j = 0; j < jeu.HEIGHT; j++)
-				g.drawImage(SpriteLandscapeRepository.getInstance().water().getImage(), i*ppux, j*ppuy, ppux, ppuy, null);
+				g.drawImage(water.getSprite().getImage(), i*ppux, j*ppuy, ppux, ppuy, null);
+		
+		g.setColor(new Color(255, 255, 255, 80));
+		//g.setColor(Color.WHITE);
+		g.fillRect(0, 0, jeu.WIDTH*2*ppux, jeu.HEIGHT*ppuy);
+		/*
+		g.drawImage(water.getSprite().getImage(), 0, 0, jeu.WIDTH*ppux, jeu.HEIGHT*ppuy, null);
+		g.drawImage(water.getSprite().getImage(), jeu.WIDTH*ppux, 0, jeu.WIDTH*ppux, jeu.HEIGHT*ppuy, null);
 
-
+		*/
 
 		// Draw grid
+		/*
 		g.setColor(Color.GRAY);
 		for (int i = 0; i <= jeu.WIDTH; i++) {
 			g.drawLine(i * ppux, 0, i * ppux, jeu.HEIGHT * ppuy);	
@@ -149,10 +174,11 @@ public class GameScreen extends AbstractGamePanel {
 		for (int i = 0; i <= jeu.HEIGHT; i++) {
 			g.drawLine(jeu.WIDTH * ppux, i * ppuy, jeu.WIDTH*2 * ppux, i * ppuy);
 		}
-		g.setColor(Color.RED);
+		*/
+		g.setColor(Color.BLACK);
 		g.drawLine(jeu.WIDTH * ppux, 0, jeu.WIDTH * ppux, jeu.HEIGHT * ppuy);
 
-
+		
 
 
 		// Draw j1
@@ -324,7 +350,7 @@ public class GameScreen extends AbstractGamePanel {
 
 	public void drawText(Graphics g){
 
-		if(text !=null){
+		if(!text.equals(null)){
 			double size = 1.5;
 			double xpos = (w_width/(double)2) - (text.length/(double)2);
 			double ypos = (w_height/(double)2) - size;
