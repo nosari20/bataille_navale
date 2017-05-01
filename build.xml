@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<project name="app" default="compile" basedir=".">  
+
+  <!-- Definition des proprietes du projet --> 
+  <property name="projet.sources.dir"    value="src"/> 
+  <property name="projet.bin.dir"        value="bin"/> 
+  <property name="projet.jar.dir"        value="jar"/>
+  <property name="projet.lib.dir"        value="lib"/> 
+  <property name="projet.main-classe"    value="com.cad.ui.MainGUI"/>
+
+
+  <property name="projet.tests.lib.dir"      value="lib"/>
+  <property name="projet.tests.report.dir"   value="tests"/>
+  
+       
+  <!-- Supression de dossiers -->
+  <target name="clean" description="Supression de dossiers">
+      <delete dir="${projet.bin.dir}"/>
+      <delete dir="${projet.jar.dir}"/>
+      <delete dir="${projet.tests.report.dir}"/>
+  </target>  
+
+  <!-- Definition du classpath du projet -->
+  <path id="projet.classpath">
+    <fileset dir="${projet.lib.dir}" erroronmissingdir="false">
+      <include name="*.jar"/>
+    </fileset>
+    <pathelement location="${projet.bin.dir}" />
+  </path>
+
+  <!-- Definition du classpath du projet pour les tests-->
+  <path id="projet.tests.classpath">
+    <fileset dir="${projet.tests.lib.dir}" erroronmissingdir="false">
+      <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${projet.lib.dir}" erroronmissingdir="false">
+      <include name="*.jar"/>
+    </fileset>
+    <pathelement location="${basedir}" /> 
+    <pathelement location="${projet.bin.dir}" />
+  </path>
+  
+  <!-- Compilation des classes du projet -->
+  <target name="compile" description="Compilation des classes">
+    <mkdir dir="${projet.bin.dir}" /> 
+    <javac srcdir="${projet.sources.dir}" destdir="${projet.bin.dir}">
+      <classpath refid="projet.classpath"/>
+    </javac>
+  </target>
+
+  <!-- Execution de l'application -->
+  <target name="run" description="Execution de l'application'" depends="compile">
+    <java classname="${projet.main-classe}" fork="true">
+      <classpath refid="projet.classpath"/>
+    </java>
+  </target>
+
+  <!-- Création du fichier jar executable-->
+  <target name="build:jar" description="Creation du fichier jar'" depends="compile">
+        <mkdir dir="${projet.jar.dir}"/>
+        <jar destfile="${projet.main-classe}.jar" basedir="${projet.bin.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${projet.main-classe}"/>
+                <attribute name="Class-Path" value="${projet.classpath}"/>
+            </manifest>
+        </jar>  
+    </target>
+
+    <!-- Compile les tests -->
+    <target name="compile-tests" depends="compile">
+        <javac srcdir="${projet.sources.dir}" destdir="${projet.bin.dir}" verbose="false" >
+            <classpath refid="projet.tests.classpath"/>
+        </javac>
+    </target>
+
+    <!-- Lancement des tests-->
+    <target name="test" depends="compile-tests">
+        <mkdir dir="${projet.tests.report.dir}"/>
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath refid="projet.tests.classpath" />
+            <formatter type="xml" />
+            <formatter type="plain"  usefile="true"/>
+            <batchtest haltonfailure="no" todir="${projet.tests.report.dir}">
+                <fileset dir="${projet.sources.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>     
+            </batchtest>
+        </junit>
+      </target>
+
+      <!-- Créer les rapports au format HTML -->
+      <target name="test:report" depends="test" description="Generates JUnit HTML report" >
+          <junitreport todir="${projet.tests.report.dir}">
+              <fileset dir="${projet.tests.report.dir}">
+                  <include name="*TEST-*.xml"/>
+              </fileset>
+              <report format="frames" todir="${projet.tests.report.dir}"/>     	
+          </junitreport>
+     </target>
+</project>

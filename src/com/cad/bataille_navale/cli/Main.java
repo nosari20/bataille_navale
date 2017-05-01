@@ -12,9 +12,9 @@ import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
 
-public class GameTest {
+public class Main {
 	public static void main(String[] args) {
-		new GameTest();
+		new Main();
 	}
 
 	private Jeu jeu;
@@ -22,7 +22,7 @@ public class GameTest {
 	private Joueur joueur;
 	private Scanner sc;
 
-	public GameTest() {
+	public Main() {
 		sc = new Scanner(System.in);
 		solo();
 		jeu = new BatailleNavale(joueurs);
