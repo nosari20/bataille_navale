@@ -17,7 +17,7 @@
 
 * Epoque sont disponible dans le jeu, L'époque du XIX siécle ou L'époque ancienne, L'époque du XX siécle ou L'époque moderne et L'époque du XXI siécle ou L'époque future. 
 
-* L'interface de jeu propose de superbe animation hyper dynamique et hyper réalistique afin d'offrir une experience optimale pour nos chanceux utilisateurs (Attention Effet speciaux super realiste essayer de ne pas oubliez que vous être dans un jeu) . 
+* L'interface de jeu propose de superbe animation hyper dynamique et hyper réalistique afin d'offrir une experience optimale pour nos chanceux utilisateurs (Attention Effet speciaux super realiste essayer de ne pas oubliez que vous êtes dans un jeu) . 
 
 * Positionner votre flotte comme bon vous le semble. 
 
