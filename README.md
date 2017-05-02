@@ -1,8 +1,8 @@
 # bataille_navale
 
 
-## Build, Run and Test
-### Fonctionnalités du jeu
+
+## Fonctionnalités du jeu
 
 ![alt text](https://github.com/nosari20/bataille_navale/blob/master/screenshots/1.PNG?raw=true)
 
@@ -25,6 +25,9 @@
 
 * JEUX PEGI 18 ( attention âme sensible s'abstenir, il y a des explosions )
 ![alt text](https://github.com/nosari20/bataille_navale/blob/master/screenshots/2.PNG?raw=true)
+
+## Build, Run and Test
+
 ### Build 
 ```
 $ ant build
