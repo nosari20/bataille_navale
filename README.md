@@ -7,6 +7,8 @@
 
 ##### Il est possible de créer une nouvelle partie à partir du l'interface de lancement de jeu mais aussi de charger une partie déjà existante, pour l'instant le seul format proposé est le XML. 
 
+##### 3 Epoque sont disponible dans le jeu, L'époque du XIX siécle ou L'époque ancienne, L'époque du XX siécle ou L'époque moderne et L'époque du XXI siécle ou L'époque future. 
+
 ##### L'interface de jeu propose de superbe animation hyper dynamique et hyper réalistique afin d'offrir une experience optimale pour nos chanceux utilisateurs (Attention Effet speciaux super realiste essayer de ne pas oubliez que vous être dans un jeu) . 
 
 ##### JEUX PEGI 18 ( attention âme sensible s'abstenir, il y a des explosions )
