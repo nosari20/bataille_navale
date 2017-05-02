@@ -12,6 +12,7 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cad.codesUtils.ModePartie;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -137,7 +138,7 @@ public class BatailleNavaleTest {
 	public void testNouvellePartieStringEpoqueMode() {
 		String nomPartie = "Partie";
 		Epoque epoque = Epoque.XIX;
-		Mode mode = new ModeTireBateau();
+		ModePartie mode = ModePartie.MODE_CHOIX_TIREUR;
 		jeu.nouvellePartie(nomPartie, epoque, mode);
 		PartieBatailleNavale partie = (PartieBatailleNavale) jeu.currentPartie();
 		assertEquals(partie.getNom(), nomPartie);
@@ -159,7 +160,7 @@ public class BatailleNavaleTest {
 		Epoque epoque = Epoque.XIX;
 		int x = 0;
 		int y = 0;
-		Mode mode = new ModeTireBateau();
+		ModePartie mode = ModePartie.MODE_CHOIX_TIREUR;
 		BatailleNavalleJoueurCote cote = BatailleNavalleJoueurCote.GAUCHE;
 		jeu.nouvellePartie(nomPartie, epoque, mode);
 		PartieBatailleNavale partie = (PartieBatailleNavale) jeu.currentPartie();
@@ -185,7 +186,7 @@ public class BatailleNavaleTest {
 		Epoque epoque = Epoque.XIX;
 		int x = 0;
 		int y = 0;
-		Mode mode = new ModeNormal();
+		ModePartie mode = ModePartie.MODE_NORMAL;
 		BatailleNavalleJoueurCote cote = BatailleNavalleJoueurCote.GAUCHE;
 		jeu.nouvellePartie(nomPartie, epoque, mode);
 		PartieBatailleNavale partie = (PartieBatailleNavale) jeu.currentPartie();

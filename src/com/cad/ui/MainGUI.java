@@ -14,6 +14,7 @@ import com.cad.bataille_navale.joueurs.CrossStrategyComputer;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.bataille_navale.joueurs.RandomStrategyComputer;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
+import com.cad.codesUtils.ModePartie;
 import com.cad.codesUtils.epoque.Epoque;
 import com.cad.dao.PartieBatailleNavaleXMLDAO;
 import com.cad.jeu_abstrait.Jeu;
@@ -36,7 +37,7 @@ public class MainGUI {
 	}
 	
 	
-	public MainGUI(String namePartie,Epoque epoque,String load){
+	public MainGUI(String namePartie, Epoque epoque, String load, ModePartie mp){
 		SpriteFontRepository.getInstance().get('A');
 		String currentDir = System.getProperty("user.dir") + "\\bataille_navale-motor";
 
@@ -54,17 +55,18 @@ public class MainGUI {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("Fichier");
 		JMenuItem menu = new JMenuItem("Menu");
-		JMenuItem save = new JMenuItem("save");
+		JMenuItem save = new JMenuItem("Save");
 		JMenuItem leave = new JMenuItem("Quitter");
 
-
-        createGame(namePartie,epoque); // TODO
+		if(mp != null)
+        	createGame(namePartie,epoque,mp);
+		else
+			createGame(namePartie,epoque,null);
+		// TODO
 		if(load != null) {
 			jeu.chargerPartie(load);
-			System.out.println("load");
 		}
         gameui = new GameUI((BatailleNavale) jeu);
-
 
 		JFrame f = new JFrame(namePartie);
 		f.setSize(800, 400);
@@ -102,7 +104,7 @@ public class MainGUI {
 	}
 
 
-	public void createGame(String namePartie,Epoque epoque){
+	public void createGame(String namePartie,Epoque epoque,ModePartie mp){
 		joueurs = new ArrayList<Joueur>();
 		joueurs.add(
 				new JoueurBatailleNavale(com.cad.codesUtils.Joueur.HUMAN, BatailleNavalleJoueurCote.GAUCHE, "Aschmat")
@@ -112,7 +114,11 @@ public class MainGUI {
 				);
 		jeu = new BatailleNavale(joueurs);
 
-		jeu.nouvellePartie(namePartie,epoque);
+		if(mp != null)
+			jeu.nouvellePartie(namePartie,epoque,mp);
+		else
+			jeu.nouvellePartie(namePartie,epoque);
+
 
 
 	}

@@ -62,7 +62,7 @@ public class GameStartScreen extends JFrame {
                     File selectedFile = fileChooser.getSelectedFile();
                     System.out.println(selectedFile.getName());
                     PartieBatailleNavaleXMLDAO.getInstance().load(selectedFile.getName());
-                    new MainGUI(selectedFile.getName(), Epoque.XIX,selectedFile.getName());
+                    new MainGUI(selectedFile.getName(), Epoque.XIX,selectedFile.getName(),null);
                 }
             }
         });

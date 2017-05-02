@@ -15,6 +15,7 @@ import com.cad.bataille_navale.mode.ModeNormal;
 import com.cad.bataille_navale.mode.ModeTireBateau;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.codesUtils.DAOUtils;
+import com.cad.codesUtils.ModePartie;
 import com.cad.codesUtils.bateau.BateauOrientation;
 import com.cad.codesUtils.epoque.Epoque;
 import com.cad.dao.AbstractDAOFactory;
@@ -73,7 +74,12 @@ public class BatailleNavale extends Jeu {
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
 
-	public void nouvellePartie(String nomPartie, Epoque epoque, Mode m) {
+	@Override
+	public void nouvellePartie(String nomPartie, Epoque epoque, ModePartie mp) {
+		Mode m;
+		if(ModePartie.MODE_NORMAL == mp)
+			 m = new ModeNormal();
+		else m = new ModeTireBateau();
 
 		if (epoque == Epoque.XX) {
 			partie = new ModernePartieBatailleNavaleFactory().CreatePartie(m);
@@ -85,6 +91,7 @@ public class BatailleNavale extends Jeu {
 		}
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
+
 
 	public boolean isFinished() {
 		return partie.isPartieFinished();

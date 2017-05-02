@@ -4,6 +4,7 @@ import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.bataille_navale.joueurs.RandomStrategyComputer;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
+import com.cad.codesUtils.ModePartie;
 import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.jeu_abstrait.Joueur;
@@ -26,8 +27,8 @@ public class NewGameForm  extends JPanel {
     private JLabel label_name = new JLabel("Nom");
     private JComboBox input_epoque = new JComboBox(Epoque.values());
     private JLabel label_epoque = new JLabel("Epoque");
-    private JComboBox input_difficulty = new JComboBox();
-    private JLabel label_difficulty = new JLabel("Difficulté");
+    private JComboBox input_mode = new JComboBox(ModePartie.values());
+    private JLabel label_mode = new JLabel("Mode de la partie");
     private JButton validate = new JButton("Créer");
 
     public NewGameForm(GameStartScreen gss) {
@@ -79,13 +80,13 @@ public class NewGameForm  extends JPanel {
 
 
         JPanel panel_difficulty = new JPanel(new GridLayout(2,1));
-        panel_difficulty.add(label_difficulty);
-        panel_difficulty.add(input_difficulty);
+        panel_difficulty.add(label_mode);
+        panel_difficulty.add(input_mode);
         form.add(panel_difficulty);
 
         validate.setEnabled(input_name.getText().length()!=0);
         validate.addActionListener(event -> {
-				new MainGUI(input_name.getText(),(Epoque)input_epoque.getSelectedItem(),null);
+				new MainGUI(input_name.getText(),(Epoque)input_epoque.getSelectedItem(),null,(ModePartie) input_mode.getSelectedItem());
                 setVisible(false); //you can't see me!
                 gss.destroyJFrame();
 		});

@@ -1,5 +1,6 @@
 package com.cad.jeu_abstrait;
 
+import com.cad.codesUtils.ModePartie;
 import com.cad.codesUtils.epoque.Epoque;
 
 import java.util.List;
@@ -43,6 +44,8 @@ public abstract class Jeu extends Observable{
 	public abstract void nouvellePartie(String nomPartie);
 
 	public abstract void nouvellePartie(String nomPartie,Epoque e);
+
+	public abstract void nouvellePartie(String nomPartie, Epoque e, ModePartie mp);
 
 	public abstract int jouer(Joueur joueur, Action action);
 
