@@ -57,6 +57,7 @@ public class BatailleNavale extends Jeu {
 	public void nouvellePartie(String nomPartie) {
 		partie = new ModernePartieBatailleNavaleFactory().CreatePartie();
 		((PartieBatailleNavale) partie).setNom(nomPartie);
+		((PartieBatailleNavale) partie).placementBateauRandom();
 	}
 
 	@Override
@@ -89,6 +90,7 @@ public class BatailleNavale extends Jeu {
 		} else {
 			partie = new FuturPartieBatailleNavaleFactory().CreatePartie(m);
 		}
+		((PartieBatailleNavale) partie).placementBateauRandom();
 		((PartieBatailleNavale) partie).setNom(nomPartie);
 	}
 
