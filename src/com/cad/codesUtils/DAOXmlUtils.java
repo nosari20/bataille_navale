@@ -30,6 +30,8 @@ public class DAOXmlUtils {
 	public static final String SEPARATEUR = "-";
 	public static final String SEPARATEUR_COORD = ";";
 	public static final String COORDONNEE = "coord";
+	public static final String EPOQUE = "epoque";
+	public static final String MODE = "mode";
 
 	public static String getBateauCasesLabel(int longueur) {
 		switch (longueur) {
