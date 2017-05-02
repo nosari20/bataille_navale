@@ -10,9 +10,11 @@
 
 * charger une partie déjà existante, pour l'instant le seul format proposé est le XML. 
 
-* Il est possible de faire un voyage extrodinaire au travers de 3 epoques différentes et magnifiques
-
 * Sauvegarder votre partie pour la reprendre plus tard 
+
+* Epoque sont disponible dans le jeu, L'époque du XIX siécle ou L'époque ancienne, L'époque du XX siécle ou L'époque moderne et L'époque du XXI siécle ou L'époque future. 
+
+* L'interface de jeu propose de superbe animation hyper dynamique et hyper réalistique afin d'offrir une experience optimale pour nos chanceux utilisateurs (Attention Effet speciaux super realiste essayer de ne pas oubliez que vous être dans un jeu) . 
 
 * L'interface de jeu propose de superbe animation hyper dynamique et hyper réalistique afin d'offrir une experience optimale pour nos chanceux utilisateurs (Attention Effet speciaux super realiste essayer de ne pas oubliez que vous être dans un jeu) .
 
