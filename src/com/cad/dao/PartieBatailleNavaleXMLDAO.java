@@ -208,6 +208,8 @@ public class PartieBatailleNavaleXMLDAO implements PartieBatailleNavaleDao {
 			listJ = partieBatailleNavale.getBateauJ2();
 			grilleJ = partieBatailleNavale.getGrille(BatailleNavalleJoueurCote.DROIT);
 			loadJoueur(xml, xPath, partieBatailleNavale.getBateauJ2(), grilleJ, DAOXmlUtils.JOUEUR2);
+			
+			partieBatailleNavale.play();
 
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
