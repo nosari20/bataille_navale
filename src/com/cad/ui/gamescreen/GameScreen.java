@@ -20,13 +20,17 @@ import com.cad.bataille_navale.mode.ModeNormal;
 import com.cad.bataille_navale.mode.ModeTireBateau;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.codesUtils.bateau.BateauOrientation;
+import com.cad.codesUtils.epoque.Epoque;
 import com.cad.jeu_abstrait.Jeu;
 import com.cad.motor2d.AbstractGamePanel;
 import com.cad.motor2d.sprites.SpriteSheetAtlas;
 import com.cad.ui.gamescreeen.listeners.FrappeOrbitaleListener;
 import com.cad.ui.gamescreeen.listeners.TireBateauListener;
 import com.cad.ui.gamescreeen.listeners.UIListener;
+import com.cad.ui.sprites_repository.ShipsXIX;
 import com.cad.ui.sprites_repository.ShipsXX1;
+import com.cad.ui.sprites_repository.ShipsXXI;
+import com.cad.ui.sprites_repository.SpriteBateauRepository;
 import com.cad.ui.sprites_repository.SpriteExplostionRepository;
 import com.cad.ui.sprites_repository.SpriteFontRepository;
 import com.cad.ui.sprites_repository.SpriteLandscapeRepository;
@@ -50,7 +54,8 @@ public class GameScreen extends AbstractGamePanel {
 
 	private BatailleNavale jeu;
 	private PartieBatailleNavale partie;
-
+	
+	private SpriteBateauRepository bateauRepo;
 	private PlacementListener placementListener;
 
 	private UIListener tireListener;
@@ -74,7 +79,6 @@ public class GameScreen extends AbstractGamePanel {
 		w_width = jeu.WIDTH*2;
 		w_height = jeu.HEIGHT;
 		partie = (PartieBatailleNavale) j.currentPartie();
-		partie.setGraphiqueEpoque();
 	}
 
 	@Override
@@ -118,6 +122,8 @@ public class GameScreen extends AbstractGamePanel {
 		water = SpriteLandscapeRepository.getInstance().waterAnimated();
 		water.loop(true);
 		water.start();
+		
+		setGraphiqueEpoque(partie.getEpoque());
 
 	}
 
@@ -304,7 +310,7 @@ public class GameScreen extends AbstractGamePanel {
 
 			if(b.getOrientation() == BateauOrientation.HORIZONTAL){
 
-				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), false).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
+				g.drawImage(bateauRepo.getBateau(b.getLongueur(), false).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
 				if(select!=null)
 				if(b.contientCoord(new Coord(select.x, select.y)) != -1){
 					g.setColor(new Color(0,0,255,120));
@@ -318,7 +324,7 @@ public class GameScreen extends AbstractGamePanel {
 				}
 
 			}else{
-				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), true).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);		
+				g.drawImage(bateauRepo.getBateau(b.getLongueur(), true).getImage(), b.getPosx() * ppux, b.getPosy()*ppuy, ppux, b.getLongueur()*ppuy, null);		
 				if(select!=null)
 				if(b.contientCoord(new Coord(select.x, select.y)) != -1){
 					g.setColor(new Color(0,0,255,120));
@@ -339,10 +345,10 @@ public class GameScreen extends AbstractGamePanel {
 
 			if(b.getOrientation() == BateauOrientation.HORIZONTAL){
 				//g.drawImage(ShipsXX1.getInstance().getBateau(b.getLongueur(), true).getImage(), (2*jeu.WIDTH - b.getPosx()) * ppux, (b.getPosy() - b.getLongueur())*ppuy, ppux, b.getLongueur()*ppuy, null);
-				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), false).flipH().getImage(), (2*jeu.WIDTH - b.getPosx() - b.getLongueur()) * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
+				g.drawImage(bateauRepo.getBateau(b.getLongueur(), false).flipH().getImage(), (2*jeu.WIDTH - b.getPosx() - b.getLongueur()) * ppux, b.getPosy()*ppuy, b.getLongueur()*ppux, ppuy, null);
 
 			}else{
-				g.drawImage(partie.getGraphiqueEpoque().getBateau(b.getLongueur(), true).flipH().getImage(), ((2*jeu.WIDTH - b.getPosx()-1)) * ppux, (b.getPosy())*ppuy, ppux, b.getLongueur()*ppuy, null);
+				g.drawImage(bateauRepo.getBateau(b.getLongueur(), true).flipH().getImage(), ((2*jeu.WIDTH - b.getPosx()-1)) * ppux, (b.getPosy())*ppuy, ppux, b.getLongueur()*ppuy, null);
 
 			}
 		}
@@ -546,6 +552,21 @@ public class GameScreen extends AbstractGamePanel {
 
 	public void clear(){
 		text = null;
+	}
+	
+	
+	public void setGraphiqueEpoque(Epoque e) {
+		switch (e) {
+		case XIX:
+			bateauRepo = ShipsXIX.getInstance();
+			break;
+		case XX:
+			bateauRepo = ShipsXX1.getInstance();
+			break;
+		case XXI:
+			bateauRepo = ShipsXXI.getInstance();
+			break;
+		}
 	}
 
 

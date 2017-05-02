@@ -1,6 +1,8 @@
 package com.cad.ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,22 +77,37 @@ public class MainGUI {
 		f.getContentPane().add(gameui, BorderLayout.CENTER);
 
 		file.add(menu);
-		menu.addActionListener(event ->{
-			new GameStartScreen();
-			f.dispose();
+		menu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new GameStartScreen();
+				f.dispose();
+				
+			}
 		});
 
-
-		save.addActionListener(event ->{
-			jeu.sauvegarder();
+		save.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jeu.sauvegarder();
+				
+			}
 		});
+
 		file.add(save);
 		file.addSeparator();
 
-
-		leave.addActionListener(event ->{
-			System.exit(0);
+		leave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+				
+			}
 		});
+
 		file.add(leave);
 
 		menuBar.add(file);
@@ -122,5 +139,8 @@ public class MainGUI {
 
 
 	}
+	
+	
+	
 
 }

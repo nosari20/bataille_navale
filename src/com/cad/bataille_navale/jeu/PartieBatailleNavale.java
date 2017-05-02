@@ -36,7 +36,7 @@ public class PartieBatailleNavale implements Partie {
 
 	private Mode mode;
 	private Epoque epoque = Epoque.XIX;
-	private SpriteBateauRepository graphiqueEpoque;
+
 
 	private int[][] grilleJ1;
 	private List<Bateau> bateauxJ1;
@@ -509,23 +509,9 @@ public class PartieBatailleNavale implements Partie {
 		this.status = BatailleNavale.Code.EN_COURS;
 	}
 
-	public SpriteBateauRepository getGraphiqueEpoque() {
-		return graphiqueEpoque;
-	}
 
-	public void setGraphiqueEpoque() {
-		switch (epoque) {
-		case XIX:
-			this.graphiqueEpoque = ShipsXIX.getInstance();
-			break;
-		case XX:
-			this.graphiqueEpoque = ShipsXX1.getInstance();
-			break;
-		case XXI:
-			this.graphiqueEpoque = ShipsXXI.getInstance();
-			break;
-		}
-	}
+
+	
 
 	public void setMode(Mode mode2) {
 		mode = mode2;
