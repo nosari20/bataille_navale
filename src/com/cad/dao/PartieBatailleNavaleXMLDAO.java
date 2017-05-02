@@ -28,11 +28,18 @@ import org.xml.sax.SAXException;
 
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.bateaux.Coord;
+import com.cad.bataille_navale.factory.AncienPartieBatailleNavaleFactory;
+import com.cad.bataille_navale.factory.FuturPartieBatailleNavaleFactory;
 import com.cad.bataille_navale.factory.ModernePartieBatailleNavaleFactory;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 import com.cad.bataille_navale.jeu.PartieBatailleNavale;
+import com.cad.bataille_navale.mode.Mode;
+import com.cad.bataille_navale.mode.ModeNormal;
+import com.cad.bataille_navale.mode.ModeTireBateau;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
 import com.cad.codesUtils.DAOXmlUtils;
+import com.cad.codesUtils.ModePartie;
+import com.cad.codesUtils.epoque.Epoque;
 
 public class PartieBatailleNavaleXMLDAO implements PartieBatailleNavaleDao {
 
@@ -64,6 +71,12 @@ public class PartieBatailleNavaleXMLDAO implements PartieBatailleNavaleDao {
 			rootElement.appendChild(saveJoueur(doc, partie.getBateauJ2(),
 					partie.getGrille(BatailleNavalleJoueurCote.DROIT), DAOXmlUtils.JOUEUR2));
 
+			Element mode = doc.createElement(DAOXmlUtils.MODE);
+			mode.appendChild(doc.createTextNode(modeForDAO(partie.getMode())));
+			rootElement.appendChild(mode);
+			Element epoque = doc.createElement(DAOXmlUtils.EPOQUE);
+			epoque.appendChild(doc.createTextNode(partie.getEpoque().toString()));
+			rootElement.appendChild(epoque);
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -89,6 +102,14 @@ public class PartieBatailleNavaleXMLDAO implements PartieBatailleNavaleDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private String modeForDAO(Mode mode) {
+		if (mode instanceof ModeNormal)
+			return ModePartie.MODE_NORMAL.toString();
+		else if (mode instanceof ModeTireBateau)
+			return ModePartie.MODE_CHOIX_TIREUR.toString();
+		return null;
 	}
 
 	private Element saveJoueur(Document doc, List<Bateau> listBateauJ1, int[][] grille, String nom) {
@@ -159,7 +180,26 @@ public class PartieBatailleNavaleXMLDAO implements PartieBatailleNavaleDao {
 			Element root = xml.getDocumentElement();
 			XPathFactory xpf = XPathFactory.newInstance();
 			XPath xPath = xpf.newXPath();
-			partieBatailleNavale = (PartieBatailleNavale) new ModernePartieBatailleNavaleFactory().CreatePartie();
+
+			Mode mode = null;
+			String getMode = "//" + DAOXmlUtils.MODE + "/text()";
+			res = xPath.compile(getMode).evaluate(xml);
+			if (res.equals(ModePartie.MODE_NORMAL.toString()))
+				mode = new ModeNormal();
+			else if (res.equals(ModePartie.MODE_CHOIX_TIREUR.toString()))
+				mode = new ModeTireBateau();
+
+			String getEpoque = "//" + DAOXmlUtils.EPOQUE + "/text()";
+			res = xPath.compile(getEpoque).evaluate(xml);
+			if (res.equals(Epoque.XX.toString()))
+				partieBatailleNavale = (PartieBatailleNavale) new ModernePartieBatailleNavaleFactory()
+						.CreatePartie(mode);
+			else if (res.equals(Epoque.XXI.toString()))
+				partieBatailleNavale = (PartieBatailleNavale) new FuturPartieBatailleNavaleFactory().CreatePartie(mode);
+			else
+				partieBatailleNavale = (PartieBatailleNavale) new AncienPartieBatailleNavaleFactory()
+						.CreatePartie(mode);
+
 			// Chargement joueur1
 			List<Bateau> listJ = partieBatailleNavale.getBateauJ1();
 			int[][] grilleJ = partieBatailleNavale.getGrille(BatailleNavalleJoueurCote.GAUCHE);
