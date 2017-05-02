@@ -3,6 +3,9 @@
 
 ## Build, Run and Test
 ### Fonctionnalités du jeu
+
+![alt text](https://github.com/nosari20/bataille_navale/blob/master/screenshots/1.PNG?raw=true)
+
 * 2 Modes :  Le mode "normal" qui permet de faire des tirs orbitale c'est à dire qui permet d'effectuer seulement un tir dans le camp adverse 
 			   et mode "choix tirreur" qui permet de choisir le bateau tirreur. 
 
@@ -21,7 +24,7 @@
 * Visez bien afin de détruire votre adversaire.
 
 * JEUX PEGI 18 ( attention âme sensible s'abstenir, il y a des explosions )
-
+![alt text](https://github.com/nosari20/bataille_navale/blob/master/screenshots/2.PNG?raw=true)
 ### Build 
 ```
 $ ant build
