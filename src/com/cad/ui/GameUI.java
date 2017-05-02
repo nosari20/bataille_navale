@@ -56,19 +56,26 @@ public class GameUI extends JPanel implements Observer{
 		
 		JButton placeOK = new JButton("Valider le placement");
 		board.add(placeOK);
-		placeOK.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(jeu.validePlacement()){
-					gs.removePlacementListener();
-					gs.addTireListener();
-					gs.write("JOUEZ", 1500);
-					((JButton) e.getSource()).setEnabled(false);
-				}
+		if(jeu.currentPartie().getStatus() == BatailleNavale.Code.DEBUT){
+			placeOK.addActionListener(new ActionListener() {
 				
-			}
-		});
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(jeu.validePlacement()){
+						gs.removePlacementListener();
+						gs.addTireListener();
+						gs.write("JOUEZ", 1500);
+						((JButton) e.getSource()).setEnabled(false);
+					}
+					
+				}
+			});
+		}else{
+			gs.removePlacementListener();
+			gs.addTireListener();
+			gs.write("JOUEZ", 1500);
+			placeOK.setEnabled(false);
+		}
 		
 		score = new JLabel("Score : 0");
 		board.add(score);
