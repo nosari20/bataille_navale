@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
-<project name="app" default="compile" basedir=".">  
+<project name="app" default="build" basedir=".">  
 
   <!-- Definition des proprietes du projet --> 
   <property name="projet.sources.dir"    value="src"/> 
@@ -41,7 +41,7 @@
   </path>
   
   <!-- Compilation des classes du projet -->
-  <target name="compile" description="Compilation des classes">
+  <target name="build" description="Compilation des classes">
     <mkdir dir="${projet.bin.dir}" /> 
     <javac srcdir="${projet.sources.dir}" destdir="${projet.bin.dir}">
       <classpath refid="projet.classpath"/>
@@ -49,14 +49,14 @@
   </target>
 
   <!-- Execution de l'application -->
-  <target name="run" description="Execution de l'application'" depends="compile">
+  <target name="run" description="Execution de l'application'" depends="build">
     <java classname="${projet.main-classe}" fork="true">
       <classpath refid="projet.classpath"/>
     </java>
   </target>
 
   <!-- Création du fichier jar executable-->
-  <target name="build:jar" description="Creation du fichier jar'" depends="compile">
+  <target name="build:jar" description="Creation du fichier jar'" depends="build">
         <mkdir dir="${projet.jar.dir}"/>
         <jar destfile="${projet.main-classe}.jar" basedir="${projet.bin.dir}">
             <manifest>
@@ -67,7 +67,7 @@
     </target>
 
     <!-- Compile les tests -->
-    <target name="compile-tests" depends="compile">
+    <target name="compile-tests" depends="build">
         <javac srcdir="${projet.sources.dir}" destdir="${projet.bin.dir}" verbose="false" >
             <classpath refid="projet.tests.classpath"/>
         </javac>
@@ -88,7 +88,7 @@
         </junit>
       </target>
 
-      <!-- Créer les rapports au format HTML -->
+      <!-- Creer les rapports au format HTML -->
       <target name="test:report" depends="test" description="Generates JUnit HTML report" >
           <junitreport todir="${projet.tests.report.dir}">
               <fileset dir="${projet.tests.report.dir}">
