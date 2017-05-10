@@ -1,6 +1,8 @@
 # bataille_navale
 
+## Requirement
 
+* Java 1.8
 
 ## Fonctionnalités du jeu
 
