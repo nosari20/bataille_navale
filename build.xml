@@ -41,10 +41,11 @@
   </path>
   
   <!-- Compilation des classes du projet -->
-  <target name="build" description="Compilation des classes">
+  <target name="build" description="Compilation des classes" depends="clean">
     <mkdir dir="${projet.bin.dir}" /> 
     <javac srcdir="${projet.sources.dir}" destdir="${projet.bin.dir}">
       <classpath refid="projet.classpath"/>
+      <compilerarg value="-Xdiags:verbose"/>
     </javac>
   </target>
 
