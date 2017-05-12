@@ -29,9 +29,9 @@ public abstract class Bateau implements Cloneable {
 	public int hit(int laCase, int puissance) {
 		if(etat[laCase] <= 0)
 			return BatailleNavale.Code.IMPOSSIBLE;
-		// la case a été touché donc on reduit sa resistance de sa puissance
+		// la case a ï¿½tï¿½ touchï¿½ donc on reduit sa resistance de sa puissance
 		etat[laCase] -= puissance;
-		// Maitenant on essaie de verifier si la case à été detruite
+		// Maitenant on essaie de verifier si la case ï¿½ ï¿½tï¿½ detruite
 		if (etat[laCase] > 0) {
 			System.out.println("TOUCHE");
 			return BatailleNavale.Code.TOUCHE;
