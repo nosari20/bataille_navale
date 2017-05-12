@@ -162,9 +162,9 @@ public class PartieBatailleNavale implements Partie {
 		} else if (ce == BatailleNavale.Code.TOUCHE) {
 			System.out.println("Touche");
 		} else if (ce == BatailleNavale.Code.DETRUIT) {
-			System.out.println("Détruit");
+			System.out.println("Dï¿½truit");
 		} else if (ce == BatailleNavale.Code.CASE_DETRUITE) {
-			System.out.println("Case Détruite");
+			System.out.println("Case Dï¿½truite");
 		} else if (ce == BatailleNavale.Code.TROP_LOIN) {
 			System.out.println("Trop loin");
 		} else if (ce == BatailleNavale.Code.VIDE) {
