@@ -139,9 +139,9 @@ public class GameUI extends JPanel implements Observer{
 		if(result == BatailleNavale.Code.VICTOIRE_J1){
 			this.score.setText("Victoire Score : " + jeu.getScore(j1));
 		}else if(result == BatailleNavale.Code.VICTOIRE_J2){
-			this.score.setText("Défaite Score : " + jeu.getScore(j1));
+			this.score.setText("Defaite Score : " + jeu.getScore(j1));
 		}else{
-			this.score.setText("Égalité Score : " + jeu.getScore(j1));
+			this.score.setText("Egalite Score : " + jeu.getScore(j1));
 		}
 		
 		
