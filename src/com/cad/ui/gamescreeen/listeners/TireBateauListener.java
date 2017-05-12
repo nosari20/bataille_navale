@@ -61,9 +61,9 @@ public class TireBateauListener implements UIListener {
 			} else if (res == BatailleNavale.Code.TOUCHE) {
 				System.out.println("Touche");
 			} else if (res == BatailleNavale.Code.DETRUIT) {
-				System.out.println("Détruit");
+				System.out.println("Detruit");
 			} else if (res == BatailleNavale.Code.CASE_DETRUITE) {
-				System.out.println("Case Détruite");
+				System.out.println("Case Detruite");
 			} else if (res == BatailleNavale.Code.TROP_LOIN) {
 				System.out.println("Trop loin");
 			} else if (res == BatailleNavale.Code.VIDE) {
