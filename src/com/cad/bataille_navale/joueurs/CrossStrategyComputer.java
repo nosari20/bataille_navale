@@ -75,7 +75,7 @@ public class CrossStrategyComputer implements StrategyComputer {
 		}
 		
 		if(lastShot == null){
-			// si on a pa tirré
+			// si on a pa tirrï¿½
 			System.out.println("premier tir");
 			lastShot = rand(grille);
 			return lastShot;
@@ -90,9 +90,9 @@ public class CrossStrategyComputer implements StrategyComputer {
 		} else if (c == BatailleNavale.Code.TOUCHE) {
 			System.out.println("Touche");
 		} else if (c == BatailleNavale.Code.DETRUIT) {
-			System.out.println("Détruit");
+			System.out.println("Dï¿½truit");
 		} else if (c == BatailleNavale.Code.CASE_DETRUITE) {
-			System.out.println("Case Détruite");
+			System.out.println("Case Dï¿½truite");
 		} else if (c == BatailleNavale.Code.TROP_LOIN) {
 			System.out.println("Trop loin");
 		} else if (c == BatailleNavale.Code.VIDE) {
