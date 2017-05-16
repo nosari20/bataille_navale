@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.jeu.BatailleNavale;
+import com.cad.bataille_navale.joueurs.HeartStrategyComputer;
 import com.cad.bataille_navale.joueurs.JoueurBatailleNavale;
 import com.cad.bataille_navale.joueurs.RandomStrategyComputer;
 import com.cad.codesUtils.BatailleNavalleJoueurCote;
@@ -136,6 +137,6 @@ public class Main {
 		joueurs = new ArrayList<Joueur>();
 		joueurs.add(
 				new JoueurBatailleNavale(com.cad.codesUtils.Joueur.HUMAN, BatailleNavalleJoueurCote.GAUCHE, "Aschmat"));
-		joueurs.add(new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new RandomStrategyComputer()));
+		joueurs.add(new JoueurBatailleNavale(BatailleNavalleJoueurCote.DROIT, new HeartStrategyComputer()));
 	}
 }
