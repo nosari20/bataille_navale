@@ -8,22 +8,27 @@ import com.cad.bataille_navale.bateaux.Bateau;
 import com.cad.bataille_navale.bateaux.Coord;
 import com.cad.bataille_navale.jeu.BatailleNavale;
 
+/**
+ * Stratégie de tir esthétique qui tir en dessinant un coeur sur la mer.
+ * Une fois le coeur dessiné, elle tir au hasard.
+ * @author Alexis, Jofrey, Quentin
+ */
 public class HeartStrategyComputer implements StrategyComputer {
 	
 	private Random rand = new Random();
 	private int[][] heart = new int[][]{
 		{0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,1,1,0,0,0,1,1,0,0,0},
-		{0,1,1,1,1,0,1,1,1,1,0,0},
-		{1,1,1,1,1,1,1,1,1,1,1,0},
-		{1,1,1,1,1,1,1,1,1,1,1,0},
-		{1,1,1,1,1,1,1,1,1,1,1,0},
-		{0,1,1,1,1,1,1,1,1,1,0,0},
-		{0,1,1,1,1,1,1,1,1,1,0,0},
-		{0,0,1,1,1,1,1,1,1,0,0,0},
-		{0,0,0,1,1,1,1,1,0,0,0,0},
-		{0,0,0,0,1,1,1,0,0,0,0,0},
-		{0,0,0,0,0,1,0,0,0,0,0,0}
+		{0,0,1,1,0,0,0,0,1,1,0,0},
+		{0,1,1,1,1,0,0,1,1,1,1,0},
+		{1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1},
+		{0,1,1,1,1,1,1,1,1,1,1,0},
+		{0,1,1,1,1,1,1,1,1,1,1,0},
+		{0,0,1,1,1,1,1,1,1,1,0,0},
+		{0,0,0,1,1,1,1,1,1,0,0,0},
+		{0,0,0,0,1,1,1,1,0,0,0,0},
+		{0,0,0,0,0,1,1,0,0,0,0,0}
 		};
 	
 	@Override
