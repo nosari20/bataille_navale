@@ -34,8 +34,7 @@ public class HeartStrategyComputer implements StrategyComputer {
 	@Override
 	public Coord choosePoint(final int[][] grille) {
 		
-		System.out.println("YOOOOLOOOOO\n\n\n");
-		
+		// Listing heart points
 		ArrayList<Coord> targets = new ArrayList<>();		
 		for (int y = 0; y < BatailleNavale.Code.GAME_HEIGHT; y++){
 			for (int x = 0; x < BatailleNavale.Code.GAME_WIDTH; x++){
@@ -45,8 +44,10 @@ public class HeartStrategyComputer implements StrategyComputer {
 			}
 		}
 		
+		// If there's at least one heart point : shooting at it (randomly)
 		if (!targets.isEmpty()) return pickTarget(targets);
 			
+		// Else, listing and shooting at a random point outside the heart
 		for (int y = 0; y < BatailleNavale.Code.GAME_HEIGHT; y++){
 			for (int x = 0; x < BatailleNavale.Code.GAME_WIDTH; x++){
 				if (heart[y][x] == 0 && (grille[x][y] == BatailleNavale.Code.TOUCHE || grille[x][y] == BatailleNavale.Code.VIDE)){
